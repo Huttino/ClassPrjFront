@@ -28,6 +28,7 @@ export class LoginPageComponent implements OnInit {
     let request =new UserLogInRequest(this.username,this.password)
     this.auth.login(request).subscribe(x=>{
       this.local.set(TOKEN,x.accesstoken)
+      console.log (x.accesstoken)
       this.router.navigate(["/home"])
     },(e)=>{
       if(e.status==401){
@@ -39,5 +40,4 @@ export class LoginPageComponent implements OnInit {
     }
     )
   }
-
 }

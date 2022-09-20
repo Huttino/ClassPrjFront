@@ -1,10 +1,24 @@
-<div class="container-fluid">
-  <div class="row justify-items-center">
-    <div class="col justify-content-center">
-      <label for="passwordField">Enter your password</label>
-      <input type="text" id="passwordField" [(ngModel)]="this.password">
-      <label for="usernameField">Enter your username</label>
-      <input type="text" id="usernameField" [(ngModel)]="this.username">
-    </div>
+<form>
+  <div class="row justify-content-center">
+    <h3>Login</h3>
   </div>
-</div>
+  <div class="row">
+    <input
+      type="text"
+      placeholder="Email"
+      name="username"
+      [(ngModel)]="this.username"
+    />
+  </div>
+  <div class="row">
+    <input
+      type="password"
+      placeholder="Password"
+      name="password"
+      [(ngModel)]="this.password"
+    />
+  </div>
+  <div class="row justify-content-center">
+    <button (click)="this.login()">Log In</button>
+  </div>
+</form>

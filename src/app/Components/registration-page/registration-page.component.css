@@ -1,0 +1,26 @@
+form{
+  width: 300px;
+  height: fit-content;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  padding:50px 35px
+}
+button{
+  margin-top: 30px;
+  width:fit-content;
+  border:1px solid rgba(255, 255, 255, 0.699);
+  border-radius: 30px;
+  background-color: rgb(107, 201, 143);
+  font-weight: bold;
+}
+input{
+  margin-top: 20px;
+  border:2px solid rgba(255, 255, 255, 0.699);
+  border-radius: 10px;
+  background-color: rgb(216, 216, 216);
+}
