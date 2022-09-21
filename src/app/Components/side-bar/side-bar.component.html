@@ -1,0 +1,13 @@
+<nav >
+  <ul>
+    <li *ngFor="let link of Links">
+      <button [routerLink]="['',{outlets:{content:[link.fragment]}}]">
+        {{link.title}}
+      </button>
+    </li>
+  </ul>
+  <div >
+    {{loggedUser.username}}
+  </div>
+</nav>
+

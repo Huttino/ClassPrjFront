@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TOKEN } from 'src/app/Model/Constants/Constants';
+import { LOGGED_USER, TOKEN } from 'src/app/Model/Constants/Constants';
 import { UserRegistrationRequest } from 'src/app/Model/UserRegistrationRequest';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { LocalstorageService } from 'src/app/Service/LocalStorageService/localstorage.service';
+import { UserService } from 'src/app/Service/UserService/user.service';
 
 @Component({
   selector: 'app-registration-page',
@@ -18,7 +19,8 @@ export class RegistrationPageComponent implements OnInit {
   constructor(
     public auth:AuthService,
     public local:LocalstorageService,
-    public router:Router
+    public router:Router,
+    public userService:UserService
   ) {
 
    }
@@ -31,10 +33,13 @@ export class RegistrationPageComponent implements OnInit {
     let request =new UserRegistrationRequest(this.username,this.password,this.firstName,this.lastName)
     this.auth.registration(request).subscribe(x=>{
       this.local.set(TOKEN,x.accesstoken)
-      console.log(x.accesstoken)
-      this.router.navigate(['/home'])
+      this.userService.getMe(x.accesstoken).subscribe(y=>{
+        this.local.setObject(LOGGED_USER,y)
+      })
     },(e)=>{
       alert(e.getMessage)
+    },()=>{
+      this.router.navigate(["sidebar"])
     })
   }
 }

@@ -1,8 +1,8 @@
 export class UserLogInRequest{
 
   constructor(
-    username:String,
-    password:String
+    public username:String,
+    public password:String
     ){
 
     }

@@ -1,10 +1,10 @@
 export class UserRegistrationRequest{
 
   constructor(
-    username:String,
-    password:String,
-    firstName:String,
-    lastName:String
+    public username:String,
+    public password:String,
+    public firstName:String,
+    public lastName:String
   )
   {}
 }
