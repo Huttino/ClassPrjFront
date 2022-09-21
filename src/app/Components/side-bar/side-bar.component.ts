@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { LOGGED_USER } from 'src/app/Model/Constants/Constants';
-import { Student } from 'src/app/Model/Student';
-import { Teacher } from 'src/app/Model/Teacher';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { User } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
-import { LocalstorageService } from 'src/app/Service/LocalStorageService/localstorage.service';
 import { UserService } from 'src/app/Service/UserService/user.service';
 
 @Component({
@@ -12,25 +9,36 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.css']
 })
-export class SideBarComponent implements OnInit {
-  public loggedUser!:Student|Teacher
+export class SideBarComponent implements OnInit{
+
+  public loggedUser!:User
   Links=[
     {title:"Home",fragment:'home'},
     {title:"Profile",fragment:'profile'},
-    {title:"My Classes",fragment:'taskview'}
+    {title:"All Classes",fragment:'ViewClasses'}
   ]
   constructor(
     public router:RouterLink,
-    public auth:AuthService
+    public auth:AuthService,
+    public userService:UserService,
+    public router2:Router
     ) {
-      this.loggedUser=this.auth.loggedUser()
+
      }
-
-  ngOnInit(): void {
-
+  ngOnDestroy(): void {
   }
 
-  navigateTo(link : any){
-
+  ngOnInit(): void {
+    this.userService.getMe().subscribe(x=>{
+      this.loggedUser=x as User
+    });
+  }
+  logout(){
+    this.router2.navigate([{
+      outlets:{
+        primary:['login'],
+        content:null
+      }
+    }])
   }
 }

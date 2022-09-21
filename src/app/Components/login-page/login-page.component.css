@@ -24,4 +24,8 @@ input{
   border-radius: 10px;
   background-color: rgb(216, 216, 216);
 }
+section{
+  text-align: center;
+  margin-top: 20px;
+}
 

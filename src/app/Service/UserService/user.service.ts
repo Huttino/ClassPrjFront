@@ -17,11 +17,11 @@ export class UserService {
     private local:LocalstorageService,
   ) { }
 
-  getMe(token:String){
+  getMe(){
     return this.http.get<Student|Teacher>(this.url,{
       headers:{
         'Content-Type':'application/json',
-        'Authorization':`Bearer ${token}`
+        'Authorization':`Bearer ${this.local.get(TOKEN)}`
       }
     })
   }

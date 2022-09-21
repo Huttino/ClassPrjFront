@@ -1,13 +1,24 @@
-<nav >
+<nav>
   <ul>
     <li *ngFor="let link of Links">
-      <button [routerLink]="['',{outlets:{content:[link.fragment]}}]">
-        {{link.title}}
+      <button [routerLink]="['', { outlets: { content: [link.fragment] } }]">
+        {{ link.title }}
       </button>
     </li>
   </ul>
-  <div >
-    {{loggedUser.username}}
-  </div>
+  <footer id="User" *ngIf="loggedUser">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col justify-content-between">
+          <div id="logged" class="col">Logged as:</div>
+          <div class="col">{{ this.loggedUser.firstName }} {{ this.loggedUser.lastName }}</div>
+        </div>
+      </div>
+      <div class="row justify-content-start">
+        <div class="col">
+          <a class="link" (click)="logout()"  >Logout</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </nav>
-

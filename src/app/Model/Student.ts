@@ -1,11 +1,14 @@
-export class Student{
+import { User } from "./User";
+
+export class Student extends User{
   constructor(
-    public id:number,
-    public username:string,
-    public fistName:string,
-    public lastName:string,
-    public authorities:string[],
+    public override id:number,
+    public override username:string,
+    public override firstName:string,
+    public override lastName:string,
+    public override authorities:string[],
     public memberOf:{className:string,classId:number}[]
   ){
+    super(id,username,firstName,lastName,authorities);
   }
 }

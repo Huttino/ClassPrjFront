@@ -33,7 +33,7 @@ export class RegistrationPageComponent implements OnInit {
     let request =new UserRegistrationRequest(this.username,this.password,this.firstName,this.lastName)
     this.auth.registration(request).subscribe(x=>{
       this.local.set(TOKEN,x.accesstoken)
-      this.userService.getMe(x.accesstoken).subscribe(y=>{
+      this.userService.getMe().subscribe(y=>{
         this.local.setObject(LOGGED_USER,y)
       })
     },(e)=>{
