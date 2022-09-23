@@ -39,7 +39,14 @@ export class RegistrationPageComponent implements OnInit {
     },(e)=>{
       alert(e.getMessage)
     },()=>{
-      this.router.navigate(["sidebar"])
+      this.router.navigate([
+        {
+          outlets: {
+            primary: ['sidebar'],
+            content: ['home'],
+          },
+        },
+      ]);
     })
   }
 }

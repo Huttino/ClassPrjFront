@@ -10,41 +10,48 @@ import { UserService } from 'src/app/Service/UserService/user.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent implements OnInit {
-  password:String=""
-  username:String=""
-  loggedUser!:User
+  password: String = '';
+  username: String = '';
+  loggedUser!: User;
   constructor(
-    public auth:AuthService,
-    public local:LocalstorageService,
-    public router:Router,
-    public userService:UserService,
-    public activatedRoute:ActivatedRoute
-  ) {
-   }
+    public auth: AuthService,
+    public local: LocalstorageService,
+    public router: Router,
+    public userService: UserService,
+    public activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.auth.logout()
+    this.auth.logout();
   }
 
-  login(){
-    let request =new UserLogInRequest(this.username,this.password)
-    this.auth.login(request).subscribe(x=>{
-      this.local.set(TOKEN,x.accesstoken)
-      this.userService.getMe().subscribe(y=>{
-        this.local.setObject(LOGGED_USER,y as User)
-      })
-      this.router.navigate(["sidebar"])
-    },(e)=>{
-      if(e.status==401){
-        alert("Bad Credentials")
+  login() {
+    let request = new UserLogInRequest(this.username, this.password);
+    this.auth.login(request).subscribe(
+      (x) => {
+        this.local.set(TOKEN, x.accesstoken);
+        this.userService.getMe().subscribe((y) => {
+          this.local.setObject(LOGGED_USER, y as User);
+        });
+        this.router.navigate([
+          {
+            outlets: {
+              primary: ['sidebar'],
+              content: ['home'],
+            },
+          },
+        ]);
+      },
+      (e) => {
+        if (e.status == 401) {
+          alert('Bad Credentials');
+        } else {
+          alert('Error in the system');
+        }
       }
-      else {
-        alert("Error in the system")
-      }
-    }
-    )
+    );
   }
 }
