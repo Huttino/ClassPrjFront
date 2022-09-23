@@ -33,17 +33,6 @@ export class LoginPageComponent implements OnInit {
     this.auth.login(request).subscribe(
       (x) => {
         this.local.set(TOKEN, x.accesstoken);
-        this.userService.getMe().subscribe((y) => {
-          this.local.setObject(LOGGED_USER, y as User);
-        });
-        this.router.navigate([
-          {
-            outlets: {
-              primary: ['sidebar'],
-              content: ['home'],
-            },
-          },
-        ]);
       },
       (e) => {
         if (e.status == 401) {
@@ -51,6 +40,22 @@ export class LoginPageComponent implements OnInit {
         } else {
           alert('Error in the system');
         }
+      },()=>{
+        this.userService.getMe().subscribe((y) => {
+          this.local.setObject(LOGGED_USER, y as User);
+        },
+        ()=>{},
+        ()=>{
+          this.router.navigate([
+            {
+              outlets: {
+                primary: ['sidebar'],
+                content: ['home'],
+              },
+            },
+          ]);
+        });
+
       }
     );
   }

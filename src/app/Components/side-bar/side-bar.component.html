@@ -6,12 +6,12 @@
       </button>
     </li>
   </ul>
-  <footer id="User" *ngIf="loggedUser">
+  <footer id="User" *ngIf="user">
     <div class="container-fluid">
       <div class="row">
         <div class="col justify-content-between">
           <div id="logged" class="col">Logged as:</div>
-          <div class="col">{{ this.loggedUser.firstName }} {{ this.loggedUser.lastName }}</div>
+          <div class="col">{{ this.user.firstName }} {{ this.user.lastName }}</div>
         </div>
       </div>
       <div class="row justify-content-start">

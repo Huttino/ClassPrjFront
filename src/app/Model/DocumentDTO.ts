@@ -4,7 +4,8 @@ export class DocumentDTO{
     public title:string,
     public type:string,
     public notes:string,
-    public dateOfUpdate:Date
+    public dateOfUpdate:Date,
+    public myclasses:{className:string,classId:number}
   ){
 
   }

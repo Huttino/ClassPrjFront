@@ -5,8 +5,8 @@ import { UserLogInRequest } from 'src/app/Model/UserLoginRequest';
 import { Observable } from 'rxjs';
 import { UserRegistrationRequest } from 'src/app/Model/UserRegistrationRequest';
 import { LOGGED_USER, TOKEN } from 'src/app/Model/Constants/Constants';
-import { Student } from 'src/app/Model/Student';
-import { Teacher } from 'src/app/Model/Teacher';
+import { User } from 'src/app/Model/User';
+
 
 @Injectable({providedIn: 'root'})
 export class ServiceNameService {
@@ -36,7 +36,7 @@ export class AuthService {
     this.local.remove(LOGGED_USER)
     this.local.remove(TOKEN)
   }
-  loggedUser():Student|Teacher{
+  loggedUser():User{
     return this.local.getObject(LOGGED_USER)
   }
 

@@ -3,8 +3,6 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { TOKEN } from 'src/app/Model/Constants/Constants';
-import { Student } from 'src/app/Model/Student';
-import { Teacher } from 'src/app/Model/Teacher';
 import { LocalstorageService } from '../../LocalStorageService/localstorage.service';
 
 import { GuardData } from './GuardData';

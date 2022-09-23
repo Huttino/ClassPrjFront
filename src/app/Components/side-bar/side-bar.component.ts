@@ -11,7 +11,7 @@ import { UserService } from 'src/app/Service/UserService/user.service';
 })
 export class SideBarComponent implements OnInit{
 
-  public loggedUser!:User
+  public user!:User
   Links=[
     {title:"Home",fragment:'home'},
     {title:"Profile",fragment:'profile'},
@@ -29,9 +29,7 @@ export class SideBarComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.userService.getMe().subscribe(x=>{
-      this.loggedUser=x as User
-    });
+    this.user=this.auth.loggedUser()
   }
   logout(){
     this.router2.navigate([{

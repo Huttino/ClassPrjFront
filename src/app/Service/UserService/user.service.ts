@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { TOKEN } from 'src/app/Model/Constants/Constants';
-import { Student } from 'src/app/Model/Student';
-import { Teacher } from 'src/app/Model/Teacher';
+import { User } from 'src/app/Model/User';
+
 import { LocalstorageService } from '../LocalStorageService/localstorage.service';
 
 @Injectable({
@@ -18,7 +19,16 @@ export class UserService {
   ) { }
 
   getMe(){
-    return this.http.get<Student|Teacher>(this.url,{
+    return this.http.get<User>(this.url,{
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${this.local.get(TOKEN)}`
+      }
+    })
+  }
+
+  getMyClasses(){
+    return this.http.get<ClassRoom[]>(this.url,{
       headers:{
         'Content-Type':'application/json',
         'Authorization':`Bearer ${this.local.get(TOKEN)}`
