@@ -9,9 +9,7 @@ nav{
   box-shadow:  0 0 40px rgba(75, 75, 75, 0.582);
   display: block;
 }
-li{
-  text-align: center;
-}
+
 li button{
     margin-top: 10px;
     width:100px;
@@ -21,11 +19,22 @@ li button{
     font-weight: bold;
     box-shadow:  0 0 40px rgba(8, 7, 16, 0.397);
 }
-ul{
+ul#menu{
   margin-top: 40%;
-  list-style-type: none;
   padding: 10px;
+}
+#classes{
+  display: flex;
+  text-align: start;
+}
+li a{
+  padding-left: 5px;
+
+}
+ul{
+  list-style-type: none;
   justify-content: center;
+  padding: 0px;
 }
 li button:hover{
   background-color: rgb(168, 168, 168);

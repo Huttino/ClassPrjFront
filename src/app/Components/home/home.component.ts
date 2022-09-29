@@ -18,11 +18,6 @@ export class HomeComponent implements OnInit {
     public auth:AuthService,
     public meSrv:UserService
   ) {
-    this.user=this.auth.loggedUser()
-    this.meSrv.getMyClasses().subscribe(x=>{
-      console.log(JSON.stringify(x))
-      this.myClasses=x
-    })
    }
 
   ngOnInit(): void {

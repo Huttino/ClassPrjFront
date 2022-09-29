@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { User } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { UserService } from 'src/app/Service/UserService/user.service';
@@ -10,7 +11,7 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   styleUrls: ['./side-bar.component.css']
 })
 export class SideBarComponent implements OnInit{
-
+  public myClasses:ClassRoom[]=[]
   public user!:User
   Links=[
     {title:"Home",fragment:'home'},
@@ -23,13 +24,16 @@ export class SideBarComponent implements OnInit{
     public userService:UserService,
     public router2:Router
     ) {
-
+      this.user=this.auth.loggedUser()
+      console.log(this.user)
+      if(this.auth.loggedUser().authorities && this.auth.loggedUser().authorities.includes('STUDENT')){
+        this.userService.getMyClasses().subscribe(x=>{
+          this.myClasses=x
+        })}
      }
-  ngOnDestroy(): void {
-  }
 
   ngOnInit(): void {
-    this.user=this.auth.loggedUser()
+
   }
   logout(){
     this.router2.navigate([{
