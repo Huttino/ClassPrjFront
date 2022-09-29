@@ -1,5 +1,5 @@
 <div class="content" >
-  <ul *ngIf="myClasses">
+  <ul *ngIf="myClasses!=null">
     <li *ngFor="let class of myClasses">
           {{class.className}}
     </li>

@@ -12,7 +12,7 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public myClasses:ClassRoom[]=[]
+  public myClasses:ClassRoom[]|null=[]
   public user!:User
   constructor(
     public auth:AuthService,
@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   ) {
     this.user=this.auth.loggedUser()
     this.meSrv.getMyClasses().subscribe(x=>{
+      console.log(JSON.stringify(x))
       this.myClasses=x
     })
    }

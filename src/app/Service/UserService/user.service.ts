@@ -11,7 +11,7 @@ import { LocalstorageService } from '../LocalStorageService/localstorage.service
 })
 export class UserService {
 
-  url:string ="http://localhost:8080/api/me"
+  url:string ="http://localhost:8080/api/me/"
 
   constructor(
     private http:HttpClient,
@@ -28,7 +28,7 @@ export class UserService {
   }
 
   getMyClasses(){
-    return this.http.get<ClassRoom[]>(this.url,{
+    return this.http.get<ClassRoom[]>(this.url+"classRooms",{
       headers:{
         'Content-Type':'application/json',
         'Authorization':`Bearer ${this.local.get(TOKEN)}`
