@@ -1,0 +1,26 @@
+<div class="content">
+  <ng-container *ngIf="this.class">
+    <h3>
+      {{this.class.className}}
+    </h3>
+    <h5>
+      By {{this.class.creator}}
+    </h5>
+    <h6>Members</h6>
+    <ul *ngIf="class.members!=undefined && class.members.length>0">
+      <li *ngFor="let member of class.members">
+        {{member.username}}
+      </li>
+    </ul>
+    <h6>Files</h6>
+      <ul>
+        <li *ngFor="let file of class.uploadedDocuments">
+          {{file.title}}
+        </li>
+      </ul>
+      <button>
+        Leave
+      </button>
+  </ng-container>
+</div>
+
