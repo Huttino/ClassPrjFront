@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ClassDetailsComponent } from './Components/class-details/class-details.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LoginPageComponent } from './Components/login-page/login-page.component';
 import { ProfileComponent } from './Components/profile/profile.component';
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path:'registration',component:RegistrationPageComponent,outlet:'primary'},
   {path:'sidebar',component:SideBarComponent,outlet:'primary',canActivate:[AuthGuard]},
   {path:'home',component:HomeComponent,outlet:'content',canActivate:[AuthGuard]},
-  {path:'profile',component:ProfileComponent,outlet:'content',canActivate:[AuthGuard]}
+  {path:'profile',component:ProfileComponent,outlet:'content',canActivate:[AuthGuard]},
+  {path:'class/:cod',component:ClassDetailsComponent,outlet:'content',canActivate:[AuthGuard]}
 ];
 
 @NgModule({

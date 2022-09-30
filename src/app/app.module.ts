@@ -13,6 +13,7 @@ import { HomeComponent } from './Components/home/home.component';
 import { SideBarComponent } from './Components/side-bar/side-bar.component';
 import { RouterLink } from '@angular/router';
 import { ProfileComponent } from './Components/profile/profile.component';
+import { ClassDetailsComponent } from './Components/class-details/class-details.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ProfileComponent } from './Components/profile/profile.component';
     RegistrationPageComponent,
     HomeComponent,
     SideBarComponent,
-    ProfileComponent
+    ProfileComponent,
+    ClassDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@
     <h5>My Classes</h5>
     <ul>
       <li *ngFor="let class of myClasses">
-        <a>{{ class.className }}</a>
+        <a [routerLink]="['',{outlets:{content:['class',class.id]}}]">{{ class.className }}</a>
       </li>
     </ul>
   </ng-container>
