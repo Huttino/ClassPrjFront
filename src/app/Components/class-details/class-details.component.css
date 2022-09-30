@@ -1,0 +1,47 @@
+.wrapper{
+  margin-top: 2%;
+  position:relative;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-right: 2%;
+}
+.title{
+  padding-top: 10px;
+  padding-left: 10px;
+}
+.wrapper ul{
+  overflow-x:scroll;
+
+}
+.wrapper ul li{
+  display: inline-block;
+}
+
+.message{
+  padding-left: 30px;
+  padding-bottom: 30px;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+
+}
+
+button{
+left: 30px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  visibility: hidden;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 10px;
+}

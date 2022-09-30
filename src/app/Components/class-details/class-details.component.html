@@ -6,20 +6,30 @@
     <h5>
       By {{this.class.creator}}
     </h5>
-    <h6>Members</h6>
+    <div class="wrapper" id="members">
+    <h6 class="title">Members</h6>
     <ul *ngIf="class.members!=undefined && class.members.length>0">
       <li *ngFor="let member of class.members">
         {{member.username}}
       </li>
     </ul>
-    <h6>Files</h6>
-      <ul>
+    <div class="message" *ngIf="class.members==undefined||class.members.length==0">
+      No members to show
+    </div>
+    </div>
+    <div class="wrapper" id="files">
+      <h6 class="title">Files</h6>
+      <ul *ngIf="class.uploadedDocuments!=undefined && class.uploadedDocuments.length>0">
         <li *ngFor="let file of class.uploadedDocuments">
           {{file.title}}
         </li>
       </ul>
-      <button>
-        Leave
+      <div class="message" *ngIf="class.uploadedDocuments==undefined||class.uploadedDocuments.length==0">
+        No Files to show
+      </div>
+    </div>
+      <button id="leaveClass">
+        Leave Class
       </button>
   </ng-container>
 </div>
