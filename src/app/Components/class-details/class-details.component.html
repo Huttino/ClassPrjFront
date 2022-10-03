@@ -1,3 +1,28 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">File Upload</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label *ngIf="this.filesToUpload.length<4" for="fileinput" id="fileinputlabel">Choose File</label>
+        <input class="form-group" id="fileinput" (change)="handleFileInput($event)" style="display:none;" type="file" value="Choose File">
+      </div>
+    </form>
+    <ul id="filetoupload">
+      <li class="files" *ngFor="let file of filesToUpload">
+        <button class="btn btn-close btn-danger" (click)="remove(file)" ></button>
+        {{file.name}}
+      </li>
+    </ul>
+    <label for="notes">Add Notes</label>
+    <input type="textarea" id="notes">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Upload click');uploadFiles()">Upload</button>
+  </div>
+</ng-template>
 <div class="content">
   <ng-container *ngIf="this.class">
     <h3>
@@ -18,19 +43,24 @@
     </div>
     </div>
     <div class="wrapper" id="files">
-      <h6 class="title">Files</h6>
+
+      <h6 class="title">Files
+        <button class="add" (click)="openFileUpdate(content)" *ngIf="creator">+</button>
+      </h6>
       <ul *ngIf="class.uploadedDocuments!=undefined && class.uploadedDocuments.length>0">
         <li *ngFor="let file of class.uploadedDocuments">
-          {{file.title}}
+          <a class="card" (click)="download(file.id,file.title)">
+            <div class="CardText">
+              <h6>{{file.title}}</h6>
+              <p>{{file.notes}}</p>
+            </div>
+          </a>
         </li>
       </ul>
       <div class="message" *ngIf="class.uploadedDocuments==undefined||class.uploadedDocuments.length==0">
         No Files to show
       </div>
     </div>
-      <button id="leaveClass">
-        Leave Class
-      </button>
   </ng-container>
 </div>
 

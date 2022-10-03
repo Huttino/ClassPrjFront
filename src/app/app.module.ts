@@ -8,7 +8,7 @@ import { LoginPageComponent } from './Components/login-page/login-page.component
 import { RegistrationPageComponent } from './Components/registration-page/registration-page.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './Components/home/home.component';
 import { SideBarComponent } from './Components/side-bar/side-bar.component';
 import { RouterLink } from '@angular/router';

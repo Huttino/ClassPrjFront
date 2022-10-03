@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { TOKEN } from 'src/app/Model/Constants/Constants';
+import { ClassRoomRepository } from 'src/app/Repository/ClassRoomRepository';
 import { LocalstorageService } from '../LocalStorageService/localstorage.service';
 
 @Injectable({
@@ -11,16 +12,16 @@ import { LocalstorageService } from '../LocalStorageService/localstorage.service
 export class ClassService {
   url:string ="http://localhost:8080/api/class/"
   constructor(
-    private http:HttpClient,
+    private classRepo:ClassRoomRepository,
     private local:LocalstorageService
   ) { }
 
-  getClass(id:number):Observable<ClassRoom>{
-    return this.http.get<ClassRoom>(this.url+id,{
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${this.local.get(TOKEN)}`
-      }
-    })
+
+
+  getClass(id:number){
+    return this.classRepo.getClass(id,this.local.get(TOKEN)+"")
+  }
+  createClass(className:string):Observable<ClassRoom>{
+    return this.classRepo.postClass(className,this.local.get(TOKEN)+"")
   }
 }

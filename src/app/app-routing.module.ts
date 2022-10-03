@@ -14,7 +14,8 @@ const routes: Routes = [
   {path:'sidebar',component:SideBarComponent,outlet:'primary',canActivate:[AuthGuard]},
   {path:'home',component:HomeComponent,outlet:'content',canActivate:[AuthGuard]},
   {path:'profile',component:ProfileComponent,outlet:'content',canActivate:[AuthGuard]},
-  {path:'class/:cod',component:ClassDetailsComponent,outlet:'content',canActivate:[AuthGuard]}
+  {path:'class/:cod',component:ClassDetailsComponent,outlet:'content',canActivate:[AuthGuard]},
+  {path:'',redirectTo:'sidebar',pathMatch:'full'}
 ];
 
 @NgModule({

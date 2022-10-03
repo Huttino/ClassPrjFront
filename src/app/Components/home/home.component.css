@@ -1,0 +1,82 @@
+.wrapper{
+  max-height: fit-content;
+  overflow-y: visible;
+  position:relative;
+  margin-right: 2%;
+}
+
+label{
+  font-size: larger;
+  margin-top: 30px;
+}
+h3{
+  padding-top: 20px;
+}
+#NewClassName{
+  margin-top: 10px;
+  width:300px;
+  border:2px solid rgba(0, 0, 0, 0.699);
+  border-radius: 10px;
+  background-color: rgb(216, 216, 216);
+  box-shadow:  0 0 10px rgba(8, 7, 16, 0.397);
+}
+button{
+  border:1px solid rgba(0, 0, 0, 0.699);
+  border-radius: 15px;
+  background-color: rgb(107, 201, 143);
+  width: 35px;
+  margin-left: 10px;
+}
+ul{
+  padding-top: 10px;
+  max-height: fit-content;
+  overflow-y: visible;
+  list-style-type: none;
+  overflow-y: visible;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+ul li{
+  max-height: fit-content;
+  overflow-y: visible;
+  text-align: start;
+  min-width: 180px;
+  max-width: 180px;
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 20px;
+
+}
+.CardText{
+  margin-left: 10px;
+  overflow-x: hidden;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+  transition: 100ms;
+}
+
+a:hover{
+  transform: scale(1.2);
+
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  visibility: hidden;
+}
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(214, 255, 198);
+  border-radius: 10px;
+}
+

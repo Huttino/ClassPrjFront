@@ -40,7 +40,11 @@ export class RoleGuard implements CanActivate {
         }
       }
       else{
-        this.router.navigate(['/login'])
+        this.router.navigate([{
+          outlets:{
+            primary:['login'],
+            content:['']
+            }}])
         return false
       }
   }

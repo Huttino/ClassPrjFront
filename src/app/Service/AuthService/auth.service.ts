@@ -6,11 +6,13 @@ import { Observable } from 'rxjs';
 import { UserRegistrationRequest } from 'src/app/Model/UserRegistrationRequest';
 import { LOGGED_USER, TOKEN } from 'src/app/Model/Constants/Constants';
 import { User } from 'src/app/Model/User';
+import { ClassRoom } from 'src/app/Model/ClassRoom';
+import { AuthRepository } from 'src/app/Repository/AuthRepository';
 
 
 @Injectable({providedIn: 'root'})
 export class ServiceNameService {
-  constructor(private httpClient: HttpClient) { }
+  constructor() { }
 
 }
 @Injectable({
@@ -18,19 +20,17 @@ export class ServiceNameService {
 })
 export class AuthService {
 
-  url:string ="http://localhost:8080/api/auth/"
-
   constructor(
-    private http:HttpClient,
     private local:LocalstorageService,
+    private repo:AuthRepository
   ) { }
 
   login(loginRequest:UserLogInRequest):Observable<any>{
-    return this.http.post<UserLogInRequest>(this.url+"signin",loginRequest)
+    return this.repo.login(loginRequest)
   }
 
   registration(registrationRequest:UserRegistrationRequest):Observable<any>{
-    return this.http.post<UserRegistrationRequest>(this.url+"signup",registrationRequest)
+    return this.repo.registration(registrationRequest)
   }
   logout(){
     this.local.remove(LOGGED_USER)
@@ -38,6 +38,11 @@ export class AuthService {
   }
   loggedUser():User{
     return this.local.getObject(LOGGED_USER)
+  }
+  addClass(newClass:ClassRoom){
+    let toUpdate:User=this.local.getObject(LOGGED_USER)
+    toUpdate.hasCreated?.push(newClass)
+    this.local.setObject(LOGGED_USER,toUpdate)
   }
 
 }
