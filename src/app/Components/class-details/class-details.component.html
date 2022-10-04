@@ -51,9 +51,9 @@
       </h6>
       <ul *ngIf="class.uploadedDocuments!=undefined && class.uploadedDocuments.length>0">
         <li *ngFor="let file of class.uploadedDocuments">
-          <a class="card" (click)="download(file.id,file.title)">
+          <a class="card filecard" (click)="download(file.id,file.title)">
             <div class="CardText">
-              <h5>{{file.title.split('.')[0]}}</h5>
+              <h6 id="filename">{{file.title}}</h6>
               Update:{{file.dateOfUpdate.toString().split('T')[0]}}
               <br>
               Notes:{{file.notes}}

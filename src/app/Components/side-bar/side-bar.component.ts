@@ -16,7 +16,7 @@ export class SideBarComponent implements OnInit{
   Links=[
     {title:"Home",fragment:'home'},
     {title:"Profile",fragment:'profile'},
-    {title:"All Classes",fragment:'ViewClasses'}
+    {title:"All Classes",fragment:'classList'}
   ]
   constructor(
     public router:RouterLink,

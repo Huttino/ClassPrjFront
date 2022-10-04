@@ -14,6 +14,8 @@ import { SideBarComponent } from './Components/side-bar/side-bar.component';
 import { RouterLink } from '@angular/router';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { ClassDetailsComponent } from './Components/class-details/class-details.component';
+import { ClassListComponent } from './Components/class-list/class-list.component';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { ClassDetailsComponent } from './Components/class-details/class-details.
     HomeComponent,
     SideBarComponent,
     ProfileComponent,
-    ClassDetailsComponent
+    ClassDetailsComponent,
+    ClassListComponent
   ],
   imports: [
     BrowserModule,

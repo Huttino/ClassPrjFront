@@ -70,11 +70,25 @@ a:hover{
 }
 
 button.add{
-border:1px solid rgba(0, 0, 0, 0.699);
-border-radius: 15px;
-background-color: rgb(107, 201, 143);
-width: 35px;
-margin-left: 10px;
+  border:1px solid rgba(0, 0, 0, 0.699);
+  border-radius: 10px;
+  background-color: rgb(107, 201, 143);
+  width: 30px;
+  margin-left: 20px;
+  opacity: 0.7;
+  transition: 300ms;
+  font-weight: bold;
+}
+#filename{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+button:hover{
+  opacity: 1;
+  transform:scale(1.4);
+
 }
 
 /* Track */

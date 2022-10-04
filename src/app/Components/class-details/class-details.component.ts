@@ -11,6 +11,7 @@ import {saveAs} from 'file-saver';
 import { UserService } from 'src/app/Service/UserService/user.service';
 import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { StudentInClass } from 'src/app/Model/StudentInClass';
+import { DocumentDTO } from 'src/app/Model/DocumentDTO';
 
 @Component({
   selector: 'app-class-details',
@@ -77,7 +78,10 @@ export class ClassDetailsComponent implements OnInit {
   }
   uploadFiles(){
     if(this.creator){
-      this.documentSrv.uploadDocument(new UploadDocumentWithData(this.filesToUpload,this.notes),this.classid).subscribe()
+      this.documentSrv.uploadDocument(new UploadDocumentWithData(this.filesToUpload,this.notes),this.classid).subscribe(
+        x=>{
+          this.class.uploadedDocuments?.concat(x)
+        })
     }
 
   }

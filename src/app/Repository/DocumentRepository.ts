@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { DocumentDTO } from "../Model/DocumentDTO";
 import { UploadDocumentWithData } from "../Model/UploadDocumentWithData";
 
 @Injectable({providedIn:'root'})
@@ -22,7 +24,7 @@ export class DocumentRepository{
     })
   }
 
-  postDocuments(data:FormData,token:string,id:number){
+  postDocuments(data:FormData,token:string,id:number):Observable<DocumentDTO[]>{
     return this.http.post<any>(this.url+id,data,{
       headers:{
         'Authorization':`Bearer ${token}`
