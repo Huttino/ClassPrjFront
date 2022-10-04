@@ -26,4 +26,10 @@ export class UserService {
   getMyClasses(){
     return this.userRepo.getMyClasses(this.local.get(TOKEN)+"")
   }
+  joinClass(id:number){
+    return this.userRepo.join(id,this.local.get(TOKEN)+"")
+  }
+  leaveClass(id:number){
+    return this.userRepo.leave(id,this.local.get(TOKEN)+"")
+  }
 }

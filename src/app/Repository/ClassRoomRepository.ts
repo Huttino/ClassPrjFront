@@ -11,19 +11,26 @@ export class ClassRoomRepository{
   ){
 
   }
-  postClass(className:string,token:string):Observable<ClassRoom>{
+  post(className:string,token:string):Observable<ClassRoom>{
     return this.http.post<ClassRoom>(this.url,{classname:className},{
       headers:{
-        'Content-Type':'form-data',
+        'Content-Type':'application/json',
         'Authorization':`Bearer ${token}`
       }
     })
   }
 
-  getClass(id:number,token:string):Observable<ClassRoom>{
+  get(id:number,token:string):Observable<ClassRoom>{
     return this.http.get<ClassRoom>(this.url+id,{
       headers:{
         'Content-Type':'application/json',
+        'Authorization':`Bearer ${token}`
+      }
+    })
+  }
+  delete(id:number,token:string):Observable<any>{
+    return this.http.delete(this.url+id,{
+      headers:{
         'Authorization':`Bearer ${token}`
       }
     })

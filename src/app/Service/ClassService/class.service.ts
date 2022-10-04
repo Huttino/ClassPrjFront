@@ -19,9 +19,12 @@ export class ClassService {
 
 
   getClass(id:number){
-    return this.classRepo.getClass(id,this.local.get(TOKEN)+"")
+    return this.classRepo.get(id,this.local.get(TOKEN)+"")
   }
   createClass(className:string):Observable<ClassRoom>{
-    return this.classRepo.postClass(className,this.local.get(TOKEN)+"")
+    return this.classRepo.post(className,this.local.get(TOKEN)+"")
+  }
+  deleteClass(id:number){
+    return this.classRepo.delete(id,this.local.get(TOKEN)+"")
   }
 }

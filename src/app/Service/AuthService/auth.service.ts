@@ -44,5 +44,8 @@ export class AuthService {
     toUpdate.hasCreated?.push(newClass)
     this.local.setObject(LOGGED_USER,toUpdate)
   }
+  updateLocalUser(user:User){
+    this.local.setObject(LOGGED_USER,user)
+  }
 
 }

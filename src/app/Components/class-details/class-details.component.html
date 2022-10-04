@@ -7,12 +7,13 @@
     <form>
       <div class="mb-3">
         <label *ngIf="this.filesToUpload.length<4" for="fileinput" id="fileinputlabel">Choose File</label>
-        <input class="form-group" id="fileinput" (change)="handleFileInput($event)" style="display:none;" type="file" value="Choose File">
+        <input class="form-group" id="fileinput" (change)="handleFileInput($event)" style="display:none;" type="file"
+          value="Choose File">
       </div>
     </form>
     <ul id="filetoupload">
       <li class="files" *ngFor="let file of filesToUpload">
-        <button class="btn btn-close btn-danger" (click)="remove(file)" ></button>
+        <button class="btn btn-close btn-danger" (click)="remove(file)"></button>
         {{file.name}}
       </li>
     </ul>
@@ -20,7 +21,8 @@
     <input type="textarea" id="notes">
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Upload click');uploadFiles()">Upload</button>
+    <button type="button" class="btn btn-outline-dark"
+      (click)="modal.close('Upload click');uploadFiles()">Upload</button>
   </div>
 </ng-template>
 <div class="content">
@@ -32,15 +34,15 @@
       By {{this.class.creator}}
     </h5>
     <div class="wrapper" id="members">
-    <h6 class="title">Members</h6>
-    <ul *ngIf="class.members!=undefined && class.members.length>0">
-      <li *ngFor="let member of class.members">
-        {{member.username}}
-      </li>
-    </ul>
-    <div class="message" *ngIf="class.members==undefined||class.members.length==0">
-      No members to show
-    </div>
+      <h6 class="title">Members</h6>
+      <ul *ngIf="class.members!=undefined && class.members.length>0">
+        <li *ngFor="let member of class.members">
+          {{member.username}}
+        </li>
+      </ul>
+      <div class="message" *ngIf="class.members==undefined||class.members.length==0">
+        No members to show
+      </div>
     </div>
     <div class="wrapper" id="files">
 
@@ -51,8 +53,10 @@
         <li *ngFor="let file of class.uploadedDocuments">
           <a class="card" (click)="download(file.id,file.title)">
             <div class="CardText">
-              <h6>{{file.title}}</h6>
-              <p>{{file.notes}}</p>
+              <h5>{{file.title.split('.')[0]}}</h5>
+              Update:{{file.dateOfUpdate.toString().split('T')[0]}}
+              <br>
+              Notes:{{file.notes}}
             </div>
           </a>
         </li>
@@ -62,5 +66,13 @@
       </div>
     </div>
   </ng-container>
+  <button class="action" *ngIf="creator&&(!class.members || class.members.length<1)" (click)="closeClassRoom()">
+    Close Class Room
+  </button>
+  <button class="action" *ngIf="member&&!creator" (click)="this.leaveClassRoom()">
+    Leave Class
+  </button>
+  <button class="action" *ngIf="!member&&!creator" (click)="this.joinClassRoom()">
+    Join Class
+  </button>
 </div>
-

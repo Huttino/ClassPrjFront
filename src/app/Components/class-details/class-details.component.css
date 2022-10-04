@@ -38,6 +38,9 @@ ul li{
   margin-left: 10px;
   overflow-x: hidden;
 }
+.title{
+  padding-left: 30px;
+}
 
 a{
   text-decoration: none;
