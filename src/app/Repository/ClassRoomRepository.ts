@@ -35,4 +35,11 @@ export class ClassRoomRepository{
       }
     })
   }
+  getAll(token:string):Observable<ClassRoom[]>{
+    return this.http.get<ClassRoom[]>(this.url,{
+      headers:{
+        'Authorization':`Bearer ${token}`
+      }
+    })
+  }
 }

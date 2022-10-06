@@ -11,7 +11,6 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   styleUrls: ['./side-bar.component.css']
 })
 export class SideBarComponent implements OnInit{
-  public myClasses:ClassRoom[]=[]
   public user!:User
   Links=[
     {title:"Home",fragment:'home'},
@@ -26,10 +25,6 @@ export class SideBarComponent implements OnInit{
     ) {
       this.user=this.auth.loggedUser()
       console.log(this.user)
-      if(this.auth.loggedUser().authorities && this.auth.loggedUser().authorities.includes('STUDENT')){
-        this.userService.getMyClasses().subscribe(x=>{
-          this.myClasses=x
-        })}
      }
 
   ngOnInit(): void {

@@ -18,7 +18,7 @@
       </li>
     </ul>
     <label for="notes">Add Notes</label>
-    <input type="textarea" id="notes">
+    <input type="textarea" id="notes" [(ngModel)]="this.notes">
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark"
@@ -44,20 +44,33 @@
         No members to show
       </div>
     </div>
+    <div id="fileTitle">
+      <h6 class="title">Files</h6>
+      <div id="fileActions" *ngIf="this.creator">
+        <button class="add" (click)="openFileUpdate(content);this.modify=false"><i class="fa-solid fa-plus"></i></button>
+        <div id="actionDelete"*ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0">
+          <button *ngIf="!modify" class="delete" (click)="mode()"><i class="fa-solid fa-trash"></i></button>
+          <button *ngIf="modify" class="add" (click)="mode()"><i class="fa-solid fa-check"></i></button>
+        </div>
+      </div>
+    </div>
     <div class="wrapper" id="files">
 
-      <h6 class="title">Files
-        <button class="add" (click)="openFileUpdate(content)" *ngIf="creator">+</button>
-      </h6>
-      <ul *ngIf="class.uploadedDocuments!=undefined && class.uploadedDocuments.length>0">
+      <ul id="fileList" *ngIf="class.uploadedDocuments!=undefined && class.uploadedDocuments.length>0">
         <li *ngFor="let file of class.uploadedDocuments">
+          <div id="buttonSpace">
+            <button *ngIf="modify" [@inOutAnimation] (click)="deleteFile(file.id,file.title)" class="deleteFile"><i
+                class="fa-solid fa-xmark"></i></button>
+          </div>
           <a class="card filecard" (click)="download(file.id,file.title)">
             <div class="CardText">
               <h6 id="filename">{{file.title}}</h6>
               Update:{{file.dateOfUpdate.toString().split('T')[0]}}
               <br>
-              Notes:{{file.notes}}
+              Notes:<div id="noteSpace">{{file.notes}}</div>
+
             </div>
+            <i class="fa-solid fa-download" id="downloadIcon"></i>
           </a>
         </li>
       </ul>
@@ -66,13 +79,14 @@
       </div>
     </div>
   </ng-container>
-  <button class="action" *ngIf="creator&&(!class.members || class.members.length<1)" (click)="closeClassRoom()">
+  <button class="action" id="close" *ngIf="creator&&(!class.members || class.members.length<1)" (click)="closeClassRoom()">
     Close Class Room
   </button>
-  <button class="action" *ngIf="member&&!creator" (click)="this.leaveClassRoom()">
+  <h6 *ngIf="creator&&(class.members&&class.members.length>0)">You can only close Empty Class Rooms</h6>
+  <button class="action" id="leave" *ngIf="member&&!creator" (click)="this.leaveClassRoom()">
     Leave Class
   </button>
-  <button class="action" *ngIf="!member&&!creator" (click)="this.joinClassRoom()">
+  <button class="action" id="join" *ngIf="!member&&!creator" (click)="this.joinClassRoom()">
     Join Class
   </button>
 </div>

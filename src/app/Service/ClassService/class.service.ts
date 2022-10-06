@@ -27,4 +27,7 @@ export class ClassService {
   deleteClass(id:number){
     return this.classRepo.delete(id,this.local.get(TOKEN)+"")
   }
+  getAllClasses(){
+    return this.classRepo.getAll(this.local.get(TOKEN)+"")
+  }
 }

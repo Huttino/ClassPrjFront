@@ -1,4 +1,25 @@
-  <div class="content">
-    <p>class-list works!</p>
+<div class="content">
+  <div class="searchBar">
+    <h3>Search your class room</h3>
+    <i class="fa-solid fa-magnifying-glass"></i> <input type="text" id="search" [(ngModel)]="this.search"
+      (input)="changeFilter()">
   </div>
+  <div class="classes">
+    <ul>
 
+      <li *ngFor="let class of filteredClasses">
+        <a class="card" (click)="navigate(class.id)">
+          <div class="cardText">
+            <h5 id="className">{{class.className}}</h5>
+            <p>By: {{class.creator}}</p>
+            <p>
+              {{class.members?.length}} members
+            </p>
+          </div>
+          <i id="classIcon" class="fa-solid fa-arrow-right-to-bracket"></i>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</div>

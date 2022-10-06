@@ -11,12 +11,37 @@ import {saveAs} from 'file-saver';
 import { UserService } from 'src/app/Service/UserService/user.service';
 import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { StudentInClass } from 'src/app/Model/StudentInClass';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { DocumentDTO } from 'src/app/Model/DocumentDTO';
+
 
 @Component({
   selector: 'app-class-details',
   templateUrl: './class-details.component.html',
-  styleUrls: ['./class-details.component.css']
+  styleUrls: ['./class-details.component.css'],
+  animations: [
+    trigger(
+      'inOutAnimation',
+      [
+        transition(
+          ':enter',
+          [
+            style({ height: 0, opacity: 0 }),
+            animate('300ms ease-out',
+                    style({ height: 31, opacity: 1 }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ height: 31, opacity: 1 }),
+            animate('300ms ease-in',
+                    style({ height: 0, opacity: 0 }))
+          ]
+        )
+      ]
+    )
+  ]
 })
 export class ClassDetailsComponent implements OnInit {
   public classid:number=0
@@ -26,6 +51,7 @@ export class ClassDetailsComponent implements OnInit {
   public notes:string=''
   public creator:boolean=false
   public member:boolean=false
+  public modify:boolean=false
   constructor(
     public route:ActivatedRoute,
     public router:Router,
@@ -36,12 +62,18 @@ export class ClassDetailsComponent implements OnInit {
     public documentSrv:DocumentService
   ) { }
 
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params)=>{
       this.classid=+(params.get('cod')+'')
       this.ClassSrv.getClass(this.classid).subscribe(
         (x)=>{
           this.class=x
+          this.class.uploadedDocuments?.sort((a,b)=>{
+            if(a.dateOfUpdate>b.dateOfUpdate)return -1
+            else if(a.dateOfUpdate<b.dateOfUpdate)return 1
+            else return 0
+          })
         },()=>{
         },()=>{
           this.user=this.auth.loggedUser()
@@ -69,7 +101,7 @@ export class ClassDetailsComponent implements OnInit {
     console.log(this.filesToUpload)
   }
 
-  openFileUpdate(content: any){
+  openFileUpdate(content:any){
     this.modalService.open(content, { centered: true });
   }
   remove(filename:File){
@@ -77,10 +109,10 @@ export class ClassDetailsComponent implements OnInit {
     this.filesToUpload.splice(this.filesToUpload.indexOf(filename),1)
   }
   uploadFiles(){
-    if(this.creator){
+    if(this.creator&&this.filesToUpload.length<=4){
       this.documentSrv.uploadDocument(new UploadDocumentWithData(this.filesToUpload,this.notes),this.classid).subscribe(
         x=>{
-          this.class.uploadedDocuments?.concat(x)
+          if(this.class.uploadedDocuments)this.class.uploadedDocuments=x.concat(this.class.uploadedDocuments)
         })
     }
 
@@ -151,6 +183,16 @@ export class ClassDetailsComponent implements OnInit {
         }
       )
     }
+  }
+  deleteFile(fileId:number,fileName:string){
+    if(confirm("You want to delete this file?\n"+fileName))
+    this.documentSrv.deleteDocument(fileId).subscribe(()=>{
+      this.class.uploadedDocuments?.splice(this.class.uploadedDocuments.findIndex(x=>x.id==fileId),1)
+      if(this.class.uploadedDocuments?.length==0)this.modify=false
+    })
+  }
+  mode(){
+    this.modify=!this.modify
   }
 
 }

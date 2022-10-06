@@ -1,10 +1,9 @@
 .wrapper{
   margin-top: 2%;
   position:relative;
-  border: 1px solid black;
   border-radius: 10px;
   margin-right: 2%;
-  padding-bottom: 10px;
+  margin-bottom: 30px;
 }
 #fileinputlabel{
   border:1px solid black;
@@ -14,43 +13,68 @@
 form{
   text-align: center;
 }
+
+#buttonSpace{
+  min-height: 35px;
+  max-height: 35px;
+  position: relative;
+}
+button.deleteFile {
+  border:1px solid rgb(255, 0, 0);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 40px;
+  background-color: red;
+  top:10px;
+  position: absolute;
+}
+h3{
+  padding-top:0;
+}
 ul{
-  padding-top: 10px;
-  max-height: fit-content;
-  overflow-y: visible;
   list-style-type: none;
-  overflow-y: visible;
-  overflow-x: auto;
+  overflow-x:auto;
   white-space: nowrap;
 }
-ul li{
+#fileTitle{
+  display: flex;
+  align-content: center;
+  padding-top: 10px;
+  width: fit-content;
+  position: relative;
+}
+ul#fileList li{
   max-height: fit-content;
-  overflow-y: visible;
   text-align: start;
-  min-width: 180px;
-  max-width: 180px;
+  min-width: 250px;
+  max-width: 250px;
   display: inline-block;
   margin-right: 20px;
   margin-bottom: 20px;
-
 }
 .CardText{
   margin-left: 10px;
-  overflow-x: hidden;
+  height: fit-content;
 }
 .title{
   padding-left: 30px;
+  align-self: center;
 }
 
 a{
   text-decoration: none;
   color: black;
-  transition: 100ms;
+  transition: 300ms;
+  min-height: 200px;
+  max-height: 200px;
+
 }
 
 a:hover{
-  transform: scale(1.2);
-
+  transform: scale(1.1);
+}
+a:hover #downloadIcon{
+  opacity: 1;
 }
 
 .message{
@@ -68,29 +92,57 @@ a:hover{
   max-height: 200px;
   overflow-y: auto;
 }
-
 button.add{
   border:1px solid rgba(0, 0, 0, 0.699);
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: rgb(107, 201, 143);
-  width: 30px;
+  width: 35px;
+  margin-left: 20px;
+
+  opacity: 0.7;
+  transition: 300ms;
+}
+button.delete{
+  border:1px solid rgba(0, 0, 0, 0.699);
+  border-radius: 15px;
+  background-color: rgb(255, 0, 0);
+  width: 35px;
   margin-left: 20px;
   opacity: 0.7;
   transition: 300ms;
-  font-weight: bold;
 }
+
 #filename{
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  margin-top: 2px;
+  margin-bottom: 3px;
+}
+#fileActions{
+  display: inline-flex;
 }
 
-button:hover{
+#notesSpace{
+
+  min-height: 200px;
+  max-height: 200px;
+}
+
+button.add:hover{
   opacity: 1;
-  transform:scale(1.4);
-
+  transform: scale(1.4);
 }
-
+button.delete:hover{
+  opacity:1;
+  transform: scale(1.4);
+}
+#downloadIcon{
+ opacity: 0;
+ transition: 300ms;
+ bottom:20px;
+ left: 20px;
+ position: absolute;
+}
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
@@ -98,6 +150,27 @@ button:hover{
   margin-left: 20px;
   margin-right: 20px;
   visibility: hidden;
+}
+.action{
+  border:1px solid rgba(0, 0, 0, 0.699);
+  border-radius: 15px;
+  width: fit-content;
+  margin-left: 20px;
+  opacity: 0.7;
+  transition: 200ms;
+}
+.action:hover{
+  opacity: 1;
+  transform: scale(1.4);
+}
+.action#join{
+  background-color: rgb(107, 201, 143);
+}
+.action#close{
+  background-color: rgb(255, 0, 0);
+}
+.action#leave{
+  background-color: rgb(255, 0, 0);
 }
 
 /* Handle */

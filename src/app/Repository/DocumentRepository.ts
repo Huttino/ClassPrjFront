@@ -6,18 +6,25 @@ import { UploadDocumentWithData } from "../Model/UploadDocumentWithData";
 
 @Injectable({providedIn:'root'})
 export class DocumentRepository{
+
   url:string ="http://localhost:8080/api/document/"
   constructor(
     private http:HttpClient
   ){
 
   }
+  deleteDocument(id: number, token: string) {
+    return this.http.delete(this.url+id,{
+      headers:{
+        'Authorization':`Bearer ${token}`,
+      }
+    })
+  }
 
   getDocument(id:number,token:string){
 
     return this.http.get(this.url+id,{
-      responseType:'blob'
-      ,
+      responseType:'blob',
       headers:{
         'Authorization':`Bearer ${token}`,
       }

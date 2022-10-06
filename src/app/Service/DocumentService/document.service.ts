@@ -9,10 +9,15 @@ import { LocalstorageService } from '../LocalStorageService/localstorage.service
 })
 export class DocumentService {
 
+
   constructor(
     private local:LocalstorageService,
     private documentRepo:DocumentRepository
   ) { }
+
+  deleteDocument(Id: number) {
+    return this.documentRepo.deleteDocument(Id,this.local.get(TOKEN)+"")
+  }
 
   uploadDocument(files:UploadDocumentWithData,id:number){
     const data=new FormData()
@@ -20,6 +25,7 @@ export class DocumentService {
       data.append("file[]",x as Blob)
     })
     data.append("notes",files.notes)
+    console.log(data.getAll("notes"))
     return this.documentRepo.postDocuments(data,this.local.get(TOKEN)+"",id)
   }
 
