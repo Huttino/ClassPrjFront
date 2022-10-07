@@ -1,4 +1,31 @@
 <div class="content">
   <h3>Your Profile</h3>
-  <h5>{{me?.firstName}} {{me?.lastName}}</h5>
+  <hr>
+  <div class="row justify-content-between">
+    <div class="col-auto align-items-center">
+      <div class="row justify-self-center profile-text" id="name">
+        <div class="col">
+          {{me.firstName}} {{me.lastName}}
+        </div>
+      </div>
+      <div class="row justify-self-center profile-text" id="email">
+        <div class="col">
+        {{me.username}}
+        </div>
+      </div>
+    </div>
+    <div class="col-auto justify-items-end">
+      <img id="image" width="216px" height="216px">
+    </div>
+  </div>
+  <div *ngIf="teacher">
+    <div *ngIf="me.hasCreated && me.hasCreated.length>0">
+      <ul>
+        <h5>Your Classes</h5>
+        <li *ngFor="let class of me.hasCreated">
+          {{class.className}}
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

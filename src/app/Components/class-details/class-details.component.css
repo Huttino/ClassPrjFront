@@ -57,7 +57,7 @@ ul#fileList li{
   height: fit-content;
 }
 .title{
-  padding-left: 30px;
+  padding: 0;
   align-self: center;
 }
 

@@ -30,22 +30,23 @@ export class LoginPageComponent implements OnInit {
 
   login() {
     let request = new UserLogInRequest(this.username, this.password);
-    this.auth.login(request).subscribe(
-      (x) => {
-        this.local.set(TOKEN, x.accesstoken);
+    this.auth.login(request).subscribe({
+      next:(x) => {
+        this.local.set(TOKEN, x.accesstoken)
       },
-      (e) => {
-        if (e.status == 401) {
-          alert('Bad Credentials');
-        } else {
+      error:(e) => {
+        if (e.status == 401)
+          alert('Bad Credentials')
+         else
           alert('Error in the system');
-        }
-      },()=>{
-        this.userService.getMe().subscribe((y) => {
+
+      },complete:()=>{
+        this.userService.getMe().subscribe({
+          next:(y) => {
           this.local.setObject(LOGGED_USER, y as User);
         },
-        ()=>{},
-        ()=>{
+        error:()=>{},
+        complete:()=>{
           this.router.navigate([
             {
               outlets: {
@@ -54,9 +55,10 @@ export class LoginPageComponent implements OnInit {
               },
             },
           ]);
-        });
+        }
+      });
 
-      }
+      }}
     );
   }
 }

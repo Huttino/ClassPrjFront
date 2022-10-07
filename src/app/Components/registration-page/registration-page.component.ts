@@ -12,44 +12,52 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   styleUrls: ['./registration-page.component.css']
 })
 export class RegistrationPageComponent implements OnInit {
-  username:string=""
-  password:string=""
-  firstName:string=""
-  lastName:String=""
+  username: string = ""
+  password: string = ""
+  firstName: string = ""
+  lastName: String = ""
   constructor(
-    public auth:AuthService,
-    public local:LocalstorageService,
-    public router:Router,
-    public userService:UserService
+    public auth: AuthService,
+    public local: LocalstorageService,
+    public router: Router,
+    public userService: UserService
   ) {
 
-   }
+  }
 
   ngOnInit(): void {
     this.auth.logout()
   }
 
-  register(){
-    let request =new UserRegistrationRequest(this.username,this.password,this.firstName,this.lastName)
-    this.auth.registration(request).subscribe(x=>{
-      this.local.set(TOKEN,x.accesstoken)
+  register() {
+    let request = new UserRegistrationRequest(this.username, this.password, this.firstName, this.lastName)
+    this.auth.registration(request).subscribe(
+      {
+        next: (x) => {
+          this.local.set(TOKEN, x.accesstoken)
 
-    },(e)=>{
-      alert(e.getMessage)
-    },()=>{
-      this.userService.getMe().subscribe(y=>{
-        this.local.setObject(LOGGED_USER,y)
-      },()=>{},
-      ()=>{
-        this.router.navigate([
-          {
-            outlets: {
-              primary: ['sidebar'],
-              content: ['home'],
-            },
-          },
-        ]);
+        },
+        error: (e) => {
+          alert(e.getMessage)
+        },
+        complete: () => {
+          this.userService.getMe().subscribe(
+            {
+              next: (y) => {
+                this.local.setObject(LOGGED_USER, y)
+              }, error: () => { },
+              complete: () => {
+                this.router.navigate([
+                  {
+                    outlets: {
+                      primary: ['sidebar'],
+                      content: ['home'],
+                    },
+                  },
+                ]);
+              }
+            })
+        }
       })
-    })
   }
 }

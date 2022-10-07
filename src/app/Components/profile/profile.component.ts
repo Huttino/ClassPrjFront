@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
-import { ClassService } from 'src/app/Service/ClassService/class.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,14 +8,35 @@ import { ClassService } from 'src/app/Service/ClassService/class.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  public me?:User
+[x: string]: any;
+  public me!:User
+  public teacher=false;
+  public choice!:number
+  public images=[
+    ('../../../assets/506134.png'),
+    ('../../../assets/2922506.png'),
+    ('../../../assets/2995620.png'),
+    ('../../../assets/3480535.png'),
+    ('../../../assets/3480547.png'),
+    ('../../../assets/4532513.png'),
+    ('../../../assets/4696907.png'),
+    ('../../../assets/4892710.png'),
+    ('../../../assets/4892749.png')
+  ]
   constructor(
     public Auth:AuthService
-  ) { }
+  ) {
+
+   }
 
   ngOnInit(): void {
     this.me=this.Auth.loggedUser()
-
+    if(this.me.authorities&&this.me.authorities[0]=="TEACHER"){
+      this.teacher=true
+    }
+    this.choice=Math.floor(Math.random()*8)
+    let image:any=document.getElementById("image")
+    image.src=this.images[this.choice]
   }
 
 }

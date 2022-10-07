@@ -22,26 +22,38 @@ export class HomeComponent implements OnInit {
     public classSrv:ClassService,
     public router:Router
   ) {
-    this.user=this.auth.loggedUser()
+
    }
 
   ngOnInit(): void {
-
+    this.user=this.auth.loggedUser()
+    if(this.user.hasCreated)
+    this.myClasses=this.user.hasCreated.sort((a,b)=>{
+      if(a.className.toLowerCase()>b.className.toLowerCase())
+      return 1
+      else if(a.className.toLowerCase()<b.className.toLowerCase())
+      return -1
+      else return 0
+    })
   }
 
   createClass(){
-    this.classSrv.createClass(this.newClassName).subscribe(x=>{
+    this.classSrv.createClass(this.newClassName).subscribe({
+      next:(x)=>{
       this.auth.addClass(x)
       this.router.navigate([{
         outlets:{
           content:['class',x.id]
         }
       }])
-    },()=>{
+    },
+    error:()=>{
       alert("error in creating class")
-    },()=>{
+    },
+    complete:()=>{
 
-    })
+    }
+  })
 
   }
 

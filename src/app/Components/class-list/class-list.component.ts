@@ -18,7 +18,8 @@ export class ClassListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.classSrv.getAllClasses().subscribe(x=>{
+    this.classSrv.getAllClasses().subscribe(
+      {next:(x)=>{
       this.allClassRoom=x.sort((a,b)=>{
         if(a.className.toLowerCase()>b.className.toLowerCase())
         return 1
@@ -26,11 +27,14 @@ export class ClassListComponent implements OnInit {
         return -1
         else return 0
       })
-    },(e)=>{
+    },
+    error:(e)=>{
       alert("error in loading all classes")
-    },()=>{
+    },
+    complete:()=>{
       this.filteredClasses=this.allClassRoom
-    })
+    }
+  })
   }
 
   changeFilter(){
