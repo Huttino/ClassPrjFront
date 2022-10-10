@@ -148,7 +148,7 @@ export class ClassDetailsComponent implements OnInit {
     }
   }
   joinClassRoom() {
-    if (!this.member && !this.creator && !this.user.authorities.includes("TEACHER")) {
+    if (!this.member && !this.creator && !(this.user.authority=="TEACHER")) {
       let done = false
       this.userSrv.joinClass(this.classid).subscribe(
         {
@@ -170,7 +170,7 @@ export class ClassDetailsComponent implements OnInit {
   }
 
   leaveClassRoom() {
-    if (this.member && !this.creator && !this.user.authorities.includes("TEACHER")) {
+    if (this.member && !this.creator && !(this.user.authority=="TEACHER")) {
       let done = false
       this.userSrv.leaveClass(this.classid).subscribe(
         {

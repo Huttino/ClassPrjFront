@@ -31,7 +31,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.me=this.Auth.loggedUser()
-    if(this.me.authorities&&this.me.authorities[0]=="TEACHER"){
+    console.log(this.me)
+    if(this.me.authority&&this.me.authority=="TEACHER"){
       this.teacher=true
     }
     this.choice=Math.floor(Math.random()*8)
