@@ -1,3 +1,8 @@
 .profile-text{
   width: fit-content;
 }
+#profileText{
+  font-weight: 500;
+  font-size: larger;
+
+}

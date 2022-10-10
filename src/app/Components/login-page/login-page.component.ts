@@ -35,10 +35,7 @@ export class LoginPageComponent implements OnInit {
         this.local.set(TOKEN, x.accesstoken)
       },
       error:(e) => {
-        if (e.status == 401)
           alert('Bad Credentials')
-         else
-          alert('Error in the system');
 
       },complete:()=>{
         this.userService.getMe().subscribe({
