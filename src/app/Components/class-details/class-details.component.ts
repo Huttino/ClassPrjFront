@@ -12,7 +12,6 @@ import { UserService } from 'src/app/Service/UserService/user.service';
 import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { StudentInClass } from 'src/app/Model/StudentInClass';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { DocumentDTO } from 'src/app/Model/DocumentDTO';
 
 
 @Component({

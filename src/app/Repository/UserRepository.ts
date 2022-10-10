@@ -1,7 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ClassRoom } from "../Model/ClassRoom";
+import { PasswordUpdateRequest } from "../Model/PasswordUpdateRequest";
 import { User } from "../Model/User";
+import { UserUpdateRequest } from "../Model/UserUpdateRequest";
 
 @Injectable({providedIn:'root'})
 export class UserRepository{
@@ -39,6 +41,23 @@ export class UserRepository{
 
   leave(classid:number,token:string){
     return this.http.delete(this.urlclass+classid,{
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${token}`
+      }
+    })
+  }
+
+  updateMe(updateRequest:UserUpdateRequest,token:string){
+    return this.http.put(this.urlme,updateRequest,{
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${token}`
+      }
+    })
+  }
+  updatePassword(updatePasswordRequest:PasswordUpdateRequest,token:string){
+    return this.http.put(this.urlme+"password",updatePasswordRequest,{
       headers:{
         'Content-Type':'application/json',
         'Authorization':`Bearer ${token}`
