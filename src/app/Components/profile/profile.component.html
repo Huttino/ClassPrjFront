@@ -1,6 +1,46 @@
+<ng-template #update let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update Profile</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3 formUpdate">
+      <label for="emailUpdate">E-mail:</label>
+      <input [(ngModel)]="this.newUsername" id="emailUpdate" type="text">
+      <label for="firstNameUpdate">First Name:</label>
+      <input [(ngModel)]="this.newFirstName" id="firstNameUpdate" type="text">
+      <label for="lastNameUpdate">Last Name:</label>
+      <input [(ngModel)]="this.newLastName" id="lastNameUpdate" type="text">
+    </div>
+    <div class="modal-footer justify-content-center">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Upload click');this.updateUser()">Update
+        Profile</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #passwordUpdate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update Password</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3 formUpdate">
+      <label for="emailUpdate">Old Password:</label>
+      <input [(ngModel)]="this.oldPassword" id="oldPassword" type="password">
+      <label for="firstNameUpdate">New Password:</label>
+      <input class="newPass" [(ngModel)]="this.newPassword" id="newPassword" type="password">
+      <label for="lastNameUpdate">Confirm new Password:</label>
+      <input class="newPass" [(ngModel)]="this.confirmNewPassword" id="confirmNewPassword" type="password">
+    </div>
+    <div class="modal-footer justify-content-center">
+      <button type="button" class="btn btn-outline-dark" (click)="this.updatePassword()">Update
+        Password</button>
+    </div>
+  </div>
+</ng-template>
 <div class="content">
   <h3>Your Profile
-    <button><i class="fa-solid fa-wrench"></i></button>
+    <button id="updateP" (click)="OpenUpdateProfile(update)"><i class="fa-solid fa-wrench"></i></button>
   </h3>
   <hr>
   <div class="row justify-content-between">
@@ -12,7 +52,12 @@
       </div>
       <div class="row justify-self-center profile-text" id="email">
         <div class="col">
-        {{me.username}}
+          {{me.username}}
+        </div>
+      </div>
+      <div class="row changePassword">
+        <div class="col ">
+          <button class="btn btn-danger" (click)="OpenUpdatePassword(passwordUpdate)"> Change Password</button>
         </div>
       </div>
     </div>

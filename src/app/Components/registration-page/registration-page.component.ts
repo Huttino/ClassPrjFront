@@ -38,7 +38,7 @@ export class RegistrationPageComponent implements OnInit {
 
         },
         error: (e) => {
-          alert(e.getMessage)
+          alert("Error in registration : check all the fields")
         },
         complete: () => {
           this.userService.getMe().subscribe(

@@ -7,7 +7,7 @@ export class User{
   public username:string,
   public firstName:string,
   public lastName:string,
-  public authorities:string[],
+  public authority:string,
   public hasCreated?:ClassRoom[],
   public memberOf?:ClassInStudent[]
   ){

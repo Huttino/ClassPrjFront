@@ -49,8 +49,8 @@ export class LoginPageComponent implements OnInit {
               outlets: {
                 primary: ['sidebar'],
                 content: ['home'],
-              },
-            },
+              }
+            }
           ]);
         }
       });

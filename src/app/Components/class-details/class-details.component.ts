@@ -12,7 +12,6 @@ import { UserService } from 'src/app/Service/UserService/user.service';
 import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { StudentInClass } from 'src/app/Model/StudentInClass';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { DocumentDTO } from 'src/app/Model/DocumentDTO';
 
 
 @Component({
@@ -148,7 +147,7 @@ export class ClassDetailsComponent implements OnInit {
     }
   }
   joinClassRoom() {
-    if (!this.member && !this.creator && !this.user.authorities.includes("TEACHER")) {
+    if (!this.member && !this.creator && !(this.user.authority=="TEACHER")) {
       let done = false
       this.userSrv.joinClass(this.classid).subscribe(
         {
@@ -170,7 +169,7 @@ export class ClassDetailsComponent implements OnInit {
   }
 
   leaveClassRoom() {
-    if (this.member && !this.creator && !this.user.authorities.includes("TEACHER")) {
+    if (this.member && !this.creator && !(this.user.authority=="TEACHER")) {
       let done = false
       this.userSrv.leaveClass(this.classid).subscribe(
         {

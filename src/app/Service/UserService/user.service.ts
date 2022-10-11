@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { TOKEN } from 'src/app/Model/Constants/Constants';
+import { PasswordUpdateRequest } from 'src/app/Model/PasswordUpdateRequest';
 import { User } from 'src/app/Model/User';
+import { UserUpdateRequest } from 'src/app/Model/UserUpdateRequest';
 import { UserRepository } from 'src/app/Repository/UserRepository';
 
 import { LocalstorageService } from '../LocalStorageService/localstorage.service';
@@ -31,5 +33,11 @@ export class UserService {
   }
   leaveClass(id:number){
     return this.userRepo.leave(id,this.local.get(TOKEN)+"")
+  }
+  updateMe(updateRequest:UserUpdateRequest){
+    return this.userRepo.updateMe(updateRequest,this.local.get(TOKEN)+"")
+  }
+  updatePassword(updatePasswordRequest:PasswordUpdateRequest){
+    return this.userRepo.updatePassword(updatePasswordRequest,this.local.get(TOKEN)+"")
   }
 }
