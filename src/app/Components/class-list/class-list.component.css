@@ -9,6 +9,7 @@ ul{
   flex-wrap: wrap;
   overflow-y: auto;
   padding-bottom: 30px;
+  padding-right: 15px;
   margin: 0;
 }
 a{
