@@ -16,6 +16,7 @@ form{
 .form{
   border-radius: 10px;
   margin-right: 10px;
+  margin-left: 20px;
 }
 #results{
   display: grid;
@@ -99,9 +100,32 @@ a:hover #downloadIcon{
   max-height: 200px;
   overflow-y: auto;
 }
+#results{
+  border:1px solid rgba(0, 0, 0, 0.699);
+  border-radius: 15px;
+  background-color: rgb(107, 201, 143);
+  margin-left: 20px;
+  opacity: 0.7;
+  transition: 300ms;
+}
+#results:hover{
+  opacity: 1;
+  transform: scale(1.2);
+}
 #currentMembers{
   overflow-y: scroll;
   white-space: nowrap;
+}
+
+tbody{
+  display: block;
+  height: 200px;
+  overflow: auto;
+}
+tbody tr{
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 button.add{
   border:1px solid rgba(0, 0, 0, 0.699);

@@ -17,7 +17,7 @@
       </li>
     </ul>
     <label for="notes">Add Notes</label>
-    <input class="form" type="textarea" id="notes" [(ngModel)]="this.notes">
+    <input class="form" type="text" id="notes" [(ngModel)]="this.notes">
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark"
@@ -61,15 +61,18 @@
   <div class="modal-header">
     <h5>Results</h5>
     <div style="display:wrap">
-      <input class="form" type="text"><i class="fa-solid fa-magnifying-glass"></i>
+      <input [(ngModel)]="filter" (input)="changeFilter()" class="form" type="text"><i class="fa-solid fa-magnifying-glass"></i>
     </div>
   </div>
   <div class="modal-body">
-    <div id="results">
-      <ul>
-
-      </ul>
-    </div>
+    <table class="table table-striped">
+      <tbody>
+        <tr *ngFor="let student of studentsToShow">
+          <td scope="col">{{student.username}}</td>
+          <td style="text-align:end" scope="col">{{student.grade}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
 </ng-template>
@@ -85,7 +88,7 @@
     <h5>
       By {{this.class.creator}}
     </h5>
-    <button (click)="openModal(results)" *ngIf="this.class.members?.at(0)?.grade!=null">Results!</button>
+    <button id="results" (click)="openModal(results);PopulateList()" *ngIf="this.class.members?.at(0)?.grade!=null">Results!</button>
     <div id="fileTitle">
       <h6 class="title">Files</h6>
       <div id="fileActions" *ngIf="this.creator">

@@ -61,6 +61,8 @@ export class ClassDetailsComponent implements OnInit {
   public studentsWithoutGrade:StudentInClass[]=[]
   public selectedStudentId:number=0
   public selectedGrade:number=0
+  public filter:string=""
+  public studentsToShow:StudentInClass[]=[]
 
 
   constructor(
@@ -249,5 +251,11 @@ export class ClassDetailsComponent implements OnInit {
         alert("Grade Assigned")
       }
     })
+  }
+  changeFilter(){
+    this.studentsToShow=this.class.members!.filter(x=>x.username.toLowerCase().includes(this.filter.toLowerCase()))
+  }
+  PopulateList(){
+    this.studentsToShow=this.class.members!
   }
 }
