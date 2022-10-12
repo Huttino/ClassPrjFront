@@ -9,12 +9,12 @@ import { ClassService } from 'src/app/Service/ClassService/class.service';
   styleUrls: ['./class-list.component.css']
 })
 export class ClassListComponent implements OnInit {
-  search:string=""
-  filteredClasses:ClassRoom[]=[]
-  allClassRoom:ClassRoom[]=[]
+  public search:string=""
+  public filteredClasses:ClassRoom[]=[]
+  public allClassRoom:ClassRoom[]=[]
   constructor(
-    public classSrv:ClassService,
-    public router:Router
+    private classSrv:ClassService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {

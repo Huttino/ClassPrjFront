@@ -67,13 +67,13 @@ export class ClassDetailsComponent implements OnInit {
 
   constructor(
 
-    public route: ActivatedRoute,
-    public router: Router,
-    public ClassSrv: ClassService,
-    public auth: AuthService,
-    public modalService: NgbModal,
-    public userSrv: UserService,
-    public documentSrv: DocumentService
+    private route: ActivatedRoute,
+    private router: Router,
+    private ClassSrv: ClassService,
+    private auth: AuthService,
+    private modalService: NgbModal,
+    private userSrv: UserService,
+    private documentSrv: DocumentService
   ) { }
 
 
