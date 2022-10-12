@@ -5,6 +5,7 @@ import { AddStudentRequest } from "../Model/AddStudentRequest";
 import { ClassRoom } from "../Model/ClassRoom";
 import { RemoveFromCLassRequest } from "../Model/RemoveFromClassRequest";
 import { StudentInClass } from "../Model/StudentInClass";
+import { UpdateGradeRequest } from "../Model/UpdateGradeRequest";
 
 @Injectable({providedIn: 'root'})
 export class ClassRoomRepository{
@@ -66,6 +67,14 @@ export class ClassRoomRepository{
   }
   GetMy(myId:number,token:String):Observable<ClassRoom[]> {
     return this.http.get<ClassRoom[]>(this.url+"creator/"+myId,{
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${token}`
+      }
+    })
+  }
+  assignGrade(classId:number,token:String,request:UpdateGradeRequest){
+    return this.http.patch(this.url+classId,request,{
       headers:{
         'Content-Type':'application/json',
         'Authorization':`Bearer ${token}`

@@ -15,6 +15,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';
 import { AddStudentRequest } from 'src/app/Model/AddStudentRequest';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UpdateGradeRequest } from 'src/app/Model/UpdateGradeRequest';
 
 
 @Component({
@@ -55,7 +56,12 @@ export class ClassDetailsComponent implements OnInit {
   public creator: boolean = false
   public member: boolean = false
   public modify: boolean = false
+  public graded: boolean =false
   public newUser: string = ""
+  public studentsWithoutGrade:StudentInClass[]=[]
+  public selectedStudentId:number=0
+  public selectedGrade:number=0
+
 
   constructor(
 
@@ -74,12 +80,18 @@ export class ClassDetailsComponent implements OnInit {
       this.classid = +(params.get('cod') + '')
       this.ClassSrv.GetClass(this.classid).subscribe({
         next: (x) => {
+          console.log(x)
           this.class = x
           this.class.uploadedDocuments?.sort((a, b) => {
             if (a.dateOfUpdate > b.dateOfUpdate) return -1
             else if (a.dateOfUpdate < b.dateOfUpdate) return 1
             else return 0
           })
+          this.class.members?.forEach(x=>{
+            if(x.grade==null)
+              this.studentsWithoutGrade.push(x)
+              this.selectedStudentId=x.id
+        })
         },
         error: (err) => console.log(err),
         complete: () => {
@@ -230,4 +242,12 @@ export class ClassDetailsComponent implements OnInit {
     })
   }
 
+  AssignGrade(){
+    this.ClassSrv.AssignGrade(this.classid,new UpdateGradeRequest(this.selectedStudentId,this.selectedGrade)).subscribe({
+      next:()=>{
+        this.studentsWithoutGrade.splice(this.studentsWithoutGrade.findIndex(x=>x.id===this.selectedStudentId),1)
+        alert("Grade Assigned")
+      }
+    })
+  }
 }

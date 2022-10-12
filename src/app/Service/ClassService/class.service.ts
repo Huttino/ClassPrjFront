@@ -5,6 +5,7 @@ import { AddStudentRequest } from 'src/app/Model/AddStudentRequest';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { TOKEN } from 'src/app/Model/Constants/Constants';
 import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';
+import { UpdateGradeRequest } from 'src/app/Model/UpdateGradeRequest';
 import { ClassRoomRepository } from 'src/app/Repository/ClassRoomRepository';
 import { LocalstorageService } from '../LocalStorageService/localstorage.service';
 
@@ -40,5 +41,7 @@ export class ClassService {
   GetMyClasses(myId:number){
     return this.classRepo.GetMy(myId,this.local.get(TOKEN)+"")
   }
-
+  AssignGrade(classId:number,request:UpdateGradeRequest){
+    return this.classRepo.assignGrade(classId,this.local.get(TOKEN)+"",request)
+  }
 }
