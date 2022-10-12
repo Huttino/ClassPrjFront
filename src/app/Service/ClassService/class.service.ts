@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { TOKEN } from 'src/app/Model/Constants/Constants';
+import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';
 import { ClassRoomRepository } from 'src/app/Repository/ClassRoomRepository';
 import { LocalstorageService } from '../LocalStorageService/localstorage.service';
 
@@ -10,13 +11,16 @@ import { LocalstorageService } from '../LocalStorageService/localstorage.service
   providedIn: 'root'
 })
 export class ClassService {
+
   url:string ="http://localhost:8080/api/class/"
   constructor(
     private classRepo:ClassRoomRepository,
     private local:LocalstorageService
   ) { }
 
-
+  removeFromClass(request:RemoveFromCLassRequest) {
+    return this.classRepo.removeFromClass(request,this.local.get(TOKEN)+"")
+  }
 
   getClass(id:number){
     return this.classRepo.get(id,this.local.get(TOKEN)+"")

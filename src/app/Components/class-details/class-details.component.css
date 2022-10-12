@@ -13,6 +13,9 @@
 form{
   text-align: center;
 }
+.form{
+  border-radius: 10px;
+}
 
 #buttonSpace{
   min-height: 35px;
@@ -87,10 +90,14 @@ a:hover #downloadIcon{
 
 }
 
-#filetoupload{
+.modalList{
   min-height: 200px;
   max-height: 200px;
   overflow-y: auto;
+}
+#currentMembers{
+  overflow-y: scroll;
+  white-space: nowrap;
 }
 button.add{
   border:1px solid rgba(0, 0, 0, 0.699);
@@ -101,6 +108,24 @@ button.add{
 
   opacity: 0.7;
   transition: 300ms;
+}
+.manage{
+  position: absolute;
+  top: 30px;
+  right: 2%;
+  border:1px solid rgba(0, 0, 0, 0.699);
+  border-radius: 15px;
+  background-color: rgb(107, 201, 143);
+  margin-left: 20px;
+  opacity: 0.7;
+  transition: 300ms;
+}
+.manage:hover{
+  opacity: 1;
+  transform: scale(1.1);
+}
+#manage{
+  top:80px;
 }
 button.delete{
   border:1px solid rgba(0, 0, 0, 0.699);
@@ -177,4 +202,10 @@ button.delete:hover{
 ::-webkit-scrollbar-thumb {
   background: rgb(214, 255, 198);
   border-radius: 10px;
+}
+.modal-header{
+  text-align: center;
+}
+h4{
+  margin: 0;
 }

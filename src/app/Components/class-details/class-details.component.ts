@@ -4,7 +4,7 @@ import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { User } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { ClassService } from 'src/app/Service/ClassService/class.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentService } from 'src/app/Service/DocumentService/document.service';
 import { UploadDocumentWithData } from 'src/app/Model/UploadDocumentWithData';
 import { saveAs } from 'file-saver';
@@ -12,6 +12,7 @@ import { UserService } from 'src/app/Service/UserService/user.service';
 import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { StudentInClass } from 'src/app/Model/StudentInClass';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';
 
 
 @Component({
@@ -51,7 +52,10 @@ export class ClassDetailsComponent implements OnInit {
   public creator: boolean = false
   public member: boolean = false
   public modify: boolean = false
+  public newUser:string=""
+
   constructor(
+
     public route: ActivatedRoute,
     public router: Router,
     public ClassSrv: ClassService,
@@ -101,7 +105,7 @@ export class ClassDetailsComponent implements OnInit {
     console.log(this.filesToUpload)
   }
 
-  openFileUpdate(content: any) {
+  openModal(content: any) {
     this.modalService.open(content, { centered: true });
   }
   remove(filename: File) {
@@ -195,6 +199,15 @@ deleteFile(fileId: number, fileName: string){
 }
 mode(){
   this.modify = !this.modify
+}
+removeFromClass(studentId:number){
+  if(confirm("are you sure you want to remove this user?")){
+    this.ClassSrv.removeFromClass(new RemoveFromCLassRequest(studentId,this.classid)).subscribe({
+      next:(x)=>{alert("Remove Completed")},
+      error:()=>{alert("Couldn't remove the student")},
+      complete:()=>{}
+    })
+  }
 }
 
 }

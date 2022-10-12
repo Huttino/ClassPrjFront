@@ -65,14 +65,15 @@
       <img id="image" width="216px" height="216px">
     </div>
   </div>
-  <div *ngIf="teacher">
-    <div *ngIf="me.hasCreated && me.hasCreated.length>0">
-      <ul>
-        <h5>Your Classes</h5>
-        <li *ngFor="let class of me.hasCreated">
-          {{class.className}}
-        </li>
-      </ul>
-    </div>
+  <div *ngIf="!teacher">
+    <ul>
+      <h5>Your Grades</h5>
+      <li *ngFor="let class of me.memberOf">
+        <div *ngIf="class.grade">
+          <div>{{class.className}}</div>
+          <div>{{class.grade}}</div>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
