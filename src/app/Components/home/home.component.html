@@ -6,8 +6,8 @@
     <button (click)="this.createClass()">+</button><br>
     <label for="classCreated">Your Classes</label>
     <div class="wrapper" id="classCreated">
-      <ul>
-        <li *ngFor="let class of user.hasCreated">
+      <ul *ngIf="this.myClasses">
+        <li  *ngFor="let class of myClasses">
           <a class="card" (click)="classNavigate(class.id)">
             <div class="CardText">
               <h6>{{class.className}}</h6>

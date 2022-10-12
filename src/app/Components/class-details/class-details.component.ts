@@ -13,6 +13,8 @@ import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { StudentInClass } from 'src/app/Model/StudentInClass';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';
+import { AddStudentRequest } from 'src/app/Model/AddStudentRequest';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -47,12 +49,13 @@ export class ClassDetailsComponent implements OnInit {
   public classid: number = 0
   public user!: User
   public class!: ClassRoom
+  public classInLocal!:ClassRoom
   public filesToUpload: File[] = []
   public notes: string = ''
   public creator: boolean = false
   public member: boolean = false
   public modify: boolean = false
-  public newUser:string=""
+  public newUser: string = ""
 
   constructor(
 
@@ -69,7 +72,7 @@ export class ClassDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.classid = +(params.get('cod') + '')
-      this.ClassSrv.getClass(this.classid).subscribe({
+      this.ClassSrv.GetClass(this.classid).subscribe({
         next: (x) => {
           this.class = x
           this.class.uploadedDocuments?.sort((a, b) => {
@@ -82,6 +85,7 @@ export class ClassDetailsComponent implements OnInit {
         complete: () => {
           this.user = this.auth.loggedUser()
           if (this.user.hasCreated?.find((x) => {
+            this.classInLocal=x
             return x.id == this.classid
           })
           ) {
@@ -132,7 +136,7 @@ export class ClassDetailsComponent implements OnInit {
   closeClassRoom() {
     if (confirm("You are closing the class Room and all the file uploaded will be lost. Confirm?")) {
       let done = false
-      this.ClassSrv.deleteClass(this.classid).subscribe(
+      this.ClassSrv.DeleteClass(this.classid).subscribe(
         () => { done = true },
         (e) => { alert("couldn't close the classroom") },
         () => {
@@ -151,7 +155,7 @@ export class ClassDetailsComponent implements OnInit {
     }
   }
   joinClassRoom() {
-    if (!this.member && !this.creator && !(this.user.authority=="TEACHER")) {
+    if (!this.member && !this.creator && !(this.user.authority == "TEACHER")) {
       let done = false
       this.userSrv.joinClass(this.classid).subscribe(
         {
@@ -173,41 +177,57 @@ export class ClassDetailsComponent implements OnInit {
   }
 
   leaveClassRoom() {
-    if (this.member && !this.creator && !(this.user.authority=="TEACHER")) {
+    if (this.member && !this.creator && !(this.user.authority == "TEACHER")) {
       let done = false
       this.userSrv.leaveClass(this.classid).subscribe(
         {
-        next:()=> { done=true },
-        error:(e) => { alert(e.message) },
-        complete:() => {
-          if (done) {
-            this.user.memberOf?.splice(this.user.memberOf.findIndex(x => { x.id == this.classid }), 1)
-            this.class.members?.splice(this.class.members.findIndex(x => { x.id == this.user.id }))
-            this.auth.updateLocalUser(this.user)
-            this.member = false
+          next: () => { done = true },
+          error: (e) => { alert(e.message) },
+          complete: () => {
+            if (done) {
+              this.user.memberOf?.splice(this.user.memberOf.findIndex(x => { x.id == this.classid }), 1)
+              this.class.members?.splice(this.class.members.findIndex(x => { x.id == this.user.id }))
+              this.auth.updateLocalUser(this.user)
+              this.member = false
+            }
           }
-        }
+        })
+    }
+  }
+  DeleteFile(fileId: number, fileName: string) {
+    if (confirm("You want to delete this file?\n" + fileName))
+      this.documentSrv.deleteDocument(fileId).subscribe(() => {
+        this.class.uploadedDocuments?.splice(this.class.uploadedDocuments.findIndex(x => x.id == fileId), 1)
+        if (this.class.uploadedDocuments?.length == 0) this.modify = false
+      })
+  }
+  Mode() {
+    this.modify = !this.modify
+  }
+  RemoveFromClass(studentId: number) {
+    if (confirm("are you sure you want to remove this user?")) {
+      this.ClassSrv.RemoveFromClass(new RemoveFromCLassRequest(studentId, this.classid)).subscribe({
+        next: (x) => {
+          alert("Remove Completed")
+          this.class.members?.splice(this.class.members.findIndex(x=>x.id===studentId),1)
+      },
+        error: () => { alert("Couldn't remove the student") },
+        complete: () => { }
+      })
+    }
+  }
+
+  AddUser(){
+    this.ClassSrv.AddToClass(new AddStudentRequest(this.newUser,this.classid)).subscribe({
+      next:(x)=>{
+        alert("Completed")
+        this.class.members?.push(x)
+        this.newUser=""
+      },
+      error:(x:HttpErrorResponse)=>{
+        alert("Can't add the Student: "+x.error.message)
+      }
     })
   }
-}
-deleteFile(fileId: number, fileName: string){
-  if (confirm("You want to delete this file?\n" + fileName))
-    this.documentSrv.deleteDocument(fileId).subscribe(() => {
-      this.class.uploadedDocuments?.splice(this.class.uploadedDocuments.findIndex(x => x.id == fileId), 1)
-      if (this.class.uploadedDocuments?.length == 0) this.modify = false
-    })
-}
-mode(){
-  this.modify = !this.modify
-}
-removeFromClass(studentId:number){
-  if(confirm("are you sure you want to remove this user?")){
-    this.ClassSrv.removeFromClass(new RemoveFromCLassRequest(studentId,this.classid)).subscribe({
-      next:(x)=>{alert("Remove Completed")},
-      error:()=>{alert("Couldn't remove the student")},
-      complete:()=>{}
-    })
-  }
-}
 
 }

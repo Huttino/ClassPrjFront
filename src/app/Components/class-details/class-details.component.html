@@ -29,12 +29,12 @@
 <ng-template #manage let-modal>
   <div class="modal-header">
     <h5>Add by username</h5>
-    <div style="display:'wrap'"><input class="form" [(ngModel)]="this.newUser"><button class="add"><i class="fa-solid fa-plus"></i></button></div>
+    <div style="display:'wrap'"><input class="form" [(ngModel)]="this.newUser"><button (click)="AddUser()" class="add"><i class="fa-solid fa-plus"></i></button></div>
   </div>
   <div class="modal-body">
     <ul class="modalList" id="currentMembers">
       <li style="margin-bottom:10px" *ngFor="let user of class.members">
-        <button (click)="removeFromClass(user.id)" class="btn btn-close btn-danger" style="margin-right: 20px;"></button>{{user.username}}
+        <button (click)="RemoveFromClass(user.id)" class="btn btn-close btn-danger" style="margin-right: 20px;"></button>{{user.username}}
       </li>
     </ul>
   </div>
@@ -56,8 +56,8 @@
       <div id="fileActions" *ngIf="this.creator">
         <button class="add" (click)="openModal(content);this.modify=false"><i class="fa-solid fa-plus"></i></button>
         <div id="actionDelete"*ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0">
-          <button *ngIf="!modify" class="delete" (click)="mode()"><i class="fa-solid fa-trash"></i></button>
-          <button *ngIf="modify" class="add" (click)="mode()"><i class="fa-solid fa-check"></i></button>
+          <button *ngIf="!modify" class="delete" (click)="Mode()"><i class="fa-solid fa-trash"></i></button>
+          <button *ngIf="modify" class="add" (click)="Mode()"><i class="fa-solid fa-check"></i></button>
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@
       <ul id="fileList" *ngIf="class.uploadedDocuments!=undefined && class.uploadedDocuments.length>0">
         <li *ngFor="let file of class.uploadedDocuments">
           <div id="buttonSpace">
-            <button *ngIf="modify" [@inOutAnimation] (click)="deleteFile(file.id,file.title)" class="deleteFile"><i
+            <button *ngIf="modify" [@inOutAnimation] (click)="DeleteFile(file.id,file.title)" class="deleteFile"><i
                 class="fa-solid fa-xmark"></i></button>
           </div>
           <a class="card filecard" (click)="download(file.id,file.title)">

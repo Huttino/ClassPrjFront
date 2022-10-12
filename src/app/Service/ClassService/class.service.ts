@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AddStudentRequest } from 'src/app/Model/AddStudentRequest';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { TOKEN } from 'src/app/Model/Constants/Constants';
 import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';
@@ -18,20 +19,26 @@ export class ClassService {
     private local:LocalstorageService
   ) { }
 
-  removeFromClass(request:RemoveFromCLassRequest) {
-    return this.classRepo.removeFromClass(request,this.local.get(TOKEN)+"")
+  RemoveFromClass(request:RemoveFromCLassRequest) {
+    return this.classRepo.RemoveFromClass(request,this.local.get(TOKEN)+"")
+  }
+  AddToClass(request:AddStudentRequest){
+    return this.classRepo.AddUser(request,this.local.get(TOKEN)+"")
+  }
+  GetClass(id:number){
+    return this.classRepo.Get(id,this.local.get(TOKEN)+"")
+  }
+  CreateClass(className:string):Observable<ClassRoom>{
+    return this.classRepo.Post(className,this.local.get(TOKEN)+"")
+  }
+  DeleteClass(id:number){
+    return this.classRepo.Delete(id,this.local.get(TOKEN)+"")
+  }
+  GetAllClasses(){
+    return this.classRepo.GetAll(this.local.get(TOKEN)+"")
+  }
+  GetMyClasses(myId:number){
+    return this.classRepo.GetMy(myId,this.local.get(TOKEN)+"")
   }
 
-  getClass(id:number){
-    return this.classRepo.get(id,this.local.get(TOKEN)+"")
-  }
-  createClass(className:string):Observable<ClassRoom>{
-    return this.classRepo.post(className,this.local.get(TOKEN)+"")
-  }
-  deleteClass(id:number){
-    return this.classRepo.delete(id,this.local.get(TOKEN)+"")
-  }
-  getAllClasses(){
-    return this.classRepo.getAll(this.local.get(TOKEN)+"")
-  }
 }

@@ -18,7 +18,7 @@ export class ClassListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.classSrv.getAllClasses().subscribe(
+    this.classSrv.GetAllClasses().subscribe(
       {next:(x)=>{
       this.allClassRoom=x.sort((a,b)=>{
         if(a.className.toLowerCase()>b.className.toLowerCase())
