@@ -16,6 +16,7 @@ import { RouterLink } from '@angular/router';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { ClassDetailsComponent } from './Components/class-details/class-details.component';
 import { ClassListComponent } from './Components/class-list/class-list.component';
+import { ChatComponent } from './Components/chat/chat.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ClassListComponent } from './Components/class-list/class-list.component
     SideBarComponent,
     ProfileComponent,
     ClassDetailsComponent,
-    ClassListComponent
+    ClassListComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

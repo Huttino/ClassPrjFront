@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ChatComponent } from './Components/chat/chat.component';
 import { ClassDetailsComponent } from './Components/class-details/class-details.component';
 import { ClassListComponent } from './Components/class-list/class-list.component';
 import { HomeComponent } from './Components/home/home.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:'profile',component:ProfileComponent,outlet:'content',canActivate:[AuthGuard]},
   {path:'class/:cod',component:ClassDetailsComponent,outlet:'content',canActivate:[AuthGuard]},
   {path:'classList',component:ClassListComponent,outlet:'content',canActivate:[AuthGuard]},
+  {path:'chat',component:ChatComponent,outlet:'content',canActivate:[AuthGuard]},
   {path:'**',redirectTo:'sidebar',pathMatch:'full'}
 ];
 
