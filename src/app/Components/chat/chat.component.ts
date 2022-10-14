@@ -24,5 +24,9 @@ export class ChatComponent implements OnInit {
     }
    }
 
+   checkConnection(){
+    console.log(this.messageSrv.stompClient.connected)
+   }
+
 
 }

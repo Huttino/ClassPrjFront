@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Client, StompConfig } from '@stomp/stompjs';
 import { delay } from 'rxjs';
-import * as SockJS from 'sockjs-client';
 
 import { LocalstorageService } from '../Service/LocalStorageService/localstorage.service';
 
@@ -38,10 +37,18 @@ export class MessageService {
     this.stompClient=new Client()
     this.stompClient.brokerURL="ws://localhost:8080/socket"
     this.stompClient.activate()
-    delay(1000)
-    console.log(this.stompClient.connected)
   }
+
   sendMessage(message:string){
     this.stompClient.publish({destination:'app/send/message',body:"hello,Stomp"})
+  }
+
+  subscribe(){
+    this.stompClient.subscribe("/topic",(x)=>{
+      if(x.body){
+        console.log(x.body)
+        this.msg.push(x.body)
+      }
+    })
   }
 }

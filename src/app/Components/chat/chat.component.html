@@ -1,7 +1,10 @@
 <div class="content">
 <input type="text" [(ngModel)]="input">
-<button (click)="sendMessage()"></button>
+<button (click)="sendMessage()">send</button>
+<button (click)="this.checkConnection()">check connection</button>
+<button (click)="this.messageSrv.subscribe()">subscribe</button>
 <div *ngFor="let msg of messageSrv.msg">
   {{msg}}
 </div>
+
 </div>
