@@ -1,5 +1,7 @@
 <div class="content">
-<button (click)="connect()">connect</button>
-<br>
-<button (click)="this.disconnect()">disconnect</button>
+<input type="text" [(ngModel)]="input">
+<button (click)="sendMessage()"></button>
+<div *ngFor="let msg of messageSrv.msg">
+  {{msg}}
+</div>
 </div>

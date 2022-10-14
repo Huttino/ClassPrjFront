@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WebSocketAPI } from 'src/app/WebSocket/WebSocketAPI';
+import { MessageService } from 'src/app/WebSocket/message.service';
 
 @Component({
   selector: 'app-chat',
@@ -7,21 +7,22 @@ import { WebSocketAPI } from 'src/app/WebSocket/WebSocketAPI';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  webSocketAPI:WebSocketAPI
 
-  constructor() {
-    this.webSocketAPI=new WebSocketAPI()
+  input=""
+  constructor(
+    public messageSrv:MessageService
+  ) {
+   }
+   ngOnInit(): void {
+
+   }
+   sendMessage(){
+    console.log(this.input)
+    if(this.input){
+      this.messageSrv.sendMessage(this.input)
+      this.input=''
+    }
    }
 
 
-  ngOnInit() {
-  }
-
-  connect(){
-    this.webSocketAPI._connect()
-  }
-
-  disconnect(){
-    this.webSocketAPI._disconnect()
-  }
 }
