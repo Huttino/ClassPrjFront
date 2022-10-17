@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Client, StompConfig } from '@stomp/stompjs';
-import { delay } from 'rxjs';
+import { Client, IStompSocket} from '@stomp/stompjs';
+import * as SockJS from 'sockjs-client';
+import { TOKEN } from '../Model/Constants/Constants';
 
 import { LocalstorageService } from '../Service/LocalStorageService/localstorage.service';
 
@@ -35,20 +36,21 @@ export class MessageService {
 
   initializingWebSocketConnection(){
     this.stompClient=new Client()
-    this.stompClient.brokerURL="ws://localhost:8080/socket"
+    this.stompClient.brokerURL='ws://localhost:8080/socket'
+    this.stompClient.connectHeaders={'Authorization':`Bearer ${this.local.get(TOKEN)}`}
     this.stompClient.activate()
   }
 
   sendMessage(message:string){
-    this.stompClient.publish({destination:'app/send/message',body:"hello,Stomp"})
+    this.stompClient.publish({destination:'/app/send/message',body:message})
   }
 
   subscribe(){
-    this.stompClient.subscribe("/topic",(x)=>{
+    this.stompClient.subscribe("/message",(x)=>{
       if(x.body){
         console.log(x.body)
         this.msg.push(x.body)
       }
-    })
+    },{'Authorization':this.local.get(TOKEN)+""})
   }
 }
