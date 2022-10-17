@@ -65,15 +65,11 @@ export class ProfileComponent implements OnInit {
   updateUser(){
     this.userService.updateMe(new UserUpdateRequest(this.newUsername,this.newFirstName,this.newLastName)).subscribe({
       next:()=>{
-        alert("Update Completed, Please Sign in with the new Credentials")
-        this.router.navigate([
-          {
-            outlets: {
-              primary: ['login'],
-              content: []
-            }
-          }
-        ])
+        alert("Update Completed")
+        this.userService.getMe().subscribe(x=>{
+          this.Auth.updateLocalUser(x)
+          this.me=x
+        })
         this.modalService.dismissAll()
       },
       error:(e)=>{

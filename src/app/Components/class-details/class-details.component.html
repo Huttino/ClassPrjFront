@@ -7,30 +7,80 @@
     <form>
       <div class="mb-3">
         <label *ngIf="this.filesToUpload.length<4" for="fileinput" id="fileinputlabel">Choose File</label>
-        <input class="form-group" id="fileinput" (change)="handleFileInput($event)" style="display:none;" type="file"
-          value="Choose File">
+        <input id="fileinput" (change)="handleFileInput($event)" style="display:none;" type="file" value="Choose File">
       </div>
     </form>
-    <ul id="filetoupload">
+    <ul class="modalList">
       <li class="files" *ngFor="let file of filesToUpload">
         <button class="btn btn-close btn-danger" (click)="remove(file)"></button>
         {{file.name}}
       </li>
     </ul>
     <label for="notes">Add Notes</label>
-    <input type="textarea" id="notes" [(ngModel)]="this.notes">
+    <input class="form" type="text" id="notes" [(ngModel)]="this.notes">
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark"
       (click)="modal.close('Upload click');uploadFiles()">Upload</button>
   </div>
 </ng-template>
-<ng-template #addUser let-modal>
+
+<ng-template #manage let-modal>
   <div class="modal-header">
-    daje
+    <h5>Add by username</h5>
+    <div style="display:'wrap'"><input class="form" [(ngModel)]="this.newUser"><button (click)="AddUser()"
+        class="add"><i class="fa-solid fa-plus"></i></button></div>
+  </div>
+  <div class="modal-body">
+    <ul class="modalList" id="currentMembers">
+      <li style="margin-bottom:10px" *ngFor="let user of class.members">
+        <button (click)="RemoveFromClass(user.id)" class="btn btn-close btn-danger"
+          style="margin-right: 20px;"></button>{{user.username}}
+      </li>
+    </ul>
   </div>
 </ng-template>
+
+<ng-template #grades let-modal>
+  <div class="modal-header">
+    <h5>Add Grade to</h5>
+    <select class="form" [(ngModel)]="this.selectedStudentId">
+      <option [ngValue]="student.id" *ngFor="let student of studentsWithoutGrade">
+        {{student.username}}
+      </option>
+    </select>
+    <input class="form" [(ngModel)]="selectedGrade" type="number" min="0" max="10">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"
+      (click)="modal.close('assignGrade');AssignGrade()">Assign</button>
+  </div>
+</ng-template>
+
+<ng-template #results let-modal>
+  <div class="modal-header">
+    <h5>Results</h5>
+    <div style="display:wrap">
+      <input [(ngModel)]="filter" (input)="changeFilter()" class="form" type="text"><i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped">
+      <tbody>
+        <tr *ngFor="let student of studentsToShow">
+          <td scope="col">{{student.username}}</td>
+          <td style="text-align:end" scope="col">{{student.grade}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</ng-template>
+
 <div class="content">
+  <button (click)="openModal(manage)" class="manage" *ngIf="this.creator">Manage Class</button>
+  <button (click)="openModal(grades)" class="manage" id="manage"
+    *ngIf="this.creator && this.studentsWithoutGrade.length>0">Add Grades</button>
   <ng-container *ngIf="this.class">
     <h3>
       {{this.class.className}}
@@ -38,24 +88,14 @@
     <h5>
       By {{this.class.creator}}
     </h5>
-    <div class="wrapper" id="members">
-      <h6 class="title">Members</h6>
-      <ul *ngIf="class.members!=undefined && class.members.length>0">
-        <li *ngFor="let member of class.members">
-          {{member.username}}
-        </li>
-      </ul>
-      <div class="message" *ngIf="class.members==undefined||class.members.length==0">
-        No members to show
-      </div>
-    </div>
+    <button id="results" (click)="openModal(results);PopulateList()" *ngIf="this.class.members?.at(0)?.grade!=null">Results!</button>
     <div id="fileTitle">
       <h6 class="title">Files</h6>
       <div id="fileActions" *ngIf="this.creator">
-        <button class="add" (click)="openFileUpdate(content);this.modify=false"><i class="fa-solid fa-plus"></i></button>
-        <div id="actionDelete"*ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0">
-          <button *ngIf="!modify" class="delete" (click)="mode()"><i class="fa-solid fa-trash"></i></button>
-          <button *ngIf="modify" class="add" (click)="mode()"><i class="fa-solid fa-check"></i></button>
+        <button class="add" (click)="openModal(content);this.modify=false"><i class="fa-solid fa-plus"></i></button>
+        <div id="actionDelete" *ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0">
+          <button *ngIf="!modify" class="delete" (click)="Mode()"><i class="fa-solid fa-trash"></i></button>
+          <button *ngIf="modify" class="add" (click)="Mode()"><i class="fa-solid fa-check"></i></button>
         </div>
       </div>
     </div>
@@ -64,7 +104,7 @@
       <ul id="fileList" *ngIf="class.uploadedDocuments!=undefined && class.uploadedDocuments.length>0">
         <li *ngFor="let file of class.uploadedDocuments">
           <div id="buttonSpace">
-            <button *ngIf="modify" [@inOutAnimation] (click)="deleteFile(file.id,file.title)" class="deleteFile"><i
+            <button *ngIf="modify" [@inOutAnimation] (click)="DeleteFile(file.id,file.title)" class="deleteFile"><i
                 class="fa-solid fa-xmark"></i></button>
           </div>
           <a class="card filecard" (click)="download(file.id,file.title)">
@@ -84,7 +124,8 @@
       </div>
     </div>
   </ng-container>
-  <button class="action" id="close" *ngIf="creator&&(!class.members || class.members.length<1)" (click)="closeClassRoom()">
+  <button class="action" id="close" *ngIf="creator&&(!class.members || class.members.length<1)"
+    (click)="closeClassRoom()">
     Close Class Room
   </button>
   <h6 *ngIf="creator&&(class.members&&class.members.length>0)">You can only close Empty Class Rooms</h6>
