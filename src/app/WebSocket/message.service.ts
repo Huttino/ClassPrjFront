@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Client, IStompSocket} from '@stomp/stompjs';
+import { Client, IMessage, IStompSocket} from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
+import { ClassInStudent } from '../Model/ClassInStudent';
+import { ClassRoom } from '../Model/ClassRoom';
 import { TOKEN } from '../Model/Constants/Constants';
+import { ReturnedMessages } from '../Model/ReturnedMessage';
+import { SentMessage } from '../Model/SentMessage';
 
 import { LocalstorageService } from '../Service/LocalStorageService/localstorage.service';
 
@@ -13,44 +17,39 @@ export class MessageService {
   constructor(
     public local:LocalstorageService
   ) {
-    this.initializingWebSocketConnection()
    }
+  public brokerUrl="ws://localhost:8080/socket"
   public stompClient!: Client;
-  public msg:string[]=[];
-  /*initializingWebSocketConnection(){
-    const serverUrl='http://localhost:8080/socket'
-    const ws=new SockJS(serverUrl)
-    console.log(ws)
-    this.stompClient=this.stompClient.webSocketFactory(()=>{return ws})
-    const that=this
-    this.stompClient.connect({},function(){
-      console.log(that.stompClient+"ci siamo?")
-      that.stompClient.subscribe('/message',(message)=>{
-        if(message.body){
-          console.log(message.body)
-          that.msg.push(message.body);
-        }
-      })
-    })
-  }*/
+  public chats:Map<number,ReturnedMessages[]>=new Map<number,ReturnedMessages[]>
 
-  initializingWebSocketConnection(){
+  initializingWebSocketConnection(classes:ClassRoom[]|ClassInStudent[]){
     this.stompClient=new Client()
-    this.stompClient.brokerURL='ws://localhost:8080/socket'
+    this.stompClient.brokerURL=this.brokerUrl
+    this.stompClient.onConnect=   ()=>{
+      classes.forEach(x=>{
+        this.subscribe(x.id)
+      })
+     }
     this.stompClient.connectHeaders={'Authorization':`Bearer ${this.local.get(TOKEN)}`}
     this.stompClient.activate()
   }
 
-  sendMessage(message:string){
-    this.stompClient.publish({destination:'/app/send/message',body:message})
+  sendMessage(message:SentMessage){
+    this.stompClient.publish({destination:'/app/send/message',body:JSON.stringify(message)})
   }
 
-  subscribe(){
-    this.stompClient.subscribe("/message",(x)=>{
-      if(x.body){
+  subscribe(classId:number){
+    this.chats.set(classId,[])
+    this.stompClient.subscribe("/message.classes"+classId,(x)=>{
+      console.log(x)
+      if(x.body as unknown as SentMessage){
         console.log(x.body)
-        this.msg.push(x.body)
+        this.chats.get(classId)?.push(JSON.parse(x.body)as ReturnedMessages)
       }
     },{'Authorization':this.local.get(TOKEN)+""})
+  }
+  deactivateConnection(){
+    console.log("chatDeactivated")
+    this.stompClient.deactivate()
   }
 }

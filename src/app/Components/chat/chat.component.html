@@ -1,10 +1,22 @@
 <div class="content">
-<input type="text" [(ngModel)]="input">
-<button (click)="sendMessage()">send</button>
-<button (click)="this.checkConnection()">check connection</button>
-<button (click)="this.messageSrv.subscribe()">subscribe</button>
-<div *ngFor="let msg of messageSrv.msg">
-  {{msg}}
-</div>
+
+  <div *ngIf="this.user">
+    <ul>
+      <li *ngFor="let class of this.possibleClasses">
+        <a (click)="this.messagesToShow(class.id)" class="card">{{class.className}}</a>
+      </li>
+    </ul>
+  </div>
+    <aside>
+      <div id="chatBar">
+        <input type="text" [(ngModel)]="input">
+        <button (click)="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </aside>
+  <div *ngIf="messageSrv.chats">
+    <div *ngFor="let msg of this.messages">
+      {{msg.firstName}} {{msg.lastName}}:{{msg.message}}
+    </div>
+  </div>
 
 </div>
