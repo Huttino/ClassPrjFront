@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterLink } from '@angular/router';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
-import { User } from 'src/app/Model/User';
+import { Student, Teacher, User } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { ClassService } from 'src/app/Service/ClassService/class.service';
 import { UserService } from 'src/app/Service/UserService/user.service';
@@ -14,7 +14,7 @@ import { UserService } from 'src/app/Service/UserService/user.service';
 })
 export class HomeComponent implements OnInit {
   public myClasses: ClassRoom[]= []
-  public user!: User
+  public user!: Student|Teacher
   public newClassName: string = ''
   constructor(
     public auth: AuthService,
@@ -26,8 +26,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.auth.loggedUser()
-    if (this.user.hasCreated) {
+    this.auth.loggedUser().subscribe(
+      x=>{
+      if(x.authority==="STUDENT")
+        this.user=new Student(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Student).memberOf)
+      else(this.user=new Teacher(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Teacher).hasCreated))
+      }
+    )
+    if (this.user instanceof Teacher && this.user.hasCreated) {
       this.classSrv.GetMyClasses(this.user.id).subscribe({
         next:(x) => {
           console.log(x)

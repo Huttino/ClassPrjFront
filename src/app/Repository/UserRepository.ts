@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { ClassRoom } from "../Model/ClassRoom";
 import { PasswordUpdateRequest } from "../Model/PasswordUpdateRequest";
-import { User } from "../Model/User";
+import { Student, Teacher, User } from "../Model/User";
 import { UserUpdateRequest } from "../Model/UserUpdateRequest";
 
 @Injectable({providedIn:'root'})
@@ -13,8 +14,8 @@ export class UserRepository{
     private http:HttpClient
   ){}
 
-  getMe(token:string){
-    return this.http.get<User>(this.urlme,{
+  getMe(token:string):Observable<Student|Teacher>{
+    return this.http.get<Student|Teacher>(this.urlme,{
       headers:{
         'Content-Type':'application/json',
         'Authorization':`Bearer ${token}`

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
-import { User } from 'src/app/Model/User';
+import { Student, Teacher, User } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { UserService } from 'src/app/Service/UserService/user.service';
 
@@ -11,7 +11,7 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   styleUrls: ['./side-bar.component.css']
 })
 export class SideBarComponent implements OnInit{
-  public user!:User
+  public user!:Student|Teacher
   Links=[
     {title:"Home",fragment:'home'},
     {title:"Profile",fragment:'profile'},
@@ -24,7 +24,13 @@ export class SideBarComponent implements OnInit{
     public userService:UserService,
     public router2:Router
     ) {
-      this.user=this.auth.loggedUser()
+      this.auth.loggedUser().subscribe(
+        x=>{
+        if(x.authority==="STUDENT")
+          this.user=new Student(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Student).memberOf)
+        else(this.user=new Teacher(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Teacher).hasCreated))
+        }
+      )
       console.log(this.user)
      }
 

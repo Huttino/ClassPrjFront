@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { AuthToken } from "../Model/AuthToken";
 import { UserLogInRequest } from "../Model/UserLoginRequest";
 import { UserRegistrationRequest } from "../Model/UserRegistrationRequest";
 
@@ -12,10 +13,10 @@ export class AuthRepository{
   ){
 
   }
-  registration(registrationRequest:UserRegistrationRequest):Observable<any>{
-    return this.http.post<UserRegistrationRequest>(this.url+"signup",registrationRequest)
+  registration(registrationRequest:UserRegistrationRequest):Observable<AuthToken>{
+    return this.http.post<AuthToken>(this.url+"signup",registrationRequest)
   }
-  login(loginRequest:UserLogInRequest):Observable<any>{
-    return this.http.post<UserLogInRequest>(this.url+"signin",loginRequest)
+  login(loginRequest:UserLogInRequest):Observable<AuthToken>{
+    return this.http.post<AuthToken>(this.url+"signin",loginRequest)
   }
 }

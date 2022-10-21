@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PasswordUpdateRequest } from 'src/app/Model/PasswordUpdateRequest';
-import { User } from 'src/app/Model/User';
+import { Student, Teacher, User } from 'src/app/Model/User';
 import { UserUpdateRequest } from 'src/app/Model/UserUpdateRequest';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { UserService } from 'src/app/Service/UserService/user.service';
@@ -14,7 +14,7 @@ import { UserService } from 'src/app/Service/UserService/user.service';
 })
 export class ProfileComponent implements OnInit {
 [x: string]: any;
-  public me!:User
+  public user!:Student|Teacher
   public teacher=false;
   public choice!:number
   public images=[
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
   public newPassword:string=""
   public confirmNewPassword=""
   constructor(
-    public Auth:AuthService,
+    public auth:AuthService,
     public modalService: NgbModal,
     public userService:UserService,
     public router:Router
@@ -44,9 +44,15 @@ export class ProfileComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.me=this.Auth.loggedUser()
-    console.log(this.me)
-    if(this.me.authority&&this.me.authority=="TEACHER"){
+    this.auth.loggedUser().subscribe(
+      x=>{
+      if(x.authority==="STUDENT")
+        this.user=new Student(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Student).memberOf)
+      else(this.user=new Teacher(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Teacher).hasCreated))
+      }
+    )
+    console.log(this.user)
+    if(this.user instanceof Teacher){
       this.teacher=true
     }
     this.choice=Math.floor(Math.random()*8)
@@ -54,9 +60,9 @@ export class ProfileComponent implements OnInit {
     image.src=this.images[this.choice]
   }
   OpenUpdateProfile(content:any){
-    this.newUsername=this.me.username
-    this.newFirstName=this.me.firstName
-    this.newLastName=this.me.lastName
+    this.newUsername=this.user.username
+    this.newFirstName=this.user.firstName
+    this.newLastName=this.user.lastName
     this.modalService.open(content,{centered:true})
   }
   OpenUpdatePassword(passwordUpdate:any){
@@ -67,8 +73,8 @@ export class ProfileComponent implements OnInit {
       next:()=>{
         alert("Update Completed")
         this.userService.getMe().subscribe(x=>{
-          this.Auth.updateLocalUser(x)
-          this.me=x
+          this.auth.updateLocalUser(x)
+          this.user=x
         })
         this.modalService.dismissAll()
       },

@@ -6,6 +6,7 @@ import { PasswordUpdateRequest } from 'src/app/Model/PasswordUpdateRequest';
 import { User } from 'src/app/Model/User';
 import { UserUpdateRequest } from 'src/app/Model/UserUpdateRequest';
 import { UserRepository } from 'src/app/Repository/UserRepository';
+import { AuthService } from '../AuthService/auth.service';
 
 import { LocalstorageService } from '../LocalStorageService/localstorage.service';
 
@@ -18,26 +19,26 @@ export class UserService {
 
   constructor(
     private userRepo:UserRepository,
-    private local:LocalstorageService
+    private authService:AuthService
   ) { }
 
   getMe(){
-    return this.userRepo.getMe(this.local.get(TOKEN)+"")
+    return this.userRepo.getMe(this.authService.getJWTToken())
   }
 
   getMyClasses(){
-    return this.userRepo.getMyClasses(this.local.get(TOKEN)+"")
+    return this.userRepo.getMyClasses(this.authService.getJWTToken())
   }
   joinClass(id:number){
-    return this.userRepo.join(id,this.local.get(TOKEN)+"")
+    return this.userRepo.join(id,this.authService.getJWTToken())
   }
   leaveClass(id:number){
-    return this.userRepo.leave(id,this.local.get(TOKEN)+"")
+    return this.userRepo.leave(id,this.authService.getJWTToken())
   }
   updateMe(updateRequest:UserUpdateRequest){
-    return this.userRepo.updateMe(updateRequest,this.local.get(TOKEN)+"")
+    return this.userRepo.updateMe(updateRequest,this.authService.getJWTToken())
   }
   updatePassword(updatePasswordRequest:PasswordUpdateRequest){
-    return this.userRepo.updatePassword(updatePasswordRequest,this.local.get(TOKEN)+"")
+    return this.userRepo.updatePassword(updatePasswordRequest,this.authService.getJWTToken())
   }
 }

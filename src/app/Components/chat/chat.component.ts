@@ -3,7 +3,7 @@ import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { ReturnedMessages } from 'src/app/Model/ReturnedMessage';
 import { SentMessage } from 'src/app/Model/SentMessage';
-import { User } from 'src/app/Model/User';
+import { Student, Teacher, User } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { MessageService } from 'src/app/WebSocket/message.service';
 
@@ -14,10 +14,10 @@ import { MessageService } from 'src/app/WebSocket/message.service';
 })
 export class ChatComponent implements OnInit ,OnDestroy{
 
-  user!:User
+  user!:Student|Teacher
   possibleClasses:{id:number,className:string}[]=[]
   input=""
-  selectedClassId:any
+  selectedClassId:number=0
   messages?:ReturnedMessages[]
   currentSubscription:any
   chats=new Map()
@@ -28,10 +28,18 @@ export class ChatComponent implements OnInit ,OnDestroy{
    }
 
    ngOnInit(): void {
-    this.user=this.auth.loggedUser()
+    this.auth.loggedUser().subscribe(
+      x=>{
+      if(x.authority==="STUDENT")
+        this.user=new Student(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Student).memberOf)
+      else(this.user=new Teacher(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Teacher).hasCreated))
+      }
+    )
+    if(this.user instanceof Teacher)
     this.user.hasCreated?.forEach(x=>{
       this.possibleClasses.push({id:x.id,className:x.className})
     })
+    else if(this.user instanceof Student)
     this.user.memberOf?.forEach((x)=>{
       this.possibleClasses.push({id:x.id,className:x.className})
     })

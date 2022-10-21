@@ -47,12 +47,12 @@
     <div id="profileText" class="col-auto align-items-center">
       <div class="row justify-self-center profile-text" id="name">
         <div class="col">
-          {{me.firstName}} {{me.lastName}}
+          {{user.firstName}} {{user.lastName}}
         </div>
       </div>
       <div class="row justify-self-center profile-text" id="email">
         <div class="col">
-          {{me.username}}
+          {{user.username}}
         </div>
       </div>
       <div class="row changePassword">
@@ -68,12 +68,6 @@
   <div *ngIf="!teacher">
     <ul>
       <h5>Your Grades</h5>
-      <li *ngFor="let class of me.memberOf">
-        <div *ngIf="class.grade">
-          <div>{{class.className}}</div>
-          <div>{{class.grade}}</div>
-        </div>
-      </li>
     </ul>
   </div>
 </div>

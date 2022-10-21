@@ -34,7 +34,7 @@ export class RegistrationPageComponent implements OnInit {
     this.auth.registration(request).subscribe(
       {
         next: (x) => {
-          this.local.set(TOKEN, x.accesstoken)
+          this.local.set(TOKEN, x.accessToken)
 
         },
         error: (e) => {
