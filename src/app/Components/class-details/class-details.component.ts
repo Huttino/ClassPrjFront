@@ -20,19 +20,7 @@ import { UpdateGradeRequest } from 'src/app/Model/UpdateGradeRequest';
 @Component({
   selector: 'app-class-details',
   templateUrl: './class-details.component.html',
-  styleUrls: ['./class-details.component.css'],
-  animations: [
-    trigger('inOutAnimation', [
-      transition(':enter', [
-        style({ height: 0, opacity: 0 }),
-        animate('300ms ease-out', style({ height: 31, opacity: 1 })),
-      ]),
-      transition(':leave', [
-        style({ height: 31, opacity: 1 }),
-        animate('300ms ease-in', style({ height: 0, opacity: 0 })),
-      ]),
-    ]),
-  ],
+  styleUrls: ['./class-details.component.css']
 })
 export class ClassDetailsComponent implements OnInit {
   public classid: number = 0;

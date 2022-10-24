@@ -17,6 +17,7 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { ClassDetailsComponent } from './Components/class-details/class-details.component';
 import { ClassListComponent } from './Components/class-list/class-list.component';
 import { ChatComponent } from './Components/chat/chat.component';
+import { CardElementComponent } from './Components/card-element/card-element.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ChatComponent } from './Components/chat/chat.component';
     ProfileComponent,
     ClassDetailsComponent,
     ClassListComponent,
-    ChatComponent
+    ChatComponent,
+    CardElementComponent
   ],
   imports: [
     BrowserModule,

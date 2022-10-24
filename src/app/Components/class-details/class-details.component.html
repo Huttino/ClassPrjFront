@@ -89,13 +89,6 @@
       By {{this.class.creator}}
     </h5>
     <button id="results" (click)="openModal(results);PopulateList()" *ngIf="this.class.members?.at(0)?.grade!=null">Results!</button>
-    <div id="lessonList">
-      <ul>
-        <li *ngFor="let lesson of class.lessons">
-          {{lesson.title}}
-        </li>
-      </ul>
-    </div>
     <div id="fileTitle">
       <h6 class="title">Files</h6>
       <div id="fileActions" *ngIf="this.creator">
@@ -107,23 +100,17 @@
       </div>
     </div>
     <div class="wrapper" id="files">
-
-      <ul id="fileList" *ngIf="class.uploadedDocuments!=undefined && class.uploadedDocuments.length>0">
+      <ul class="List" *ngIf="class.uploadedDocuments!=undefined && class.uploadedDocuments.length>0">
         <li *ngFor="let file of class.uploadedDocuments">
-          <div id="buttonSpace">
-            <button *ngIf="modify" [@inOutAnimation] (click)="DeleteFile(file.id,file.title)" class="deleteFile"><i
-                class="fa-solid fa-xmark"></i></button>
-          </div>
-          <a class="card filecard" (click)="download(file.id,file.title)">
-            <div class="CardText">
-              <h6 id="filename">{{file.title}}</h6>
-              Update:{{file.dateOfUpdate.toString().split('T')[0]}}
-              <br>
-              Notes:<div id="noteSpace">{{file.notes}}</div>
-
-            </div>
-            <i class="fa-solid fa-download" id="downloadIcon"></i>
-          </a>
+          <app-card-element
+          [date]="file.dateOfUpdate"
+          [description]="file.notes!"
+          [id]="file.id"
+          [title]="file.title"
+          [modify]="this.modify"
+          [icon]="'fa-solid fa-download'"
+          (onAction)="this.download($event.fileId,$event.fileTitle)"
+          (onDelete)="this.DeleteFile($event.fileId,$event.fileTitle)"></app-card-element>
         </li>
       </ul>
       <div class="message" *ngIf="class.uploadedDocuments==undefined||class.uploadedDocuments.length==0">
@@ -131,6 +118,19 @@
       </div>
     </div>
   </ng-container>
+  <h6 class="title">Lessons</h6>
+  <div id="lessonList" class="wrapper">
+    <ul class="List">
+      <li *ngFor="let lesson of class.lessons">
+        <app-card-element
+        [title]="lesson.title"
+        [date]="lesson.dateOfUpload"
+        [description]="lesson.description"
+        [icon]="'fa-brands fa-youtube'"
+        [modify]="modify"></app-card-element>
+      </li>
+    </ul>
+  </div>
   <button class="action" id="close" *ngIf="creator&&(!class.members || class.members.length<1)"
     (click)="closeClassRoom()">
     Close Class Room

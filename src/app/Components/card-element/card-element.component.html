@@ -1,0 +1,17 @@
+
+  <div id="buttonSpace">
+    <button *ngIf="modify" [@inOutAnimation] (click)="delete()" class="deleteFile">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+  <a class="card elementCard" (click)="action()">
+    <div class="CardText">
+      <h6 id="title">
+        {{title}}
+      </h6>
+      <p id="date">{{date}}</p>
+      <p id="description">{{description}}</p>
+    </div>
+    <i class="{{icon}}" id="downloadIcon"></i>
+  </a>
+
