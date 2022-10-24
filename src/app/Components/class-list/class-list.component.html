@@ -13,8 +13,12 @@
             <h5 id="className">{{class.className}}</h5>
             <p>By: {{class.creator}}</p>
             <p>
-              {{class.members?.length}} members
+              {{class.numberOfMembers}} members
             </p>
+            <p>{{class.numberOfDocuments}} documents</p>
+            <p>{{class.numberOfLessons}} lessons</p>
+            <p *ngIf="class.graded">RESULTS ARE OUT!</p>
+            <p *ngIf="!class.graded">Not Graded yet</p>
           </div>
           <i id="classIcon" class="fa-solid fa-arrow-right-to-bracket"></i>
         </a>

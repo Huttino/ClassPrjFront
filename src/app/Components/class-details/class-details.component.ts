@@ -44,7 +44,6 @@ export class ClassDetailsComponent implements OnInit {
   public creator: boolean = false;
   public member: boolean = false;
   public modify: boolean = false;
-  public graded: boolean = false;
   public newUser: string = '';
   public studentsWithoutGrade: StudentInClass[] = [];
   public selectedStudentId: number = 0;

@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AddStudentRequest } from "../Model/AddStudentRequest";
-import { ClassRoom } from "../Model/ClassRoom";
+import { ClassRoom, ClassRoomStripped } from "../Model/ClassRoom";
 import { RemoveFromCLassRequest } from "../Model/RemoveFromClassRequest";
 import { StudentInClass } from "../Model/StudentInClass";
 import { UpdateGradeRequest } from "../Model/UpdateGradeRequest";
@@ -50,8 +50,8 @@ export class ClassRoomRepository{
       }
     })
   }
-  GetAll(token:string):Observable<ClassRoom[]>{
-    return this.http.get<ClassRoom[]>(this.url,{
+  GetAll(token:string):Observable<ClassRoomStripped[]>{
+    return this.http.get<ClassRoomStripped[]>(this.url,{
       headers:{
         'Authorization':`Bearer ${token}`
       }

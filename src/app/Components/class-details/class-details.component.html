@@ -89,6 +89,13 @@
       By {{this.class.creator}}
     </h5>
     <button id="results" (click)="openModal(results);PopulateList()" *ngIf="this.class.members?.at(0)?.grade!=null">Results!</button>
+    <div id="lessonList">
+      <ul>
+        <li *ngFor="let lesson of class.lessons">
+          {{lesson.title}}
+        </li>
+      </ul>
+    </div>
     <div id="fileTitle">
       <h6 class="title">Files</h6>
       <div id="fileActions" *ngIf="this.creator">

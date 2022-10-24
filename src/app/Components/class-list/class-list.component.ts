@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ClassRoom } from 'src/app/Model/ClassRoom';
+import { ClassRoom, ClassRoomStripped } from 'src/app/Model/ClassRoom';
 import { ClassService } from 'src/app/Service/ClassService/class.service';
 
 @Component({
@@ -10,8 +10,8 @@ import { ClassService } from 'src/app/Service/ClassService/class.service';
 })
 export class ClassListComponent implements OnInit {
   public search:string=""
-  public filteredClasses:ClassRoom[]=[]
-  public allClassRoom:ClassRoom[]=[]
+  public filteredClasses:ClassRoomStripped[]=[]
+  public allClassRoom:ClassRoomStripped[]=[]
   constructor(
     private classSrv:ClassService,
     private router:Router
