@@ -24,7 +24,6 @@
       (click)="modal.close('Upload click');uploadFiles()">Upload</button>
   </div>
 </ng-template>
-
 <ng-template #manage let-modal>
   <div class="modal-header">
     <h5>Add by username</h5>
@@ -120,14 +119,16 @@
   </ng-container>
   <h6 class="title">Lessons</h6>
   <div id="lessonList" class="wrapper">
-    <ul class="List">
+    <ul class="List" *ngIf="class">
       <li *ngFor="let lesson of class.lessons">
         <app-card-element
+        [id]="lesson.Id"
         [title]="lesson.title"
         [date]="lesson.dateOfUpload"
         [description]="lesson.description"
         [icon]="'fa-brands fa-youtube'"
-        [modify]="modify"></app-card-element>
+        [modify]="modify"
+        (onAction)="openLesson($event.fileId,$event.fileTitle)"></app-card-element>
       </li>
     </ul>
   </div>

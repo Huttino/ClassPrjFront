@@ -5,5 +5,6 @@ export class VideoLesson{
     public description:string,
     public dateOfUpload:Date,
     public relatedDocuments:Document[],
+    public youTubeUrl:string
   ){}
 }

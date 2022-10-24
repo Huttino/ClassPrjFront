@@ -4,6 +4,7 @@ import { ChatComponent } from './Components/chat/chat.component';
 import { ClassDetailsComponent } from './Components/class-details/class-details.component';
 import { ClassListComponent } from './Components/class-list/class-list.component';
 import { HomeComponent } from './Components/home/home.component';
+import { LessonPageComponent } from './Components/lesson-page/lesson-page.component';
 import { LoginPageComponent } from './Components/login-page/login-page.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { RegistrationPageComponent } from './Components/registration-page/registration-page.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path:'class/:cod',component:ClassDetailsComponent,outlet:'content',canActivate:[AuthGuard]},
   {path:'classList',component:ClassListComponent,outlet:'content',canActivate:[AuthGuard]},
   {path:'chat',component:ChatComponent,outlet:'content',canActivate:[AuthGuard]},
+  {path:'lesson',component:LessonPageComponent,outlet:'content',canActivate:[AuthGuard]},
   {path:'**',redirectTo:'sidebar',pathMatch:'full'}
 ];
 

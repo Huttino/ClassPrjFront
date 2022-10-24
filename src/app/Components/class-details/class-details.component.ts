@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { Student, Teacher, User } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
@@ -16,6 +16,8 @@ import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';
 import { AddStudentRequest } from 'src/app/Model/AddStudentRequest';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UpdateGradeRequest } from 'src/app/Model/UpdateGradeRequest';
+import { VideoLesson } from 'src/app/Model/VideoLesson';
+import { LocalstorageService } from 'src/app/Service/LocalStorageService/localstorage.service';
 
 @Component({
   selector: 'app-class-details',
@@ -38,6 +40,7 @@ export class ClassDetailsComponent implements OnInit {
   public selectedGrade: number = 0;
   public filter: string = '';
   public studentsToShow: StudentInClass[] = [];
+  public selectedLesson!:VideoLesson
 
   constructor(
     private route: ActivatedRoute,
@@ -46,7 +49,8 @@ export class ClassDetailsComponent implements OnInit {
     private auth: AuthService,
     private modalService: NgbModal,
     private userSrv: UserService,
-    private documentSrv: DocumentService
+    private documentSrv: DocumentService,
+    private local:LocalstorageService
   ) {}
 
   ngOnInit(): void {
@@ -225,6 +229,17 @@ export class ClassDetailsComponent implements OnInit {
           }
         },
       });
+    }
+  }
+  openLesson(fileId:number,fileName:string){
+    const selectedLesson=this.class.lessons?.find(x=>x.Id==fileId)
+    if(selectedLesson){
+      this.local.setObject("currentLesson",selectedLesson)
+      this.router.navigate([{
+        outlets:{
+          content:['lesson']
+        }
+      }])
     }
   }
   DeleteFile(fileId: number, fileName: string) {
