@@ -15,7 +15,7 @@ export class RegistrationPageComponent implements OnInit {
   username: string = ""
   password: string = ""
   firstName: string = ""
-  lastName: String = ""
+  lastName: string = ""
   constructor(
     public auth: AuthService,
     public local: LocalstorageService,

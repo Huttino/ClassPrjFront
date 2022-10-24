@@ -57,7 +57,7 @@ export class AuthService {
 
   getJWTToken():string {
     const token = this.local.get(TOKEN)
-    if (token == null) {
+    if (token == null || token.length<1) {
       this.router.navigate([
         {
           outlets: {
@@ -67,6 +67,6 @@ export class AuthService {
         },
       ]);
     }
-    return token+""
+    return token as string
   }
 }

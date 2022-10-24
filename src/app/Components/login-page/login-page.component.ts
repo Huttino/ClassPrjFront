@@ -13,8 +13,8 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent implements OnInit {
-  password: String = '';
-  username: String = '';
+  password: string = '';
+  username: string = '';
   loggedUser!: Student|Teacher;
   constructor(
     public auth: AuthService,
