@@ -336,6 +336,7 @@ export class ClassDetailsComponent implements OnInit {
             next: x => {
               this.class.lessons?.push(x)
               this.uploadLessonRequest = new uploadVideoLessonRequest("", "", "", [])
+              this.modalService.dismissAll()
             },
             error: e => alert("failed to upload the lesson :" + e.message),
           }
