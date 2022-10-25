@@ -62,20 +62,27 @@
     <h5>Upload Lesson</h5>
   </div>
   <div class="modal-body">
-    <label for="videoUrl">Paste the url of the video</label>
-    <input id="videoUrl" type="text" [(ngModel)]="this.uploadLessonRequest.youTubeUrl">
-    <label for="lessonTitle">Select a title</label>
-    <input type="text" [(ngModel)]="uploadLessonRequest.title">
-    <label for="lessonDescription">Select a description</label>
-    <input type="text" [(ngModel)]="uploadLessonRequest.description">
-    <p>Add documents (if you want to add specific documents first upload them in the class)</p>
-    <div class="" *ngFor="let document of class.uploadedDocuments">
-      <input type="checkbox" (change)="eventCheck($event,document.id)">{{document.title}}
+
+    <label class="labelLessonInput" for="videoUrl">Paste the url of the video</label>
+    <input id="videoUrl" type="text" class="lessonFormInput" [(ngModel)]="this.uploadLessonRequest.youTubeUrl">
+    <label class="labelLessonInput" for="lessonTitle">Select a title</label>
+    <input type="text" class="lessonFormInput" [(ngModel)]="uploadLessonRequest.title">
+    <label class="labelLessonInput" for="lessonDescription">Select a description</label>
+    <input type="text" class="lessonFormInput" [(ngModel)]="uploadLessonRequest.description">
+    <p class="labelLessonInput"> Add documents (if you want to add specific documents first upload them in the class)
+    </p>
+    <div class="documentSelector">
+      <div *ngIf="this.class.uploadedDocuments!.length<1">
+        <b>No documents present in the class</b>
+      </div>
+      <div class="item" *ngFor="let document of class.uploadedDocuments">
+        <input type="checkbox" class="me-2" (change)="eventCheck($event,document.id)">{{document.title}}
+      </div>
     </div>
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('newLessson');this.uploadLesson()">upoload</button>
+    <button type="button" class="btn btn-outline-dark" (click)="this.uploadLesson()">upoload</button>
   </div>
 </ng-template>
 
@@ -152,7 +159,8 @@
       <li *ngFor="let lesson of class.lessons">
         <app-card-element [id]="lesson.id" [title]="lesson.title" [date]="lesson.dateOfUpload"
           [description]="lesson.description" [icon]="'fa-brands fa-youtube'" [modify]="modify"
-          (onAction)="openLesson($event.fileId,$event.fileTitle)" (onDelete)="deleteLesson($event.fileId,$event.fileTitle)"></app-card-element>
+          (onAction)="openLesson($event.fileId,$event.fileTitle)"
+          (onDelete)="deleteLesson($event.fileId,$event.fileTitle)"></app-card-element>
       </li>
     </ul>
   </div>

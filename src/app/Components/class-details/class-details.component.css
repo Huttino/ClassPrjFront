@@ -1,43 +1,43 @@
-.wrapper{
+.wrapper {
   margin-top: 2%;
-  position:relative;
+  position: relative;
   border-radius: 10px;
   margin-right: 2%;
   margin-bottom: 30px;
 }
-#fileinputlabel{
-  border:1px solid black;
+#fileinputlabel {
+  border: 1px solid black;
   border-radius: 10px;
-  padding:10px;
+  padding: 10px;
 }
-form{
+form {
   text-align: center;
 }
-.form{
+.form {
   border-radius: 10px;
   margin-right: 10px;
   margin-left: 20px;
 }
-#results{
+#results {
   display: grid;
 }
 
-h3{
-  padding-top:0;
+h3 {
+  padding-top: 0;
 }
-ul{
+ul {
   list-style-type: none;
-  overflow-x:auto;
+  overflow-x: auto;
   white-space: nowrap;
 }
-.fileTitle{
+.fileTitle {
   display: flex;
   align-content: center;
   padding-top: 10px;
   width: fit-content;
   position: relative;
 }
-ul.List li{
+ul.List li {
   max-height: fit-content;
   text-align: start;
   min-width: 250px;
@@ -46,55 +46,74 @@ ul.List li{
   margin-right: 20px;
   margin-bottom: 20px;
 }
-.title{
+.title {
   padding: 0;
   align-self: center;
 }
 
-.message{
+.message {
   padding-left: 30px;
   padding-bottom: 30px;
 }
 
 ::-webkit-scrollbar {
   width: 20px;
-
 }
-
-.modalList{
+.lessonFormInput {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.labelLessonInput {
+  font-size: 14;
+}
+.modalList {
   min-height: 200px;
   max-height: 200px;
   overflow-y: auto;
 }
-#results{
-  border:1px solid rgba(0, 0, 0, 0.699);
+.documentSelector {
+  min-height: 80px;
+  max-height: 80px;
+  white-space: nowrap;
+  overflow-x: scroll;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(fit-content, fit-content);
+  grid-template-rows: auto auto;
+}
+.item {
+  column-span: 1;
+  margin-right: 15px;
+}
+#results {
+  border: 1px solid rgba(0, 0, 0, 0.699);
   border-radius: 15px;
   background-color: rgb(107, 201, 143);
   margin-left: 20px;
   opacity: 0.7;
   transition: 300ms;
 }
-#results:hover{
+#results:hover {
   opacity: 1;
   transform: scale(1.2);
 }
-#currentMembers{
+#currentMembers {
   overflow-y: scroll;
   white-space: nowrap;
 }
 
-tbody{
+tbody {
   display: block;
   height: 200px;
   overflow: auto;
 }
-tbody tr{
+tbody tr {
   display: table;
   width: 100%;
   table-layout: fixed;
 }
-button.add{
-  border:1px solid rgba(0, 0, 0, 0.699);
+button.add {
+  border: 1px solid rgba(0, 0, 0, 0.699);
   border-radius: 15px;
   background-color: rgb(107, 201, 143);
   width: 35px;
@@ -103,26 +122,26 @@ button.add{
   opacity: 0.7;
   transition: 300ms;
 }
-.manage{
+.manage {
   position: absolute;
   top: 30px;
   right: 2%;
-  border:1px solid rgba(0, 0, 0, 0.699);
+  border: 1px solid rgba(0, 0, 0, 0.699);
   border-radius: 15px;
   background-color: rgb(107, 201, 143);
   margin-left: 20px;
   opacity: 0.7;
   transition: 300ms;
 }
-.manage:hover{
+.manage:hover {
   opacity: 1;
   transform: scale(1.1);
 }
-#manage{
-  top:80px;
+#manage {
+  top: 80px;
 }
-button.delete{
-  border:1px solid rgba(0, 0, 0, 0.699);
+button.delete {
+  border: 1px solid rgba(0, 0, 0, 0.699);
   border-radius: 15px;
   background-color: rgb(255, 0, 0);
   width: 35px;
@@ -131,28 +150,27 @@ button.delete{
   transition: 300ms;
 }
 
-#filename{
+#filename {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-top: 2px;
   margin-bottom: 3px;
 }
-#fileActions{
+#fileActions {
   display: inline-flex;
 }
 
-#notesSpace{
-
+#notesSpace {
   min-height: 200px;
   max-height: 200px;
 }
 
-button.add:hover{
+button.add:hover {
   opacity: 1;
   transform: scale(1.4);
 }
-button.delete:hover{
-  opacity:1;
+button.delete:hover {
+  opacity: 1;
   transform: scale(1.4);
 }
 /* Track */
@@ -163,25 +181,25 @@ button.delete:hover{
   margin-right: 20px;
   visibility: hidden;
 }
-.action{
-  border:1px solid rgba(0, 0, 0, 0.699);
+.action {
+  border: 1px solid rgba(0, 0, 0, 0.699);
   border-radius: 15px;
   width: fit-content;
   margin-left: 20px;
   opacity: 0.7;
   transition: 200ms;
 }
-.action:hover{
+.action:hover {
   opacity: 1;
   transform: scale(1.4);
 }
-.action#join{
+.action#join {
   background-color: rgb(107, 201, 143);
 }
-.action#close{
+.action#close {
   background-color: rgb(255, 0, 0);
 }
-.action#leave{
+.action#leave {
   background-color: rgb(255, 0, 0);
 }
 
@@ -190,10 +208,9 @@ button.delete:hover{
   background: rgb(214, 255, 198);
   border-radius: 10px;
 }
-.modal-header{
+.modal-header {
   text-align: center;
 }
-h4{
+h4 {
   margin: 0;
 }
-

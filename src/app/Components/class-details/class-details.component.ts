@@ -322,24 +322,24 @@ export class ClassDetailsComponent implements OnInit {
     this.studentsToShow = this.class.members!;
   }
   uploadLesson() {
+
     this.uploadLessonRequest.documentsAttached
     if (this.creator) {
-      if(this.uploadLessonRequest.youTubeUrl.includes('='))
-        {
-          const url=this.uploadLessonRequest.youTubeUrl.split('=')[1]
-          this.uploadLessonRequest.youTubeUrl=url
-        }
-      if(!this.uploadLessonRequest.youTubeUrl.includes('.'))
+      if (this.uploadLessonRequest.youTubeUrl.includes('=')) {
+        const url = this.uploadLessonRequest.youTubeUrl.split('=')[1]
+        this.uploadLessonRequest.youTubeUrl = url
+      }
+      if (!this.uploadLessonRequest.youTubeUrl.includes('.'))
 
-      this.videoLessonSrv.postLesson(this.uploadLessonRequest, this.classid).subscribe(
-        {
-          next: x => {
-            this.class.lessons?.push(x)
-            this.uploadLessonRequest = new uploadVideoLessonRequest("", "", "", [])
-          },
-          error: e => alert("failed to upload the lesson :" + e.message),
-        }
-      )
+        this.videoLessonSrv.postLesson(this.uploadLessonRequest, this.classid).subscribe(
+          {
+            next: x => {
+              this.class.lessons?.push(x)
+              this.uploadLessonRequest = new uploadVideoLessonRequest("", "", "", [])
+            },
+            error: e => alert("failed to upload the lesson :" + e.message),
+          }
+        )
       else alert("invalid Url")
     }
   }
@@ -352,14 +352,14 @@ export class ClassDetailsComponent implements OnInit {
     }
   }
 
-  deleteLesson(lessonId: number, lessonName: string){
-    if(confirm("are you sure you want to remove "+lessonName+" ?"))
-      this.videoLessonSrv.deleteLesson(this.classid,lessonId).subscribe({
-        next:()=>{
-          this.class.lessons=this.class.lessons?.filter(x=>x.id!=lessonId)
+  deleteLesson(lessonId: number, lessonName: string) {
+    if (confirm("are you sure you want to remove " + lessonName + " ?"))
+      this.videoLessonSrv.deleteLesson(this.classid, lessonId).subscribe({
+        next: () => {
+          this.class.lessons = this.class.lessons?.filter(x => x.id != lessonId)
         },
-        error:(e)=>{
-          alert("error in removing lesson: "+e.message)
+        error: (e) => {
+          alert("error in removing lesson: " + e.message)
         }
       })
   }
