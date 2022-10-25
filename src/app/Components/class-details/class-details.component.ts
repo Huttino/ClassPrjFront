@@ -322,7 +322,10 @@ export class ClassDetailsComponent implements OnInit {
     this.studentsToShow = this.class.members!;
   }
   uploadLesson() {
-
+    if (!this.checkNewLesson()) {
+      alert("fields are missing")
+      return
+    }
     this.uploadLessonRequest.documentsAttached
     if (this.creator) {
       if (this.uploadLessonRequest.youTubeUrl.includes('=')) {
@@ -363,5 +366,10 @@ export class ClassDetailsComponent implements OnInit {
           alert("error in removing lesson: " + e.message)
         }
       })
+  }
+
+  checkNewLesson() {
+    return (this.uploadLessonRequest.youTubeUrl != "" &&
+      this.uploadLessonRequest.title != "")
   }
 }
