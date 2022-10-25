@@ -15,14 +15,14 @@ import { UserService } from 'src/app/Service/UserService/user.service';
 export class LoginPageComponent implements OnInit {
   password: string = '';
   username: string = '';
-  loggedUser!: Student|Teacher;
+  loggedUser!: Student | Teacher;
   constructor(
     public auth: AuthService,
     public local: LocalstorageService,
     public router: Router,
     public userService: UserService,
     public activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.auth.logout();
@@ -31,31 +31,32 @@ export class LoginPageComponent implements OnInit {
   login() {
     let request = new UserLogInRequest(this.username, this.password);
     this.auth.login(request).subscribe({
-      next:(x) => {
+      next: (x) => {
         this.local.set(TOKEN, x.accessToken)
       },
-      error:(e) => {
-          alert('Bad Credentials')
+      error: (e) => {
+        alert('Bad Credentials')
 
-      },complete:()=>{
+      }, complete: () => {
         this.userService.getMe().subscribe({
-          next:(y) => {
-          this.local.setObject(LOGGED_USER, y as User);
-        },
-        error:()=>{},
-        complete:()=>{
-          this.router.navigate([
-            {
-              outlets: {
-                primary: ['sidebar'],
-                content: ['home'],
+          next: (y) => {
+            this.local.setObject(LOGGED_USER, y as User);
+          },
+          error: () => { },
+          complete: () => {
+            this.router.navigate([
+              {
+                outlets: {
+                  primary: ['sidebar'],
+                  content: ['home'],
+                }
               }
-            }
-          ]);
-        }
-      });
+            ]);
+          }
+        });
 
-      }}
+      }
+    }
     );
   }
 }

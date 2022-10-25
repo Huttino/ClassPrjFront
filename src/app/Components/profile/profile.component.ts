@@ -13,11 +13,11 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-[x: string]: any;
-  public user!:Student|Teacher
-  public teacher=false;
-  public choice!:number
-  public images=[
+  [x: string]: any;
+  public user!: Student | Teacher
+  public teacher = false;
+  public choice!: number
+  public images = [
     ('../../../assets/506134.png'),
     ('../../../assets/2922506.png'),
     ('../../../assets/2995620.png'),
@@ -28,86 +28,86 @@ export class ProfileComponent implements OnInit {
     ('../../../assets/4892710.png'),
     ('../../../assets/4892749.png')
   ]
-  public newUsername:string=""
-  public newFirstName:string=""
-  public newLastName:string=""
-  public oldPassword:string=""
-  public newPassword:string=""
-  public confirmNewPassword=""
+  public newUsername: string = ""
+  public newFirstName: string = ""
+  public newLastName: string = ""
+  public oldPassword: string = ""
+  public newPassword: string = ""
+  public confirmNewPassword = ""
   constructor(
-    public auth:AuthService,
+    public auth: AuthService,
     public modalService: NgbModal,
-    public userService:UserService,
-    public router:Router
+    public userService: UserService,
+    public router: Router
   ) {
 
-   }
+  }
 
   ngOnInit(): void {
     this.auth.loggedUser().subscribe(
-      x=>{
-      if(x.authority==="STUDENT")
-        this.user=new Student(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Student).memberOf)
-      else(this.user=new Teacher(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Teacher).hasCreated))
+      x => {
+        if (x.authority === "STUDENT")
+          this.user = new Student(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Student).memberOf)
+        else (this.user = new Teacher(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Teacher).hasCreated))
       }
     )
     console.log(this.user)
-    if(this.user instanceof Teacher){
-      this.teacher=true
+    if (this.user instanceof Teacher) {
+      this.teacher = true
     }
-    this.choice=Math.floor(Math.random()*8)
-    let image:any=document.getElementById("image")
-    image.src=this.images[this.choice]
+    this.choice = Math.floor(Math.random() * 8)
+    let image: any = document.getElementById("image")
+    image.src = this.images[this.choice]
   }
-  OpenUpdateProfile(content:any){
-    this.newUsername=this.user.username
-    this.newFirstName=this.user.firstName
-    this.newLastName=this.user.lastName
-    this.modalService.open(content,{centered:true})
+  OpenUpdateProfile(content: any) {
+    this.newUsername = this.user.username
+    this.newFirstName = this.user.firstName
+    this.newLastName = this.user.lastName
+    this.modalService.open(content, { centered: true })
   }
-  OpenUpdatePassword(passwordUpdate:any){
-    this.modalService.open(passwordUpdate,{centered:true})
+  OpenUpdatePassword(passwordUpdate: any) {
+    this.modalService.open(passwordUpdate, { centered: true })
   }
-  updateUser(){
-    this.userService.updateMe(new UserUpdateRequest(this.newUsername,this.newFirstName,this.newLastName)).subscribe({
-      next:()=>{
+  updateUser() {
+    this.userService.updateMe(new UserUpdateRequest(this.newUsername, this.newFirstName, this.newLastName)).subscribe({
+      next: () => {
         alert("Update Completed")
-        this.userService.getMe().subscribe(x=>{
+        this.userService.getMe().subscribe(x => {
           this.auth.updateLocalUser(x)
-          this.user=x
+          this.user = x
         })
         this.modalService.dismissAll()
       },
-      error:(e)=>{
+      error: (e) => {
         alert("error in uploading the user")
       }
     })
   }
-  updatePassword(){
-    if(this.newPassword!==this.confirmNewPassword){
+  updatePassword() {
+    if (this.newPassword !== this.confirmNewPassword) {
       alert("new password don't match")
     }
-    else{
-      this.userService.updatePassword(new PasswordUpdateRequest(this.oldPassword,this.newPassword,this.confirmNewPassword))
-      .subscribe({
-        next:()=>{
-          alert("Update Completed,Pleas Sign in with the new Credentials")
-          this.router.navigate([
-            {
-              outlets:{
-                primary:['login'],
-                content:[]
+    else {
+      this.userService.updatePassword(new PasswordUpdateRequest(this.oldPassword, this.newPassword, this.confirmNewPassword))
+        .subscribe({
+          next: () => {
+            alert("Update Completed,Pleas Sign in with the new Credentials")
+            this.router.navigate([
+              {
+                outlets: {
+                  primary: ['login'],
+                  content: []
+                }
               }
-            }
-          ])
-          this.modalService.dismissAll()
-        },
-        error:(e)=>{
-          if(e.status==400)
-            alert("wrong old password")
-          else alert("wrong in the service")
-        }
-      })
+            ])
+            this.modalService.dismissAll()
+          },
+          error: (e) => {
+            if (e.status == 400)
+              alert("wrong old password")
+            else alert("wrong in the service")
+          }
+        })
     }
   }
 }
