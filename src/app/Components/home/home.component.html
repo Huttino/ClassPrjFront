@@ -1,13 +1,13 @@
 <div class="content">
   <h3>Your HomePage</h3>
-  <ng-container *ngIf="this.user.authorities[0]=='TEACHER'">
+  <ng-container *ngIf="this.user.authority==='TEACHER'">
     <label for="NewClassName" class="label">Create New Class</label><br>
     <input type="text" id="NewClassName" [(ngModel)]="this.newClassName">
     <button (click)="this.createClass()">+</button><br>
     <label for="classCreated">Your Classes</label>
     <div class="wrapper" id="classCreated">
-      <ul>
-        <li *ngFor="let class of user.hasCreated">
+      <ul *ngIf="this.myClasses">
+        <li  *ngFor="let class of myClasses">
           <a class="card" (click)="classNavigate(class.id)">
             <div class="CardText">
               <h6>{{class.className}}</h6>

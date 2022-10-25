@@ -1,8 +1,8 @@
-export class userDetail{
+export class UserDetail{
   constructor(
     public id:number,
     public username:string,
-    public authorities:string[]
+    public authority:string
 
   )
   {

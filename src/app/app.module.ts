@@ -16,6 +16,10 @@ import { RouterLink } from '@angular/router';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { ClassDetailsComponent } from './Components/class-details/class-details.component';
 import { ClassListComponent } from './Components/class-list/class-list.component';
+import { ChatComponent } from './Components/chat/chat.component';
+import { CardElementComponent } from './Components/card-element/card-element.component';
+import { LessonPageComponent } from './Components/lesson-page/lesson-page.component';
+import { YouTubePlayer, YouTubePlayerModule } from '@angular/youtube-player';
 
 
 @NgModule({
@@ -27,7 +31,10 @@ import { ClassListComponent } from './Components/class-list/class-list.component
     SideBarComponent,
     ProfileComponent,
     ClassDetailsComponent,
-    ClassListComponent
+    ClassListComponent,
+    ChatComponent,
+    CardElementComponent,
+    LessonPageComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +42,8 @@ import { ClassListComponent } from './Components/class-list/class-list.component
     NgbModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    YouTubePlayerModule
   ],
   providers: [RouterLink,{provide:JWT_OPTIONS,useValue:JWT_OPTIONS},JwtHelperService],
   bootstrap: [AppComponent]

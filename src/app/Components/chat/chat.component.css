@@ -1,0 +1,42 @@
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0%;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+}
+li{
+  max-height: fit-content;
+  text-align: start;
+  min-width: 200px;
+  max-width: 200px;
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+a{
+  min-height: 100px;
+  max-height: 100px;
+
+}
+#chatBar{
+  width: 100%;
+}
+div#chatBar button{
+  border: 1px solid green;
+  border-radius: 0px 15px 15px 0px;
+
+}
+div#chatBar input{
+  width: 80%;
+  border-radius:15px 0px 0px 15px;
+}
+aside{
+  width: 80%;
+  position: absolute;
+  justify-content: center;
+
+  bottom: 5%;
+}

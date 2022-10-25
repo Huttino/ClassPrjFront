@@ -13,21 +13,15 @@
 form{
   text-align: center;
 }
+.form{
+  border-radius: 10px;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+#results{
+  display: grid;
+}
 
-#buttonSpace{
-  min-height: 35px;
-  max-height: 35px;
-  position: relative;
-}
-button.deleteFile {
-  border:1px solid rgb(255, 0, 0);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  width: 40px;
-  background-color: red;
-  top:10px;
-  position: absolute;
-}
 h3{
   padding-top:0;
 }
@@ -36,14 +30,14 @@ ul{
   overflow-x:auto;
   white-space: nowrap;
 }
-#fileTitle{
+.fileTitle{
   display: flex;
   align-content: center;
   padding-top: 10px;
   width: fit-content;
   position: relative;
 }
-ul#fileList li{
+ul.List li{
   max-height: fit-content;
   text-align: start;
   min-width: 250px;
@@ -52,29 +46,9 @@ ul#fileList li{
   margin-right: 20px;
   margin-bottom: 20px;
 }
-.CardText{
-  margin-left: 10px;
-  height: fit-content;
-}
 .title{
   padding: 0;
   align-self: center;
-}
-
-a{
-  text-decoration: none;
-  color: black;
-  transition: 300ms;
-  min-height: 200px;
-  max-height: 200px;
-
-}
-
-a:hover{
-  transform: scale(1.1);
-}
-a:hover #downloadIcon{
-  opacity: 1;
 }
 
 .message{
@@ -87,10 +61,37 @@ a:hover #downloadIcon{
 
 }
 
-#filetoupload{
+.modalList{
   min-height: 200px;
   max-height: 200px;
   overflow-y: auto;
+}
+#results{
+  border:1px solid rgba(0, 0, 0, 0.699);
+  border-radius: 15px;
+  background-color: rgb(107, 201, 143);
+  margin-left: 20px;
+  opacity: 0.7;
+  transition: 300ms;
+}
+#results:hover{
+  opacity: 1;
+  transform: scale(1.2);
+}
+#currentMembers{
+  overflow-y: scroll;
+  white-space: nowrap;
+}
+
+tbody{
+  display: block;
+  height: 200px;
+  overflow: auto;
+}
+tbody tr{
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 button.add{
   border:1px solid rgba(0, 0, 0, 0.699);
@@ -101,6 +102,24 @@ button.add{
 
   opacity: 0.7;
   transition: 300ms;
+}
+.manage{
+  position: absolute;
+  top: 30px;
+  right: 2%;
+  border:1px solid rgba(0, 0, 0, 0.699);
+  border-radius: 15px;
+  background-color: rgb(107, 201, 143);
+  margin-left: 20px;
+  opacity: 0.7;
+  transition: 300ms;
+}
+.manage:hover{
+  opacity: 1;
+  transform: scale(1.1);
+}
+#manage{
+  top:80px;
 }
 button.delete{
   border:1px solid rgba(0, 0, 0, 0.699);
@@ -135,13 +154,6 @@ button.add:hover{
 button.delete:hover{
   opacity:1;
   transform: scale(1.4);
-}
-#downloadIcon{
- opacity: 0;
- transition: 300ms;
- bottom:20px;
- left: 20px;
- position: absolute;
 }
 /* Track */
 ::-webkit-scrollbar-track {
@@ -178,3 +190,10 @@ button.delete:hover{
   background: rgb(214, 255, 198);
   border-radius: 10px;
 }
+.modal-header{
+  text-align: center;
+}
+h4{
+  margin: 0;
+}
+

@@ -6,3 +6,28 @@
   font-size: larger;
 
 }
+.formUpdate{
+  display: grid;
+}
+label{
+  font-size: larger;
+}
+input{
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+#updateP{
+  border: 0;
+  background-color: white;
+  transition: 400ms;
+}
+#updateP:hover{
+  transform: translateY(-2px);
+}
+.changePassword{
+  position: relative;
+  top: 30px;
+}
+
+
+

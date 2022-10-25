@@ -15,7 +15,7 @@ export class RegistrationPageComponent implements OnInit {
   username: string = ""
   password: string = ""
   firstName: string = ""
-  lastName: String = ""
+  lastName: string = ""
   constructor(
     public auth: AuthService,
     public local: LocalstorageService,
@@ -34,11 +34,11 @@ export class RegistrationPageComponent implements OnInit {
     this.auth.registration(request).subscribe(
       {
         next: (x) => {
-          this.local.set(TOKEN, x.accesstoken)
+          this.local.set(TOKEN, x.accessToken)
 
         },
         error: (e) => {
-          alert(e.getMessage)
+          alert("Error in registration : check all the fields")
         },
         complete: () => {
           this.userService.getMe().subscribe(
