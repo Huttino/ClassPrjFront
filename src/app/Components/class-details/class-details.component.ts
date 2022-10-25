@@ -1,23 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { Student, Teacher, User } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { ClassService } from 'src/app/Service/ClassService/class.service';
-import { NgbModal, NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentService } from 'src/app/Service/DocumentService/document.service';
 import { UploadDocumentWithData } from 'src/app/Model/UploadDocumentWithData';
 import { saveAs } from 'file-saver';
 import { UserService } from 'src/app/Service/UserService/user.service';
 import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { StudentInClass } from 'src/app/Model/StudentInClass';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';
 import { AddStudentRequest } from 'src/app/Model/AddStudentRequest';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UpdateGradeRequest } from 'src/app/Model/UpdateGradeRequest';
 import { VideoLesson } from 'src/app/Model/VideoLesson';
 import { LocalstorageService } from 'src/app/Service/LocalStorageService/localstorage.service';
+import { uploadVideoLessonRequest } from 'src/app/Model/uploadVideoLessonRequest';
+import { VideoLessonService } from 'src/app/Service/VideoLessonService/video-lesson.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-class-details',
@@ -40,7 +42,8 @@ export class ClassDetailsComponent implements OnInit {
   public selectedGrade: number = 0;
   public filter: string = '';
   public studentsToShow: StudentInClass[] = [];
-  public selectedLesson!:VideoLesson
+  public selectedLesson!: VideoLesson
+  public uploadLessonRequest = new uploadVideoLessonRequest("", "", "", [])
 
   constructor(
     private route: ActivatedRoute,
@@ -50,8 +53,9 @@ export class ClassDetailsComponent implements OnInit {
     private modalService: NgbModal,
     private userSrv: UserService,
     private documentSrv: DocumentService,
-    private local:LocalstorageService
-  ) {}
+    private local: LocalstorageService,
+    private videoLessonSrv: VideoLessonService
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -75,10 +79,10 @@ export class ClassDetailsComponent implements OnInit {
 
         complete: () => {
           this.auth.loggedUser().subscribe(
-            x=>{
-            if(x.authority==="STUDENT")
-              this.user=new Student(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Student).memberOf)
-            else(this.user=new Teacher(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Teacher).hasCreated))
+            x => {
+              if (x.authority === "STUDENT")
+                this.user = new Student(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Student).memberOf)
+              else (this.user = new Teacher(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Teacher).hasCreated))
             }
           )
 
@@ -231,15 +235,18 @@ export class ClassDetailsComponent implements OnInit {
       });
     }
   }
-  openLesson(fileId:number,fileName:string){
-    const selectedLesson=this.class.lessons?.find(x=>x.Id==fileId)
-    if(selectedLesson){
-      this.local.setObject("currentLesson",selectedLesson)
-      this.router.navigate([{
-        outlets:{
-          content:['lesson']
-        }
-      }])
+  openLesson(fileId: number, fileName: string) {
+    if (this.creator || this.member) {
+      console.log(fileId)
+      const selectedLesson = this.class.lessons?.find(x => x.id === fileId)
+      if (selectedLesson) {
+        this.local.setObject("currentLesson", selectedLesson)
+        this.router.navigate([{
+          outlets: {
+            content: ['lesson']
+          }
+        }])
+      }
     }
   }
   DeleteFile(fileId: number, fileName: string) {
@@ -270,7 +277,7 @@ export class ClassDetailsComponent implements OnInit {
         error: () => {
           alert("Couldn't remove the student");
         },
-        complete: () => {},
+        complete: () => { },
       });
     }
   }
@@ -313,5 +320,35 @@ export class ClassDetailsComponent implements OnInit {
   }
   PopulateList() {
     this.studentsToShow = this.class.members!;
+  }
+  uploadLesson() {
+    this.uploadLessonRequest.documentsAttached
+    if (this.creator) {
+      if(this.uploadLessonRequest.youTubeUrl.includes('='))
+        {
+          const url=this.uploadLessonRequest.youTubeUrl.split('=')[1]
+          this.uploadLessonRequest.youTubeUrl=url
+        }
+      if(!this.uploadLessonRequest.youTubeUrl.includes('.'))
+
+      this.videoLessonSrv.postLesson(this.uploadLessonRequest, this.classid).subscribe(
+        {
+          next: x => {
+            this.class.lessons?.push(x)
+            this.uploadLessonRequest = new uploadVideoLessonRequest("", "", "", [])
+          },
+          error: e => alert("failed to upload the lesson :" + e.message),
+        }
+      )
+      else alert("invalid Url")
+    }
+  }
+  eventCheck(event: Event, documentId: number) {
+    if ((event.target as HTMLInputElement).checked) {
+      this.uploadLessonRequest.documentsAttached.push(documentId)
+    }
+    else {
+      this.uploadLessonRequest.documentsAttached.splice(this.uploadLessonRequest.documentsAttached.indexOf(documentId), 1)
+    }
   }
 }

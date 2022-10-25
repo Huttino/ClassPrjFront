@@ -30,7 +30,7 @@ ul{
   overflow-x:auto;
   white-space: nowrap;
 }
-#fileTitle{
+.fileTitle{
   display: flex;
   align-content: center;
   padding-top: 10px;

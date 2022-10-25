@@ -1,4 +1,24 @@
 <div class="content">
+  <h4>{{this.selectedLesson.title}} of {{this.selectedLesson.dateOfUpload.toString().split("T")[0]}}</h4>
+  <p>{{this.selectedLesson.description}}</p>
   <youtube-player [videoId]="this.selectedLesson.youTubeUrl"></youtube-player>
+  <h6 class="mt-4">Related Documents</h6>
+  <div class="wrapper" id="files">
+    <ul class="List" *ngIf="selectedLesson.relatedDocuments">
+      <li *ngFor="let file of selectedLesson.relatedDocuments">
+        <app-card-element
+        [date]="file.dateOfUpdate"
+        [description]="file.notes!"
+        [id]="file.id"
+        [title]="file.title"
+        [icon]="'fa-solid fa-download'"
+        (onAction)="this.download($event.fileId,$event.fileTitle)"
+        ></app-card-element>
+      </li>
+    </ul>
+    <div class="message" *ngIf="selectedLesson.relatedDocuments==undefined||selectedLesson.relatedDocuments.length==0">
+      No Files to show
+    </div>
+  </div>
 </div>
 

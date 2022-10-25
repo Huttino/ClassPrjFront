@@ -24,6 +24,7 @@
       (click)="modal.close('Upload click');uploadFiles()">Upload</button>
   </div>
 </ng-template>
+
 <ng-template #manage let-modal>
   <div class="modal-header">
     <h5>Add by username</h5>
@@ -56,11 +57,34 @@
   </div>
 </ng-template>
 
+<ng-template #newLesson let-modal>
+  <div class="modal-header">
+    <h5>Upload Lesson</h5>
+  </div>
+  <div class="modal-body">
+    <label for="videoUrl">Paste the url of the video</label>
+    <input id="videoUrl" type="text" [(ngModel)]="this.uploadLessonRequest.youTubeUrl">
+    <label for="lessonTitle">Select a title</label>
+    <input type="text" [(ngModel)]="uploadLessonRequest.title">
+    <label for="lessonDescription">Select a description</label>
+    <input type="text" [(ngModel)]="uploadLessonRequest.description">
+    <p>Add documents (if you want to add specific documents first upload them in the class)</p>
+    <div class="" *ngFor="let document of class.uploadedDocuments">
+      <input type="checkbox" (change)="eventCheck($event,document.id)">{{document.title}}
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('newLessson');this.uploadLesson()">upoload</button>
+  </div>
+</ng-template>
+
 <ng-template #results let-modal>
   <div class="modal-header">
     <h5>Results</h5>
     <div style="display:wrap">
-      <input [(ngModel)]="filter" (input)="changeFilter()" class="form" type="text"><i class="fa-solid fa-magnifying-glass"></i>
+      <input [(ngModel)]="filter" (input)="changeFilter()" class="form" type="text"><i
+        class="fa-solid fa-magnifying-glass"></i>
     </div>
   </div>
   <div class="modal-body">
@@ -87,8 +111,9 @@
     <h5>
       By {{this.class.creator}}
     </h5>
-    <button id="results" (click)="openModal(results);PopulateList()" *ngIf="this.class.members?.at(0)?.grade!=null">Results!</button>
-    <div id="fileTitle">
+    <button id="results" (click)="openModal(results);PopulateList()"
+      *ngIf="this.class.members?.at(0)?.grade!=null">Results!</button>
+    <div class="fileTitle">
       <h6 class="title">Files</h6>
       <div id="fileActions" *ngIf="this.creator">
         <button class="add" (click)="openModal(content);this.modify=false"><i class="fa-solid fa-plus"></i></button>
@@ -101,15 +126,10 @@
     <div class="wrapper" id="files">
       <ul class="List" *ngIf="class.uploadedDocuments!=undefined && class.uploadedDocuments.length>0">
         <li *ngFor="let file of class.uploadedDocuments">
-          <app-card-element
-          [date]="file.dateOfUpdate"
-          [description]="file.notes!"
-          [id]="file.id"
-          [title]="file.title"
-          [modify]="this.modify"
-          [icon]="'fa-solid fa-download'"
-          (onAction)="this.download($event.fileId,$event.fileTitle)"
-          (onDelete)="this.DeleteFile($event.fileId,$event.fileTitle)"></app-card-element>
+          <app-card-element [date]="file.dateOfUpdate" [description]="file.notes!" [id]="file.id" [title]="file.title"
+            [modify]="this.modify" [icon]="'fa-solid fa-download'"
+            (onAction)="this.download($event.fileId,$event.fileTitle)"
+            (onDelete)="this.DeleteFile($event.fileId,$event.fileTitle)"></app-card-element>
         </li>
       </ul>
       <div class="message" *ngIf="class.uploadedDocuments==undefined||class.uploadedDocuments.length==0">
@@ -117,18 +137,22 @@
       </div>
     </div>
   </ng-container>
-  <h6 class="title">Lessons</h6>
+  <div class="fileTitle">
+    <h6 class="title">Lessons</h6>
+    <div id="fileActions" *ngIf="this.creator">
+      <button class="add" (click)="openModal(newLesson);this.modify=false"><i class="fa-solid fa-plus"></i></button>
+      <div id="actionDelete" *ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0">
+        <button *ngIf="!modify" class="delete" (click)="Mode()"><i class="fa-solid fa-trash"></i></button>
+        <button *ngIf="modify" class="add" (click)="Mode()"><i class="fa-solid fa-check"></i></button>
+      </div>
+    </div>
+  </div>
   <div id="lessonList" class="wrapper">
     <ul class="List" *ngIf="class">
       <li *ngFor="let lesson of class.lessons">
-        <app-card-element
-        [id]="lesson.Id"
-        [title]="lesson.title"
-        [date]="lesson.dateOfUpload"
-        [description]="lesson.description"
-        [icon]="'fa-brands fa-youtube'"
-        [modify]="modify"
-        (onAction)="openLesson($event.fileId,$event.fileTitle)"></app-card-element>
+        <app-card-element [id]="lesson.id" [title]="lesson.title" [date]="lesson.dateOfUpload"
+          [description]="lesson.description" [icon]="'fa-brands fa-youtube'" [modify]="modify"
+          (onAction)="openLesson($event.fileId,$event.fileTitle)"></app-card-element>
       </li>
     </ul>
   </div>

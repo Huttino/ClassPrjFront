@@ -6,6 +6,8 @@ import { ClassRoom, ClassRoomStripped } from "../Model/ClassRoom";
 import { RemoveFromCLassRequest } from "../Model/RemoveFromClassRequest";
 import { StudentInClass } from "../Model/StudentInClass";
 import { UpdateGradeRequest } from "../Model/UpdateGradeRequest";
+import { uploadVideoLessonRequest } from "../Model/uploadVideoLessonRequest";
+import { VideoLesson } from "../Model/VideoLesson";
 
 @Injectable({providedIn: 'root'})
 export class ClassRoomRepository{
@@ -57,7 +59,7 @@ export class ClassRoomRepository{
       }
     })
   }
-  AddUser(request:AddStudentRequest,token:String):Observable<StudentInClass>{
+  AddUser(request:AddStudentRequest,token:string):Observable<StudentInClass>{
     return this.http.put<StudentInClass>(this.url,request,{
       headers:{
         'Content-Type':'application/json',
@@ -65,7 +67,7 @@ export class ClassRoomRepository{
       }
     })
   }
-  GetMy(myId:number,token:String):Observable<ClassRoom[]> {
+  GetMy(myId:number,token:string):Observable<ClassRoom[]> {
     return this.http.get<ClassRoom[]>(this.url+"creator/"+myId,{
       headers:{
         'Content-Type':'application/json',
@@ -73,8 +75,16 @@ export class ClassRoomRepository{
       }
     })
   }
-  assignGrade(classId:number,token:String,request:UpdateGradeRequest){
+  assignGrade(classId:number,token:string,request:UpdateGradeRequest){
     return this.http.patch(this.url+classId,request,{
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${token}`
+      }
+    })
+  }
+  addLesson(classId:number,token:string,request:uploadVideoLessonRequest):Observable<VideoLesson>{
+    return this.http.post<VideoLesson>(this.url+classId+'/lesson',request,{
       headers:{
         'Content-Type':'application/json',
         'Authorization':`Bearer ${token}`

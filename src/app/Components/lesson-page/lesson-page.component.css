@@ -1,0 +1,21 @@
+.wrapper{
+  margin-top: 2%;
+  position:relative;
+  border-radius: 10px;
+  margin-right: 2%;
+  margin-bottom: 30px;
+}
+ul.List li{
+  max-height: fit-content;
+  text-align: start;
+  min-width: 250px;
+  max-width: 250px;
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+ul{
+  list-style-type: none;
+  overflow-x:auto;
+  white-space: nowrap;
+}
