@@ -91,4 +91,11 @@ export class ClassRoomRepository{
       }
     })
   }
+  removeLesson(classId:number,token:string,lessonId:number){
+    return this.http.delete(this.url+classId+'/lesson/'+lessonId,{
+      headers:{
+        'Authorization':`Bearer ${token}`
+      }
+    })
+  }
 }

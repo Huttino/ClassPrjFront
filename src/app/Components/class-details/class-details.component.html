@@ -152,7 +152,7 @@
       <li *ngFor="let lesson of class.lessons">
         <app-card-element [id]="lesson.id" [title]="lesson.title" [date]="lesson.dateOfUpload"
           [description]="lesson.description" [icon]="'fa-brands fa-youtube'" [modify]="modify"
-          (onAction)="openLesson($event.fileId,$event.fileTitle)"></app-card-element>
+          (onAction)="openLesson($event.fileId,$event.fileTitle)" (onDelete)="deleteLesson($event.fileId,$event.fileTitle)"></app-card-element>
       </li>
     </ul>
   </div>

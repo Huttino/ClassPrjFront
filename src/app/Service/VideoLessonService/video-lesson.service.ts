@@ -16,4 +16,8 @@ export class VideoLessonService {
   postLesson(request:uploadVideoLessonRequest,classId:number){
     return this.classRoomRepo.addLesson(classId,this.auth.getJWTToken(),request)
   }
+
+  deleteLesson(classId:number,lessonId:number){
+    return this.classRoomRepo.removeLesson(classId,this.auth.getJWTToken(),lessonId)
+  }
 }

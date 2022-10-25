@@ -351,4 +351,16 @@ export class ClassDetailsComponent implements OnInit {
       this.uploadLessonRequest.documentsAttached.splice(this.uploadLessonRequest.documentsAttached.indexOf(documentId), 1)
     }
   }
+
+  deleteLesson(lessonId: number, lessonName: string){
+    if(confirm("are you sure you want to remove "+lessonName+" ?"))
+      this.videoLessonSrv.deleteLesson(this.classid,lessonId).subscribe({
+        next:()=>{
+          this.class.lessons=this.class.lessons?.filter(x=>x.id!=lessonId)
+        },
+        error:(e)=>{
+          alert("error in removing lesson: "+e.message)
+        }
+      })
+  }
 }
