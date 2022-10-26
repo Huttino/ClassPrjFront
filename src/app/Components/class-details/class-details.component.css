@@ -19,9 +19,6 @@ form {
   margin-right: 10px;
   margin-left: 20px;
 }
-#results {
-  display: grid;
-}
 
 h3 {
   padding-top: 0;
@@ -36,10 +33,9 @@ ul {
   align-content: center;
   padding-top: 10px;
   width: fit-content;
-  position: relative;
 }
 #classCover {
-  position: fixed;
+  position: absolute;
   right: 10vh;
   width: 150px;
   height: 150px;
@@ -61,6 +57,7 @@ ul.List li {
 }
 .title {
   padding: 0;
+  margin: 0;
   align-self: center;
 }
 
@@ -98,17 +95,32 @@ ul.List li {
   column-span: 1;
   margin-right: 15px;
 }
-#results {
-  border: 1px solid rgba(0, 0, 0, 0.699);
-  border-radius: 15px;
+.gradeActions button {
+  border: 0px;
+  border-radius: 1vh;
   background-color: rgb(107, 201, 143);
-  margin-left: 20px;
-  opacity: 0.7;
-  transition: 300ms;
+  padding: 1vh 1vh 1vh 1vh;
+  margin: 0;
+  opacity: 0.6;
+  transition: 500ms;
 }
-#results:hover {
+.gradeActions button:hover {
   opacity: 1;
-  transform: scale(1.2);
+}
+button#left {
+  border-radius: 2vh 0 0 2vh;
+}
+button#right {
+  border-radius: 0 2vh 2vh 0;
+}
+button:hover {
+  opacity: 1;
+}
+.title {
+  background-color: rgb(107, 201, 143);
+  padding: 2vh;
+  border: 0;
+  border-radius: 2vh 0 0 2vh;
 }
 #currentMembers {
   overflow-y: scroll;
@@ -126,14 +138,15 @@ tbody tr {
   table-layout: fixed;
 }
 button.add {
-  border: 1px solid rgba(0, 0, 0, 0.699);
-  border-radius: 15px;
+  border: 0px;
+  border-radius: 0;
   background-color: rgb(107, 201, 143);
   width: 35px;
-  margin-left: 20px;
-
   opacity: 0.7;
-  transition: 300ms;
+  transition: 500ms;
+}
+button.add.right {
+  border-radius: 0 2vh 2vh 0;
 }
 .manage {
   position: absolute;
@@ -154,13 +167,12 @@ button.add {
   top: 80px;
 }
 button.delete {
-  border: 1px solid rgba(0, 0, 0, 0.699);
-  border-radius: 15px;
-  background-color: rgb(255, 0, 0);
+  border-radius: 0 2vh 2vh 0;
+  border: 0;
   width: 35px;
-  margin-left: 20px;
+  background-color: rgb(255, 0, 0);
   opacity: 0.7;
-  transition: 300ms;
+  transition: 500ms;
 }
 
 #filename {
@@ -180,11 +192,9 @@ button.delete {
 
 button.add:hover {
   opacity: 1;
-  transform: scale(1.4);
 }
 button.delete:hover {
   opacity: 1;
-  transform: scale(1.4);
 }
 /* Track */
 ::-webkit-scrollbar-track {

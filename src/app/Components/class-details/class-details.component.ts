@@ -76,7 +76,7 @@ export class ClassDetailsComponent implements OnInit {
             if (x.grade == null) this.studentsWithoutGrade.push(x);
             this.selectedStudentId = x.id;
           });
-          this.ClassSrv.getClassCover(this.classid).subscribe((blob) => {
+          this.ClassSrv.getClassCover(this.classid).subscribe((blob: Blob | null) => {
             if (blob == null) document.getElementById("classCoverSrc")?.setAttribute('src', "../../../assets/brush-strokes-background_53876-89327.jpg.webp")
             else {
               var reader = new FileReader();

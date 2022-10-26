@@ -111,8 +111,7 @@
     <img id="classCoverSrc">
   </div>
   <button (click)="openModal(manage)" class="manage" *ngIf="this.creator">Manage Class</button>
-  <button (click)="openModal(grades)" class="manage" id="manage"
-    *ngIf="this.creator && this.studentsWithoutGrade.length>0">Add Grades</button>
+
   <ng-container *ngIf="this.class">
     <h3>
       {{this.class.className}}
@@ -120,16 +119,19 @@
     <h5>
       By {{this.class.creator}}
     </h5>
-    <button id="results" (click)="openModal(results);PopulateList()"
-      *ngIf="this.class.members?.at(0)?.grade!=null">Results!</button>
+    <div class="gradeActions">
+      <button id="left" (click)="openModal(results);PopulateList()" *ngIf="this.class.members?.at(0)?.grade!=null"><i
+          class="fa-solid fa-user-graduate"></i> Results</button>
+      <button id="right" (click)="openModal(grades)"><i class="fa-solid fa-plus"></i></button>
+    </div>
     <div class="fileTitle">
       <h6 class="title">Files</h6>
       <div id="fileActions" *ngIf="this.creator">
         <button class="add" (click)="openModal(content);this.modify=false"><i class="fa-solid fa-plus"></i></button>
-        <div id="actionDelete" *ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0">
-          <button *ngIf="!modify" class="delete" (click)="Mode()"><i class="fa-solid fa-trash"></i></button>
-          <button *ngIf="modify" class="add" (click)="Mode()"><i class="fa-solid fa-check"></i></button>
-        </div>
+        <button *ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0&&!modify"
+          class="delete right" (click)="Mode()"><i class="fa-solid fa-trash"></i></button>
+        <button *ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0&&modify" class="add right"
+          (click)="Mode()"><i class="fa-solid fa-check"></i></button>
       </div>
     </div>
     <div class="wrapper" id="files">
@@ -150,10 +152,10 @@
     <h6 class="title">Lessons</h6>
     <div id="fileActions" *ngIf="this.creator">
       <button class="add" (click)="openModal(newLesson);this.modify=false"><i class="fa-solid fa-plus"></i></button>
-      <div id="actionDelete" *ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0">
-        <button *ngIf="!modify" class="delete" (click)="Mode()"><i class="fa-solid fa-trash"></i></button>
-        <button *ngIf="modify" class="add" (click)="Mode()"><i class="fa-solid fa-check"></i></button>
-      </div>
+      <button *ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0&&!modify" class="delete right"
+        (click)="Mode()"><i class="fa-solid fa-trash"></i></button>
+      <button *ngIf="this.class.uploadedDocuments&&this.class.uploadedDocuments.length>0&&modify" class="add right"
+        (click)="Mode()"><i class="fa-solid fa-check"></i></button>
     </div>
   </div>
   <div id="lessonList" class="wrapper">
