@@ -20,6 +20,7 @@ import { LocalstorageService } from 'src/app/Service/LocalStorageService/localst
 import { uploadVideoLessonRequest } from 'src/app/Model/uploadVideoLessonRequest';
 import { VideoLessonService } from 'src/app/Service/VideoLessonService/video-lesson.service';
 import { DOCUMENT } from '@angular/common';
+import { UpdateCoverRequest } from 'src/app/Model/UpdateCoverRequest';
 
 @Component({
   selector: 'app-class-details',
@@ -44,6 +45,8 @@ export class ClassDetailsComponent implements OnInit {
   public studentsToShow: StudentInClass[] = [];
   public selectedLesson!: VideoLesson
   public uploadLessonRequest = new uploadVideoLessonRequest("", "", "", [])
+  public updatedCover!: File
+  public cover!: any
 
   constructor(
     private route: ActivatedRoute,
@@ -73,6 +76,17 @@ export class ClassDetailsComponent implements OnInit {
             if (x.grade == null) this.studentsWithoutGrade.push(x);
             this.selectedStudentId = x.id;
           });
+          this.ClassSrv.getClassCover(this.classid).subscribe((blob) => {
+            if (blob == null) document.getElementById("classCoverSrc")?.setAttribute('src', "../../../assets/brush-strokes-background_53876-89327.jpg.webp")
+            else {
+              var reader = new FileReader();
+              reader.readAsDataURL(blob);
+              reader.onloadend = function () {
+                var base64data = reader.result;
+                document.getElementById("classCoverSrc")?.setAttribute('src', base64data?.toString() as string)
+              }
+            }
+          })
         },
 
         error: (err) => console.log(err),
@@ -371,5 +385,23 @@ export class ClassDetailsComponent implements OnInit {
   checkNewLesson() {
     return (this.uploadLessonRequest.youTubeUrl != "" &&
       this.uploadLessonRequest.title != "")
+  }
+
+  updateCover(event: Event) {
+    const InputEvent = event.target as HTMLInputElement
+    if (InputEvent.files != null)
+      this.updatedCover = InputEvent.files[0]
+
+  }
+  sendUpdatedCover() {
+    this.ClassSrv.updateCover(new UpdateCoverRequest(this.updatedCover), this.classid).subscribe(
+      () => {
+        var reader = new FileReader();
+        reader.readAsDataURL(this.updatedCover);
+        reader.onloadend = function () {
+          var base64data = reader.result;
+          document.getElementById("classCoverSrc")?.setAttribute('src', base64data?.toString() as string)
+        }
+      })
   }
 }

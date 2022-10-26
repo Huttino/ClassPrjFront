@@ -9,92 +9,100 @@ import { UpdateGradeRequest } from "../Model/UpdateGradeRequest";
 import { uploadVideoLessonRequest } from "../Model/uploadVideoLessonRequest";
 import { VideoLesson } from "../Model/VideoLesson";
 
-@Injectable({providedIn: 'root'})
-export class ClassRoomRepository{
+@Injectable({ providedIn: 'root' })
+export class ClassRoomRepository {
 
 
-  url:string ="http://localhost:8080/api/class/"
+  url: string = "http://localhost:8080/api/class/"
   constructor(
-    public http:HttpClient
-  ){
+    public http: HttpClient
+  ) {
 
   }
 
-  RemoveFromClass(request:RemoveFromCLassRequest,token:string) {
-    return this.http.patch(this.url,request,{
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${token}`
+  RemoveFromClass(request: RemoveFromCLassRequest, token: string) {
+    return this.http.patch(this.url, request, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     })
   }
-  Post(className:string,token:string):Observable<ClassRoom>{
-    return this.http.post<ClassRoom>(this.url,{classname:className},{
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${token}`
+  Post(className: string, token: string): Observable<ClassRoom> {
+    return this.http.post<ClassRoom>(this.url, { classname: className }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     })
   }
 
-  Get(id:number,token:string):Observable<ClassRoom>{
-    return this.http.get<ClassRoom>(this.url+id,{
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${token}`
+  Get(id: number, token: string): Observable<ClassRoom> {
+    return this.http.get<ClassRoom>(this.url + id, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     })
   }
-  Delete(id:number,token:string):Observable<any>{
-    return this.http.delete(this.url+id,{
-      headers:{
-        'Authorization':`Bearer ${token}`
+  Delete(id: number, token: string): Observable<any> {
+    return this.http.delete(this.url + id, {
+      headers: {
+        'Authorization': `Bearer ${token}`
       }
     })
   }
-  GetAll(token:string):Observable<ClassRoomStripped[]>{
-    return this.http.get<ClassRoomStripped[]>(this.url,{
-      headers:{
-        'Authorization':`Bearer ${token}`
+  GetAll(token: string): Observable<ClassRoomStripped[]> {
+    return this.http.get<ClassRoomStripped[]>(this.url, {
+      headers: {
+        'Authorization': `Bearer ${token}`
       }
     })
   }
-  AddUser(request:AddStudentRequest,token:string):Observable<StudentInClass>{
-    return this.http.put<StudentInClass>(this.url,request,{
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${token}`
+  AddUser(request: AddStudentRequest, token: string): Observable<StudentInClass> {
+    return this.http.put<StudentInClass>(this.url, request, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     })
   }
-  GetMy(myId:number,token:string):Observable<ClassRoom[]> {
-    return this.http.get<ClassRoom[]>(this.url+"creator/"+myId,{
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${token}`
+  GetMy(myId: number, token: string): Observable<ClassRoom[]> {
+    return this.http.get<ClassRoom[]>(this.url + "creator/" + myId, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     })
   }
-  assignGrade(classId:number,token:string,request:UpdateGradeRequest){
-    return this.http.patch(this.url+classId,request,{
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${token}`
+  assignGrade(classId: number, token: string, request: UpdateGradeRequest) {
+    return this.http.patch(this.url + classId, request, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     })
   }
-  addLesson(classId:number,token:string,request:uploadVideoLessonRequest):Observable<VideoLesson>{
-    return this.http.post<VideoLesson>(this.url+classId+'/lesson',request,{
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${token}`
+  addLesson(classId: number, token: string, request: uploadVideoLessonRequest): Observable<VideoLesson> {
+    return this.http.post<VideoLesson>(this.url + classId + '/lesson', request, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     })
   }
-  removeLesson(classId:number,token:string,lessonId:number){
-    return this.http.delete(this.url+classId+'/lesson/'+lessonId,{
-      headers:{
-        'Authorization':`Bearer ${token}`
+  removeLesson(classId: number, token: string, lessonId: number) {
+    return this.http.delete(this.url + classId + '/lesson/' + lessonId, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+  }
+
+  updateCover(data: FormData, token: string, classId: number) {
+    return this.http.patch(this.url + classId + '/cover', data, {
+      headers: {
+        'Authorization': `Bearer ${token}`
       }
     })
   }

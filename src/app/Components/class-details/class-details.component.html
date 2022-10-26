@@ -106,8 +106,10 @@
   </div>
 
 </ng-template>
-<picture class="classRoomImage"></picture>
 <div class="content">
+  <div id="classCover">
+    <img id="classCoverSrc">
+  </div>
   <button (click)="openModal(manage)" class="manage" *ngIf="this.creator">Manage Class</button>
   <button (click)="openModal(grades)" class="manage" id="manage"
     *ngIf="this.creator && this.studentsWithoutGrade.length>0">Add Grades</button>
@@ -175,4 +177,6 @@
   <button class="action" id="join" *ngIf="!member&&!creator" (click)="this.joinClassRoom()">
     Join Class
   </button>
+  <input type="file" (change)="updateCover($event)">
+  <button (click)="sendUpdatedCover()"> update Cover</button>
 </div>
