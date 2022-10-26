@@ -1,0 +1,137 @@
+<style>
+  body {
+    background-image: linear-gradient(to bottom right, #000f00, #fff);
+  }
+
+  .title h1 {
+    padding: 3vh 0vh 20vh 5vh;
+    font-size-adjust: none;
+    font-weight: bold;
+    font-size: 32px;
+  }
+
+  .title a {
+    text-decoration: none;
+    color: #8ac68a;
+  }
+
+  .title aside {
+    position: absolute;
+    top: 4vh;
+    right: 3vh;
+  }
+
+
+  .panel {
+    background-color: #ffff;
+    margin: 2%;
+    border-radius: 15px;
+  }
+
+  .paragraph-title {
+    margin: 3vh 0 0 3vh;
+    padding-top: 3vh;
+    font-size-adjust: none;
+    font-weight: bold;
+    font-size: 30px;
+  }
+
+  .paragraph-content {
+
+    margin: 3vh 3vh 3vh 10vh;
+    padding-bottom: 3vh;
+  }
+
+  .index ul {
+    list-style-type: circle;
+    padding-right: 5vh;
+  }
+
+  .index ul li {
+    width: fit-content;
+    padding: 0;
+  }
+
+  .section-list {
+    overflow-y: scroll;
+    max-height: 50vh;
+  }
+
+  .index {
+    display: block;
+    width: auto;
+    float: left;
+    position: relative;
+    top: 50%;
+    bottom: 50%;
+  }
+</style>
+
+<script>
+  document.getElementsByClassName("section")
+</script>
+
+<body>
+  <div class="title">
+
+    <h1><a href=""><i class="fa-brands fa-bandcamp"></i> School name</a></h1>
+    <aside> <a href="" (click)="navigateTo('login')">Login</a> | <a href=""
+        (click)="navigateTo('registration')">Register</a></aside>
+    <p></p>
+  </div>
+  <div class="panel">
+    <h3 class="paragraph-title">Lorem Ipsum</h3>
+    <p class="paragraph-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mollis libero ut nunc
+      convallis malesuada. Sed
+      nulla libero, ullamcorper sed nibh sit amet, congue tincidunt nisi. Praesent maximus facilisis arcu, sed luctus
+      est gravida vel. Nullam gravida turpis libero, vel dignissim elit hendrerit ac. Etiam lacinia ante velit, vitae
+      pellentesque lectus convallis sed. Aliquam sit amet purus nunc. Etiam lorem turpis, aliquam et lorem ac, lobortis
+      tristique elit. Maecenas pellentesque at mauris nec placerat.</p>
+  </div>
+  <div class="panel">
+    <aside class="index">
+      <ul>
+        <li>
+          Section 1
+        </li>
+        <li>
+          Section 2
+        </li>
+        <li>
+          Section 3
+        </li>
+      </ul>
+    </aside>
+    <div class="section-list">
+      <div class="section section1">
+        In nec pulvinar urna. In sit amet enim malesuada, vulputate lectus eu, tristique mauris. Aenean suscipit, felis
+        nec congue varius, est nunc consequat tellus, ornare viverra est ligula nec leo. Suspendisse porttitor in massa
+        ornare ornare. In hac habitasse platea dictumst. Donec id suscipit elit, eget blandit tortor. Nulla non quam
+        cursus, sollicitudin odio vitae, venenatis mauris. Phasellus dapibus velit sit amet ex ornare, eget mollis neque
+        dignissim. Integer nec ullamcorper nunc, a lobortis ante. Nunc tempor leo eu libero rhoncus, ac facilisis nisl
+        mattis. Aliquam et erat sed nibh bibendum blandit. In rhoncus consectetur metus at mollis. Integer hendrerit
+        feugiat leo, elementum molestie urna. Quisque lobortis magna quis vestibulum condimentum. Phasellus pretium
+        vulputate felis, in scelerisque purus rutrum ut.
+      </div>
+      <div class="section section2">
+        Maecenas luctus sem sit amet risus dapibus, vel blandit neque blandit. Nulla volutpat elit ac tellus viverra, at
+        interdum sapien auctor. Aenean eu lacus ac mauris tristique tincidunt. Pellentesque ac finibus velit. Curabitur
+        ornare elit ut ornare volutpat. Nunc molestie tempor lorem. Fusce consectetur dictum felis nec ultrices. Nullam
+        nec turpis ut ipsum accumsan cursus sed quis nibh. Sed malesuada tincidunt diam, et pharetra eros vehicula
+        vitae. Proin vehicula vel nulla eu aliquet. Cras mi quam, convallis at sagittis at, egestas a ligula. Phasellus
+        tincidunt dolor ut est tempor cursus. Cras placerat velit luctus, rutrum turpis vitae, faucibus velit. Quisque
+        rutrum quis risus ac dapibus. Sed blandit dapibus sapien quis mollis.
+      </div>
+      <div class="section section 3">
+        Duis ullamcorper vestibulum nulla vestibulum congue. Proin enim orci, interdum ac feugiat vel, dignissim at
+        lacus. Fusce fringilla gravida purus, quis semper nulla fringilla vitae. Donec imperdiet risus faucibus vehicula
+        rutrum. Etiam aliquam vel felis id dignissim. Suspendisse non semper erat, id iaculis libero. Proin id risus eu
+        augue laoreet gravida. Donec egestas et nisi nec interdum. Ut maximus suscipit orci sit amet varius. Phasellus
+        congue volutpat tortor sed pellentesque. Morbi vel tortor fringilla, blandit odio eu, tristique dui.
+      </div>
+    </div>
+  </div>
+  <footer>
+    Footer here
+  </footer>
+</body>
