@@ -31,7 +31,7 @@ ul {
 .fileTitle {
   display: flex;
   align-content: center;
-  padding-top: 10px;
+  padding-top: 5px;
   width: fit-content;
 }
 #classCover {
@@ -45,6 +45,7 @@ ul {
   width: 150px;
   height: 150px;
   object-fit: cover;
+  border: 3px solid grey;
 }
 ul.List li {
   max-height: fit-content;
@@ -97,7 +98,6 @@ ul.List li {
 }
 .gradeActions button {
   border: 0px;
-  border-radius: 1vh;
   background-color: rgb(107, 201, 143);
   padding: 1vh 1vh 1vh 1vh;
   margin: 0;
@@ -109,6 +109,7 @@ ul.List li {
 }
 button#left {
   border-radius: 2vh 0 0 2vh;
+  margin-left: 10px;
 }
 button#right {
   border-radius: 0 2vh 2vh 0;
@@ -118,7 +119,7 @@ button:hover {
 }
 .title {
   background-color: rgb(107, 201, 143);
-  padding: 2vh;
+  padding: 1vh;
   border: 0;
   border-radius: 2vh 0 0 2vh;
 }
@@ -149,19 +150,16 @@ button.add.right {
   border-radius: 0 2vh 2vh 0;
 }
 .manage {
-  position: absolute;
-  top: 30px;
-  right: 2%;
-  border: 1px solid rgba(0, 0, 0, 0.699);
-  border-radius: 15px;
+  position: relative;
+  left: 0;
+  margin-right: 20px;
   background-color: rgb(107, 201, 143);
-  margin-left: 20px;
   opacity: 0.7;
-  transition: 300ms;
+  border-radius: 2vh;
+  transition: 500ms;
 }
 .manage:hover {
   opacity: 1;
-  transform: scale(1.1);
 }
 #manage {
   top: 80px;
@@ -190,10 +188,7 @@ button.delete {
   max-height: 200px;
 }
 
-button.add:hover {
-  opacity: 1;
-}
-button.delete:hover {
+button:hover {
   opacity: 1;
 }
 /* Track */
@@ -203,27 +198,6 @@ button.delete:hover {
   margin-left: 20px;
   margin-right: 20px;
   visibility: hidden;
-}
-.action {
-  border: 1px solid rgba(0, 0, 0, 0.699);
-  border-radius: 15px;
-  width: fit-content;
-  margin-left: 20px;
-  opacity: 0.7;
-  transition: 200ms;
-}
-.action:hover {
-  opacity: 1;
-  transform: scale(1.4);
-}
-.action#join {
-  background-color: rgb(107, 201, 143);
-}
-.action#close {
-  background-color: rgb(255, 0, 0);
-}
-.action#leave {
-  background-color: rgb(255, 0, 0);
 }
 
 /* Handle */
@@ -236,4 +210,20 @@ button.delete:hover {
 }
 h4 {
   margin: 0;
+}
+.classRoomActions button {
+  border-radius: 2vh;
+  border: 0;
+  opacity: 0.6;
+  transition: 500ms;
+  font-size: medium;
+}
+.classRoomActions button.danger {
+  background-color: red;
+}
+.classRoomActions button:hover {
+  opacity: 1;
+}
+.classRoomActions button.confirm {
+  background-color: rgb(107, 201, 143);
 }

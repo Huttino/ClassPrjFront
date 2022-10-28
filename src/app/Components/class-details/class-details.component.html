@@ -110,19 +110,33 @@
   <div id="classCover">
     <img id="classCoverSrc">
   </div>
-  <button (click)="openModal(manage)" class="manage" *ngIf="this.creator">Manage Class</button>
-
   <ng-container *ngIf="this.class">
-    <h3>
+    <h3 style="display: flex;">
       {{this.class.className}}
+      <div style="margin-left: 1vh;" class="classRoomActions">
+        <button class="danger" *ngIf="member&&!creator" (click)="this.leaveClassRoom()">
+          <i class="fa-solid fa-door-open"></i> Leave
+        </button>
+        <button class="confirm" *ngIf="!member&&!creator" (click)="this.joinClassRoom()">
+          <i class="fa-regular fa-hand-point-right"></i> Join
+        </button>
+        <button class="danger" *ngIf="creator&&(!class.members || class.members.length<1)" (click)="closeClassRoom()">
+          <i class="fa-solid fa-xmark"></i> Close
+        </button>
+        <h6 style="margin:0;padding:0;" *ngIf="creator&&(class.members&&class.members.length>0)">You
+          can only close
+          Empty Class Rooms</h6>
+      </div>
     </h3>
     <h5>
       By {{this.class.creator}}
     </h5>
     <div class="gradeActions">
+      <button (click)="openModal(manage)" class="manage" *ngIf="this.creator">Manage Class</button>
       <button id="left" (click)="openModal(results);PopulateList()" *ngIf="this.class.members?.at(0)?.grade!=null"><i
           class="fa-solid fa-user-graduate"></i> Results</button>
-      <button id="right" (click)="openModal(grades)"><i class="fa-solid fa-plus"></i></button>
+      <button id="right" *ngIf="this.creator&&this.class.members&&this.class.members.length>0"
+        (click)="openModal(grades)"><i class="fa-solid fa-plus"></i></button>
     </div>
     <div class="fileTitle">
       <h6 class="title">Files</h6>
@@ -168,17 +182,6 @@
       </li>
     </ul>
   </div>
-  <button class="action" id="close" *ngIf="creator&&(!class.members || class.members.length<1)"
-    (click)="closeClassRoom()">
-    Close Class Room
-  </button>
-  <h6 *ngIf="creator&&(class.members&&class.members.length>0)">You can only close Empty Class Rooms</h6>
-  <button class="action" id="leave" *ngIf="member&&!creator" (click)="this.leaveClassRoom()">
-    Leave Class
-  </button>
-  <button class="action" id="join" *ngIf="!member&&!creator" (click)="this.joinClassRoom()">
-    Join Class
-  </button>
   <input type="file" (change)="updateCover($event)">
   <button (click)="sendUpdatedCover()"> update Cover</button>
 </div>

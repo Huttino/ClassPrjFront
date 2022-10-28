@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'classList', component: ClassListComponent, outlet: 'content', canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent, outlet: 'content', canActivate: [AuthGuard] },
   { path: 'lesson', component: LessonPageComponent, outlet: 'content', canActivate: [AuthGuard] },
-  { path: '**', redirectTo: 'sidebar', pathMatch: 'full' }
+  { path: '**', redirectTo: 'landingPage', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -5,11 +5,16 @@ import { PublicClassRoom } from "../Model/PublicClassRoom";
 
 @Injectable({ providedIn: "root" })
 export class PublicRepository {
+
   url: string = "http://localhost:8080/api/public/"
   constructor(
     public http: HttpClient
   ) {
 
+  }
+
+  getPopularClasses() {
+    return this.http.get<PublicClassRoom[]>(this.url + "class/forLanding")
   }
   public getPublicClass(classId: number): Observable<PublicClassRoom> {
     return this.http.get<PublicClassRoom>(this.url + "class/" + classId)

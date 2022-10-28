@@ -1,0 +1,29 @@
+section {
+  display: grid;
+  align-content: center;
+  place-items: center;
+  min-height: 80vh;
+  color: white;
+}
+.hidden {
+  opacity: 0;
+  filter: blur(10px);
+  transition: all 1s;
+}
+.hidden.left {
+  transform: translateX(100%);
+}
+img {
+  display: flow-root;
+  max-width: 80%;
+}
+.hidden.right {
+  transform: translateX(-100%);
+}
+
+.hidden.show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+  transition: all 1s;
+}
