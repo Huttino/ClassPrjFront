@@ -1,6 +1,8 @@
 import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { delay, Subscription } from 'rxjs';
+import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
+import { delay, firstValueFrom, Subscription } from 'rxjs';
+import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { PublicClassRoom } from 'src/app/Model/PublicClassRoom';
 import { PublicRepository } from 'src/app/Repository/PublicRepository';
 
@@ -60,24 +62,23 @@ export class LandingPageComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    var i = 0
     this.publicRepo.getPopularClasses().subscribe(
+
       x => {
         x.forEach((classRoom) => {
-          this.publicRepo.getCover(classRoom.id).subscribe(
-
-            y => {
-              if (y != null) {
-                var reader = new FileReader();
-                reader.readAsDataURL(y);
-                reader.onloadend = function () {
-                  var base64data = reader.result;
-                  document.getElementsByClassName("classCoverSrc")?.item(0)?.setAttribute('src', base64data?.toString() as string)
+          for (var i = 0; i < 3; i++) {
+            this.publicRepo.getCover(classRoom.id).subscribe(
+              async (x: Blob) => {
+                var reader = new FileReader()
+                reader.onloadend = async function () {
+                  var base64data = reader.result
                 }
+                document.getElementsByClassName("classCoverSrc").item(i)?.setAttribute('src', await reader.as string)
               }
-              this.classesToShow.push({ ClassRoom: classRoom, Cover: "" })
-            }
-          )
+            )
+
+          }
+
         })
       })
   }

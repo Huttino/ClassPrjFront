@@ -16,6 +16,7 @@ section {
 img {
   display: flow-root;
   max-width: 80%;
+  image-rendering: pixelated;
 }
 .hidden.right {
   transform: translateX(-100%);
