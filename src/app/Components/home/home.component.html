@@ -4,10 +4,13 @@
     <label for="NewClassName" class="label">Create New Class</label><br>
     <input type="text" id="NewClassName" [(ngModel)]="this.newClassName">
     <button (click)="this.createClass()">+</button><br>
+    <button *ngFor="let scope of scopes async">
+      {{scope.title}}
+    </button>
     <label for="classCreated">Your Classes</label>
     <div class="wrapper" id="classCreated">
       <ul *ngIf="this.myClasses">
-        <li  *ngFor="let class of myClasses">
+        <li *ngFor="let class of myClasses">
           <a class="card" (click)="classNavigate(class.id)">
             <div class="CardText">
               <h6>{{class.className}}</h6>

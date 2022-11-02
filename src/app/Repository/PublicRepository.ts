@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { PublicClassRoom } from "../Model/PublicClassRoom";
+import { Scope } from "../Model/Scope";
 
 @Injectable({ providedIn: "root" })
 export class PublicRepository {
@@ -24,5 +25,8 @@ export class PublicRepository {
     return this.http.get(this.url + "class/" + classId + "/cover", {
       responseType: 'blob'
     })
+  }
+  public getScopes(): Observable<Scope[]> {
+    return this.http.get<Scope[]>(this.url + "scope")
   }
 }

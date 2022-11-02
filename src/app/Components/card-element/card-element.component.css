@@ -1,47 +1,52 @@
 button.deleteFile {
-  border:1px solid rgb(255, 0, 0);
+  border: 1px solid rgb(255, 0, 0);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   width: 40px;
   background-color: red;
-  top:10px;
-  position:absolute;
+  top: 10px;
+  position: absolute;
 }
 
-#buttonSpace{
+#buttonSpace {
   min-height: 35px;
   max-height: 35px;
   position: relative;
 }
-a{
+a {
   text-decoration: none;
   color: black;
-  margin-bottom:10px;
+  margin-bottom: 10px;
   transition: 300ms;
   min-height: 150px;
   max-height: 150px;
 }
-a:hover{
+a:hover {
   transform: scale(1.1);
 }
-#downloadIcon{
+#downloadIcon {
   opacity: 0;
   transition: 300ms;
-  bottom:20px;
+  bottom: 20px;
   right: 20px;
   position: absolute;
- }
- a:hover #downloadIcon{
+}
+a:hover #downloadIcon {
   opacity: 1;
 }
-.CardText{
+.CardText {
   margin-left: 5px;
   height: fit-content;
 }
-.wrapper{
+.wrapper {
   margin-top: 2%;
-  position:relative;
+  position: relative;
   border-radius: 10px;
   margin-right: 2%;
   margin-bottom: 30px;
+}
+.CardText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
