@@ -1,25 +1,37 @@
 <div class="content">
   <h3>Your HomePage</h3>
-  <ng-container *ngIf="this.user.authority==='TEACHER'">
-    <label for="NewClassName" class="label">Create New Class</label><br>
-    <input type="text" id="NewClassName" [(ngModel)]="this.newClassName">
-    <button (click)="this.createClass()">+</button><br>
-    <button *ngFor="let scope of scopes async">
+  <label>Your Classes</label>
+  <div class="wrapper">
+    <ul>
+      <li *ngFor="let class of myClasses async">
+        <a class="card" (click)="classNavigate(class.id)">
+          <div class="CardText">
+            <h6>{{class.className}}</h6>
+            <p>{{class.members?.length}} members</p>
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <h5>Create New Class</h5>
+  <input type="text" id="NewClassName" [(ngModel)]="this.newClassRoomRequest.className">
+  <button class="confirm" (click)="this.createClass()">+</button><br>
+  <div class=tags>
+    <h6>Tags</h6>
+    <button class="selection" (click)="select($event,scope.id)" *ngFor="let scope of scopes async">
       {{scope.title}}
     </button>
-    <label for="classCreated">Your Classes</label>
-    <div class="wrapper" id="classCreated">
-      <ul *ngIf="this.myClasses">
-        <li *ngFor="let class of myClasses">
-          <a class="card" (click)="classNavigate(class.id)">
-            <div class="CardText">
-              <h6>{{class.className}}</h6>
-              <p>{{class.members?.length}} members</p>
-              <i id="classIcon" class="fa-solid fa-arrow-right-to-bracket"></i>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </ng-container>
+    <textarea (change)="showDescription()" [(ngModel)]="this.newClassRoomRequest.description"></textarea>
+  </div>
+  <div class="description">
+
+  </div>
+
+
+</div>
+
+<div class="content">
+
 </div>

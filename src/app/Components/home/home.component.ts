@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterLink } from '@angular/router';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
+import { NewClassRoomRequest } from 'src/app/Model/NewClassRoomRequest';
 import { Scope } from 'src/app/Model/Scope';
 import { Student, Teacher, User } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
@@ -15,10 +16,11 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
   public myClasses: ClassRoom[] = []
   public user!: Student | Teacher
-  public newClassName: string = ''
   public scopes: Scope[] = []
+  public newClassRoomRequest: NewClassRoomRequest = new NewClassRoomRequest()
   constructor(
     public auth: AuthService,
     public meSrv: UserService,
@@ -62,8 +64,19 @@ export class HomeComponent implements OnInit {
     )
   }
 
+  select(event: MouseEvent, scopeId: number) {
+    if (this.newClassRoomRequest.scopesId.includes(scopeId)) {
+      this.newClassRoomRequest.scopesId.splice(this.newClassRoomRequest.scopesId.indexOf(scopeId), 1);
+      (event.target as HTMLButtonElement).classList.remove('selected')
+    }
+    else {
+      this.newClassRoomRequest.scopesId.push(scopeId);
+      (event.target as HTMLButtonElement).classList.add('selected')
+    }
+  }
+
   createClass() {
-    this.classSrv.CreateClass(this.newClassName).subscribe({
+    this.classSrv.CreateClass(this.newClassRoomRequest).subscribe({
       next: (x) => {
         this.auth.addClass(x)
         this.router.navigate([{
@@ -80,6 +93,10 @@ export class HomeComponent implements OnInit {
       }
     })
 
+  }
+
+  showDescription() {
+    console.log(this.newClassRoomRequest.description)
   }
 
 

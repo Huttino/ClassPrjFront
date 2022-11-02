@@ -73,7 +73,7 @@ export class LandingPageComponent implements OnInit, AfterViewChecked {
                 reader.onloadend = async function () {
                   var base64data = reader.result
                 }
-                document.getElementsByClassName("classCoverSrc").item(i)?.setAttribute('src', await reader.as string)
+                document.getElementsByClassName("classCoverSrc").item(i)?.setAttribute('src', reader.result as string)
               }
             )
 

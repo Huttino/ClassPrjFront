@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AddStudentRequest } from "../Model/AddStudentRequest";
 import { ClassRoom, ClassRoomStripped } from "../Model/ClassRoom";
+import { NewClassRoomRequest } from "../Model/NewClassRoomRequest";
 import { RemoveFromCLassRequest } from "../Model/RemoveFromClassRequest";
 import { StudentInClass } from "../Model/StudentInClass";
 import { UpdateGradeRequest } from "../Model/UpdateGradeRequest";
@@ -28,8 +29,8 @@ export class ClassRoomRepository {
       }
     })
   }
-  Post(className: string, token: string): Observable<ClassRoom> {
-    return this.http.post<ClassRoom>(this.url, { classname: className }, {
+  Post(request: NewClassRoomRequest, token: string): Observable<ClassRoom> {
+    return this.http.post<ClassRoom>(this.url, request, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`

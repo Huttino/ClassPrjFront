@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AddStudentRequest } from 'src/app/Model/AddStudentRequest';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { TOKEN } from 'src/app/Model/Constants/Constants';
+import { NewClassRoomRequest } from 'src/app/Model/NewClassRoomRequest';
 import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';
 import { UpdateCoverRequest } from 'src/app/Model/UpdateCoverRequest';
 import { UpdateGradeRequest } from 'src/app/Model/UpdateGradeRequest';
@@ -33,8 +34,8 @@ export class ClassService {
   GetClass(id: number) {
     return this.classRepo.Get(id, this.authService.getJWTToken())
   }
-  CreateClass(className: string): Observable<ClassRoom> {
-    return this.classRepo.Post(className, this.authService.getJWTToken())
+  CreateClass(request: NewClassRoomRequest): Observable<ClassRoom> {
+    return this.classRepo.Post(request, this.authService.getJWTToken())
   }
   DeleteClass(id: number) {
     return this.classRepo.Delete(id, this.authService.getJWTToken())
