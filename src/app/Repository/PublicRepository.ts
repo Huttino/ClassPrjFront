@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { PublicClassRoom } from "../Model/PublicClassRoom";
+import { PublicClassRoom } from "../Model/ClassRoom";
 import { Scope } from "../Model/Scope";
 
 @Injectable({ providedIn: "root" })

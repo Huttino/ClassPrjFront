@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterLink } from '@angular/router';
+import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { NewClassRoomRequest } from 'src/app/Model/NewClassRoomRequest';
 import { Scope } from 'src/app/Model/Scope';
@@ -18,9 +19,12 @@ import { UserService } from 'src/app/Service/UserService/user.service';
 export class HomeComponent implements OnInit {
 
   public myClasses: ClassRoom[] = []
+  public myClassesStudent: ClassInStudent[] = []
   public user!: Student | Teacher
   public scopes: Scope[] = []
   public newClassRoomRequest: NewClassRoomRequest = new NewClassRoomRequest()
+  public teacher = false
+  public recommendedClasses = []
   constructor(
     public auth: AuthService,
     public meSrv: UserService,
@@ -36,7 +40,10 @@ export class HomeComponent implements OnInit {
       x => {
         if (x.authority === "STUDENT")
           this.user = new Student(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Student).memberOf)
-        else (this.user = new Teacher(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Teacher).hasCreated))
+        else {
+          this.user = new Teacher(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Teacher).hasCreated)
+          this.teacher = true
+        }
       }
     )
     if (this.user instanceof Teacher && this.user.hasCreated) {
@@ -55,6 +62,9 @@ export class HomeComponent implements OnInit {
           alert("error Loading your Classes")
         }
       })
+    }
+    else {
+      this.myClassesStudent = (this.user as Student).memberOf
     }
     this.scopeSrv.getAllScopes().subscribe(
       x => {
@@ -93,10 +103,6 @@ export class HomeComponent implements OnInit {
       }
     })
 
-  }
-
-  showDescription() {
-    console.log(this.newClassRoomRequest.description)
   }
 
 

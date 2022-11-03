@@ -4,6 +4,10 @@
     <i class="fa-solid fa-magnifying-glass"></i> <input type="text" id="search" [(ngModel)]="this.search"
       (input)="changeFilter()">
   </div>
+  <h6>Search By tag</h6>
+  <button class="selection" (click)="select($event,scope.id)" *ngFor="let scope of scopes async">
+    {{scope.title}}
+  </button>
   <div class="classes">
     <ul>
 

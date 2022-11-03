@@ -1,37 +1,55 @@
 <div class="content">
   <h3>Your HomePage</h3>
-  <label>Your Classes</label>
-  <div class="wrapper">
+  <div *ngIf="this.teacher">
+    <label>Your Classes</label>
+    <div class="wrapper">
+      <ul>
+        <li *ngFor="let class of myClasses async">
+          <a class="card" (click)="classNavigate(class.id)">
+            <div class="CardText">
+              <h6>{{class.className}}</h6>
+              <p>{{class.members?.length}} members</p>
+              <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <h5>Create New Class <button class="confirm" (click)="this.createClass()">+</button></h5>
+    <input type="text" id="NewClassName" [(ngModel)]="this.newClassRoomRequest.className">
+    <br>
+    <div class=tags>
+      <h6>Tags</h6>
+      <button class="selection" (click)="select($event,scope.id)" *ngFor="let scope of scopes async">
+        {{scope.title}}
+      </button>
+      <br>
+      <h6 class="mt-2">Notes</h6>
+      <textarea [(ngModel)]="this.newClassRoomRequest.description"></textarea>
+    </div>
+  </div>
+  <div *ngIf="!teacher">
+    <label>Your Classes</label>
+    <div class="wrapper">
+      <ul>
+        <li *ngFor="let class of myClassesStudent">
+          <a class="card" (click)="classNavigate(class.id)">
+            <div class="CardText">
+              <h6>{{class.className}}</h6>
+              <p class="pb-3" *ngIf="class.grade">Results Are Out!</p>
+              <p class="pb-3" *ngIf="!class.grade">Results Coming Soon!</p>
+              <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <label>Reccomended Classes</label>
     <ul>
-      <li *ngFor="let class of myClasses async">
-        <a class="card" (click)="classNavigate(class.id)">
-          <div class="CardText">
-            <h6>{{class.className}}</h6>
-            <p>{{class.members?.length}} members</p>
-            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-          </div>
-        </a>
+      <li *ngFor="let class of recommendedClasses">
+
       </li>
     </ul>
   </div>
-
-  <h5>Create New Class</h5>
-  <input type="text" id="NewClassName" [(ngModel)]="this.newClassRoomRequest.className">
-  <button class="confirm" (click)="this.createClass()">+</button><br>
-  <div class=tags>
-    <h6>Tags</h6>
-    <button class="selection" (click)="select($event,scope.id)" *ngFor="let scope of scopes async">
-      {{scope.title}}
-    </button>
-    <textarea (change)="showDescription()" [(ngModel)]="this.newClassRoomRequest.description"></textarea>
-  </div>
-  <div class="description">
-
-  </div>
-
-
-</div>
-
-<div class="content">
-
 </div>

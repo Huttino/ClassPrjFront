@@ -1,9 +1,6 @@
 import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
-import { delay, firstValueFrom, Subscription } from 'rxjs';
-import { ClassRoom } from 'src/app/Model/ClassRoom';
-import { PublicClassRoom } from 'src/app/Model/PublicClassRoom';
+import { PublicClassRoom } from 'src/app/Model/ClassRoom';
 import { PublicRepository } from 'src/app/Repository/PublicRepository';
 
 @Component({

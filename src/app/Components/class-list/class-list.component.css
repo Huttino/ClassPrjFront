@@ -1,8 +1,8 @@
-li{
+li {
   margin-top: 20px;
   margin-left: 15px;
 }
-ul{
+ul {
   list-style-type: none;
   max-height: 600px;
   display: flex;
@@ -12,56 +12,76 @@ ul{
   padding-right: 15px;
   margin: 0;
 }
-a{
+a {
   text-decoration: none;
   color: black;
   transition: 100ms;
   width: fit-content;
 }
-a:hover{
+a:hover {
   transform: scale(1.1);
 }
-a:hover #classIcon{
+a:hover #classIcon {
   opacity: 1;
 }
-.searchBar{
+.searchBar {
   height: 120px;
 }
-#search{
+#search {
   margin-top: 10px;
-  max-width:300px;
-  border:2px solid rgba(0, 0, 0, 0.699);
+  max-width: 300px;
+  border: 2px solid rgba(0, 0, 0, 0.699);
   border-radius: 10px;
   background-color: white;
-  box-shadow:  0 0 10px rgba(8, 7, 16, 0.397);
+  box-shadow: 0 0 10px rgba(8, 7, 16, 0.397);
   min-width: 200px;
   margin-left: 20px;
 }
-h5#className{
+h5#className {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 250px;
 }
-#classIcon{
+#classIcon {
   opacity: 0;
   position: absolute;
   right: 10px;
   bottom: 10px;
   transition: 200ms;
 }
-.cardText{
+.cardText {
   margin-left: 10px;
   margin-top: 5px;
   margin-right: 10px;
   margin-bottom: 5px;
   padding-bottom: 20px;
 }
-p{
+p {
   margin-bottom: 0;
 }
-.class{
+.class {
   max-height: 600px;
   overflow-y: hidden;
   overflow: scroll;
+}
+.selection:hover {
+  background-color: rgb(44, 106, 222);
+  border: 1px solid rgb(44, 106, 222);
+  color: white;
+}
+.selected {
+  background-color: rgb(44, 106, 222);
+  border: 1px solid rgb(44, 106, 222);
+  color: white;
+}
+.tags {
+  margin-top: 2vh;
+}
+button {
+  border-radius: 2vh;
+  background-color: white;
+  border: 1px solid black;
+  margin-right: 10px;
+  transition: 500ms;
 }

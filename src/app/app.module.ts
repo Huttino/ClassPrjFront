@@ -19,8 +19,9 @@ import { ClassListComponent } from './Components/class-list/class-list.component
 import { ChatComponent } from './Components/chat/chat.component';
 import { CardElementComponent } from './Components/card-element/card-element.component';
 import { LessonPageComponent } from './Components/lesson-page/lesson-page.component';
-import { YouTubePlayer, YouTubePlayerModule } from '@angular/youtube-player';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
+import { ClassRoomPresentationComponent } from './Components/class-room-presentation-component/class-room-presentation.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { LandingPageComponent } from './Components/landing-page/landing-page.com
     ChatComponent,
     CardElementComponent,
     LessonPageComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    ClassRoomPresentationComponent
   ],
   imports: [
     BrowserModule,

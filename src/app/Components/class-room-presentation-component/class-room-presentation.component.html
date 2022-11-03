@@ -1,0 +1,13 @@
+<div class="content">
+  <h2>{{toShow.title}}</h2>
+  <h5>Scopes</h5>
+  <ul>
+    <li *ngFor="let scope of toShow.scopes async" ngbPopover="{{scope.description}}" popoverTitle="{{scope.title}}"
+      triggers="mouseenter:mouseleave">
+      {{scope.title}}
+    </li>
+  </ul>
+  <h5>Description</h5>
+  <p>{{toShow.description}}</p>
+
+</div>

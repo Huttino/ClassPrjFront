@@ -19,7 +19,6 @@ import { VideoLesson } from 'src/app/Model/VideoLesson';
 import { LocalstorageService } from 'src/app/Service/LocalStorageService/localstorage.service';
 import { uploadVideoLessonRequest } from 'src/app/Model/uploadVideoLessonRequest';
 import { VideoLessonService } from 'src/app/Service/VideoLessonService/video-lesson.service';
-import { DOCUMENT } from '@angular/common';
 import { UpdateCoverRequest } from 'src/app/Model/UpdateCoverRequest';
 
 @Component({
@@ -101,15 +100,10 @@ export class ClassDetailsComponent implements OnInit {
           )
 
           if (this.user instanceof Student) {
-            if (this.user.memberOf?.find((x) => x.id == this.classid))
+            if (this.user.memberOf.find((x) => x.id == this.classid) != null)
               this.member = true;
           } else if (this.user instanceof Teacher) {
-            if (
-              this.user.hasCreated?.find((x) => {
-                this.classInLocal = x;
-                return x.id == this.classid;
-              })
-            )
+            if (this.user.hasCreated.find((x) => x.id == this.classid) != null)
               this.creator = true;
           }
         },

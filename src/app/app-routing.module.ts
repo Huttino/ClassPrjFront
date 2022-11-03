@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ChatComponent } from './Components/chat/chat.component';
 import { ClassDetailsComponent } from './Components/class-details/class-details.component';
 import { ClassListComponent } from './Components/class-list/class-list.component';
+import { ClassRoomPresentationComponent } from './Components/class-room-presentation-component/class-room-presentation.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
 import { LessonPageComponent } from './Components/lesson-page/lesson-page.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'classList', component: ClassListComponent, outlet: 'content', canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent, outlet: 'content', canActivate: [AuthGuard] },
   { path: 'lesson', component: LessonPageComponent, outlet: 'content', canActivate: [AuthGuard] },
+  { path: 'classRoomPresentation/:cod', component: ClassRoomPresentationComponent, outlet: 'content', canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'landingPage', pathMatch: 'full' }
 ];
 
