@@ -22,6 +22,7 @@ import { LessonPageComponent } from './Components/lesson-page/lesson-page.compon
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
 import { ClassRoomPresentationComponent } from './Components/class-room-presentation-component/class-room-presentation.component';
+import { ClassViewComponent } from './Components/class-view/class-view.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ClassRoomPresentationComponent } from './Components/class-room-presenta
     CardElementComponent,
     LessonPageComponent,
     LandingPageComponent,
-    ClassRoomPresentationComponent
+    ClassRoomPresentationComponent,
+    ClassViewComponent
   ],
   imports: [
     BrowserModule,

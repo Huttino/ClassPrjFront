@@ -25,23 +25,16 @@
 
 <body>
   <div class="title">
-
     <h1><a href=""><i class="fa-brands fa-bandcamp"></i> School name</a></h1>
     <aside> <a href="login">Login</a> | <a href="registration">Register</a></aside>
     <p></p>
   </div>
-  <section class="right hidden classRoom" *ngIf="this.classesToShow.length>0">
-    <h2>{{this.classesToShow[0].ClassRoom.title}}</h2>
-    <img class="classCoverSrc 0">
+  <section>
+
   </section>
-  <section class="left hidden classRoom" *ngIf="this.classesToShow.length>1">
-    <h2>{{this.classesToShow[1].ClassRoom.title}}</h2>
-    <img class="classCoverSrc 1">
-  </section>
-  <section class="right hidden classRoom" *ngIf="this.classesToShow.length>2">
-    <h2>{{this.classesToShow[2].ClassRoom.title }}</h2>
-    <img class="classCoverSrc 2" src="">
-  </section>
+  <div class="hidden" *ngFor="let class of this.classesToShow;index as i; async">
+    <app-class-view [id]="class.id" [left]="i%2==0"></app-class-view>
+  </div>
   <footer>
     Footer here
   </footer>

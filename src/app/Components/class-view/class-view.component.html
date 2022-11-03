@@ -1,0 +1,11 @@
+<div class="container">
+  <div *ngIf="!left" class="ClassRoomText">
+    <h2>{{this.classRoomTitle}}</h2>
+    <p>{{this.classRoomDescription}}</p>
+  </div>
+  <img id="{{classId}}">
+  <div *ngIf="left" class="ClassRoomText">
+    <h2>{{this.classRoomTitle}}</h2>
+    <p>{{this.classRoomDescription}}</p>
+  </div>
+</div>

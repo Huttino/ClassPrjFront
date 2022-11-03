@@ -1,0 +1,13 @@
+img {
+  width: 40vw;
+  height: 40vh;
+}
+.container {
+  display: flex;
+}
+.ClassRoomText {
+  display: inline;
+}
+.right {
+  place-content: end;
+}
