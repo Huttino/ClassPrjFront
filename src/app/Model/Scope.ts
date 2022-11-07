@@ -7,3 +7,8 @@ export class Scope {
 
   }
 }
+export class ScopeFilter {
+  constructor(
+    public scopesId: number[]
+  ) { }
+}

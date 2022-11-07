@@ -2,9 +2,10 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AddStudentRequest } from "../Model/AddStudentRequest";
-import { ClassRoom, ClassRoomStripped } from "../Model/ClassRoom";
+import { ClassRoom, ClassRoomStripped, PublicClassRoom } from "../Model/ClassRoom";
 import { NewClassRoomRequest } from "../Model/NewClassRoomRequest";
 import { RemoveFromCLassRequest } from "../Model/RemoveFromClassRequest";
+import { ScopeFilter } from "../Model/Scope";
 import { StudentInClass } from "../Model/StudentInClass";
 import { UpdateGradeRequest } from "../Model/UpdateGradeRequest";
 import { uploadVideoLessonRequest } from "../Model/uploadVideoLessonRequest";
@@ -94,6 +95,14 @@ export class ClassRoomRepository {
   }
   removeLesson(classId: number, token: string, lessonId: number) {
     return this.http.delete(this.url + classId + '/lesson/' + lessonId, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+  }
+
+  getAllByScopes(classId: number, token: string): Observable<PublicClassRoom[]> {
+    return this.http.get<PublicClassRoom[]>(this.url + 'recommendation/' + classId, {
       headers: {
         'Authorization': `Bearer ${token}`
       }

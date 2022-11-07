@@ -6,6 +6,7 @@ import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { TOKEN } from 'src/app/Model/Constants/Constants';
 import { NewClassRoomRequest } from 'src/app/Model/NewClassRoomRequest';
 import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';
+import { ScopeFilter } from 'src/app/Model/Scope';
 import { UpdateCoverRequest } from 'src/app/Model/UpdateCoverRequest';
 import { UpdateGradeRequest } from 'src/app/Model/UpdateGradeRequest';
 import { ClassRoomRepository } from 'src/app/Repository/ClassRoomRepository';
@@ -59,5 +60,9 @@ export class ClassService {
     const data = new FormData()
     data.append("cover", uploadRequest.file as Blob, uploadRequest.file.name)
     return this.classRepo.updateCover(data, this.authService.getJWTToken(), classId)
+  }
+  getAllByScopes(classId: number) {
+    return this.classRepo.getAllByScopes(classId, this.authService.getJWTToken())
+    throw new Error('Method not implemented.');
   }
 }

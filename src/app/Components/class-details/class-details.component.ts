@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
-import { Student, Teacher, User } from 'src/app/Model/User';
+import { Student, Teacher } from 'src/app/Model/User';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { ClassService } from 'src/app/Service/ClassService/class.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentService } from 'src/app/Service/DocumentService/document.service';
 import { UploadDocumentWithData } from 'src/app/Model/UploadDocumentWithData';
 import { saveAs } from 'file-saver';
-import { UserService } from 'src/app/Service/UserService/user.service';
 import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { StudentInClass } from 'src/app/Model/StudentInClass';
 import { RemoveFromCLassRequest } from 'src/app/Model/RemoveFromClassRequest';

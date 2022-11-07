@@ -1,5 +1,8 @@
 <div class="content">
   <h2>{{toShow.title}}</h2>
+  <div id="classCover">
+    <img id="classCoverSrc">
+  </div>
   <button class="confirm" *ngIf="!member" (click)="this.joinClassRoom()">
     <i class="fa-regular fa-hand-point-right"></i> Join
   </button>
@@ -15,5 +18,14 @@
   </ul>
   <h5>Description</h5>
   <p>{{toShow.description}}</p>
-
+  <div *ngIf="this.authority=='STUDENT'">
+    <h4>You might also like</h4>
+    <ul>
+      <li *ngFor="let class of this.suggestedClassRooms async ">
+        <app-card-element [description]="class.description" [id]="class.id" [title]="class.title"
+          [icon]="'fa-solid fa-arrow-right-to-bracket'" (onAction)="this.navigate($event.fileId,$event.fileTitle)">
+        </app-card-element>
+      </li>
+    </ul>
+  </div>
 </div>
