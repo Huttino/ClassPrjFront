@@ -18,13 +18,17 @@
   </ul>
   <h5>Description</h5>
   <p>{{toShow.description}}</p>
-  <div *ngIf="this.authority=='STUDENT'">
+  <div class="suggestion" *ngIf="this.authority=='STUDENT'">
     <h4>You might also like</h4>
-    <ul>
-      <li *ngFor="let class of this.suggestedClassRooms async ">
-        <app-card-element [description]="class.description" [id]="class.id" [title]="class.title"
-          [icon]="'fa-solid fa-arrow-right-to-bracket'" (onAction)="this.navigate($event.fileId,$event.fileTitle)">
-        </app-card-element>
+    <ul class="suggestedClassRooms">
+      <li *ngFor="let class of suggestedClassRooms async">
+        <a class="classLink" (click)="navigate(class.id)">
+          <div class="CardText">
+            <h6>{{class.title}}</h6>
+            <p>{{class.description}}</p>
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          </div>
+        </a>
       </li>
     </ul>
   </div>

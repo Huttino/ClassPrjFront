@@ -132,7 +132,7 @@ export class ClassRoomPresentationComponent implements OnInit {
     }])
   }
 
-  navigate(classId: Number, title: string) {
+  navigate(classId: Number) {
     this.router.navigate([{
       outlets: {
         primary: ['sidebar'],
