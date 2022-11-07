@@ -12,6 +12,7 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { RegistrationPageComponent } from './Components/registration-page/registration-page.component';
 import { SideBarComponent } from './Components/side-bar/side-bar.component';
 import { AuthGuard } from './Service/Guard/AuthGuard/auth.guard';
+import { SubscribedGuard } from './Service/Guard/SubscribedGuard/subscribed.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent, outlet: 'primary' },
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'sidebar', component: SideBarComponent, outlet: 'primary', canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, outlet: 'content', canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, outlet: 'content', canActivate: [AuthGuard] },
-  { path: 'class/:cod', component: ClassDetailsComponent, outlet: 'content', canActivate: [AuthGuard] },
+  { path: 'class/:cod', component: ClassDetailsComponent, outlet: 'content', canActivate: [AuthGuard, SubscribedGuard] },
   { path: 'classList', component: ClassListComponent, outlet: 'content', canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent, outlet: 'content', canActivate: [AuthGuard] },
   { path: 'lesson', component: LessonPageComponent, outlet: 'content', canActivate: [AuthGuard] },
