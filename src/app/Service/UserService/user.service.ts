@@ -18,27 +18,22 @@ export class UserService {
 
 
   constructor(
-    private userRepo:UserRepository,
-    private authService:AuthService
+    private userRepo: UserRepository,
+    private authService: AuthService
   ) { }
 
-  getMe(){
+  getMe() {
     return this.userRepo.getMe(this.authService.getJWTToken())
   }
 
-  getMyClasses(){
+  getMyClasses() {
     return this.userRepo.getMyClasses(this.authService.getJWTToken())
   }
-  joinClass(id:number){
-    return this.userRepo.join(id,this.authService.getJWTToken())
+
+  updateMe(updateRequest: UserUpdateRequest) {
+    return this.userRepo.updateMe(updateRequest, this.authService.getJWTToken())
   }
-  leaveClass(id:number){
-    return this.userRepo.leave(id,this.authService.getJWTToken())
-  }
-  updateMe(updateRequest:UserUpdateRequest){
-    return this.userRepo.updateMe(updateRequest,this.authService.getJWTToken())
-  }
-  updatePassword(updatePasswordRequest:PasswordUpdateRequest){
-    return this.userRepo.updatePassword(updatePasswordRequest,this.authService.getJWTToken())
+  updatePassword(updatePasswordRequest: PasswordUpdateRequest) {
+    return this.userRepo.updatePassword(updatePasswordRequest, this.authService.getJWTToken())
   }
 }

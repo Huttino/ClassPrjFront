@@ -1,5 +1,11 @@
 <div class="content">
   <h2>{{toShow.title}}</h2>
+  <button class="confirm" *ngIf="!member" (click)="this.joinClassRoom()">
+    <i class="fa-regular fa-hand-point-right"></i> Join
+  </button>
+  <a *ngIf="member" (click)="classRoomPage()">
+    Class Room Page
+  </a>
   <h5>Scopes</h5>
   <ul>
     <li *ngFor="let scope of toShow.scopes async" ngbPopover="{{scope.description}}" popoverTitle="{{scope.title}}"

@@ -20,6 +20,7 @@ import { LocalstorageService } from 'src/app/Service/LocalStorageService/localst
 import { uploadVideoLessonRequest } from 'src/app/Model/uploadVideoLessonRequest';
 import { VideoLessonService } from 'src/app/Service/VideoLessonService/video-lesson.service';
 import { UpdateCoverRequest } from 'src/app/Model/UpdateCoverRequest';
+import { StudentService } from 'src/app/Service/StudentService/student.service';
 
 @Component({
   selector: 'app-class-details',
@@ -53,7 +54,7 @@ export class ClassDetailsComponent implements OnInit {
     private ClassSrv: ClassService,
     private auth: AuthService,
     private modalService: NgbModal,
-    private userSrv: UserService,
+    private studentSrv: StudentService,
     private documentSrv: DocumentService,
     private local: LocalstorageService,
     private videoLessonSrv: VideoLessonService
@@ -182,41 +183,12 @@ export class ClassDetailsComponent implements OnInit {
       );
     }
   }
-  joinClassRoom() {
-    if ((this.user instanceof Student) && !this.member) {
-      let done = false;
-      this.userSrv.joinClass(this.classid).subscribe({
-        next: () => {
-          done = true;
-        },
-        error: (e) => {
-          console.log(e);
-        },
-        complete: () => {
-          if (done && this.user instanceof Student) {
-            this.user.memberOf?.push(
-              new ClassInStudent(this.classid, this.class.className)
-            );
-            this.class.members?.push(
-              new StudentInClass(this.user.id, this.user.username)
-            );
-            this.auth.updateLocalUser(this.user);
-            this.member = true;
-          }
-        },
-      });
-    }
-    else {
-      console.log(this.user instanceof User)
-      alert("You can't join this Class");
-    }
 
-  }
 
   leaveClassRoom() {
     if (this.user instanceof Student && this.member) {
       let done = false;
-      this.userSrv.leaveClass(this.classid).subscribe({
+      this.studentSrv.leaveClass(this.classid).subscribe({
         next: () => {
           done = true;
         },
@@ -238,6 +210,11 @@ export class ClassDetailsComponent implements OnInit {
             );
             this.auth.updateLocalUser(this.user);
             this.member = false;
+            this.router.navigate([{
+              outlets: {
+                content: ['home']
+              }
+            }])
           }
         },
       });
