@@ -33,7 +33,7 @@
     <label>Your Classes</label>
     <div class="wrapper">
       <ul>
-        <li *ngFor="let class of myClassesStudent">
+        <li *ngFor="let class of myClassesStudent async">
           <a class="card" (click)="classNavigate(class.id)">
             <div class="CardText">
               <h6>{{class.className}}</h6>

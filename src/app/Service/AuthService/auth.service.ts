@@ -10,10 +10,11 @@ import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { AuthRepository } from 'src/app/Repository/AuthRepository';
 import { AuthToken } from 'src/app/Model/AuthToken';
 import { Router } from '@angular/router';
+import { UserRefresherService } from '../UserRefresherService/user-refresher.service';
 
 @Injectable({ providedIn: 'root' })
 export class ServiceNameService {
-  constructor() {}
+  constructor() { }
 }
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,9 @@ export class AuthService {
   constructor(
     private local: LocalstorageService,
     private repo: AuthRepository,
-    private router: Router
-  ) {}
+    private router: Router,
+    private refreshSrv: UserRefresherService
+  ) { }
 
   login(loginRequest: UserLogInRequest): Observable<AuthToken> {
     return this.repo.login(loginRequest);
@@ -39,10 +41,11 @@ export class AuthService {
   logout() {
     this.local.remove(LOGGED_USER);
     this.local.remove(TOKEN);
+    this.refreshSrv.stopObserving()
   }
 
-  loggedUser(): Observable<Student|Teacher> {
-    return of(this.local.getObject(LOGGED_USER) );
+  loggedUser(): Observable<Student | Teacher> {
+    return of(this.local.getObject(LOGGED_USER));
   }
 
   addClass(newClass: ClassRoom) {
@@ -51,13 +54,13 @@ export class AuthService {
     this.local.setObject(LOGGED_USER, toUpdate);
   }
 
-  updateLocalUser(user: Student|Teacher) {
+  updateLocalUser(user: Student | Teacher) {
     this.local.setObject(LOGGED_USER, user);
   }
 
-  getJWTToken():string {
+  getJWTToken(): string {
     const token = this.local.get(TOKEN)
-    if (token == null || token.length<1) {
+    if (token == null || token.length < 1) {
       this.router.navigate([
         {
           outlets: {

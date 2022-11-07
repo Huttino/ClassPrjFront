@@ -10,38 +10,38 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.css']
 })
-export class SideBarComponent implements OnInit{
-  public user!:Student|Teacher
-  Links=[
-    {title:"Home",fragment:'home'},
-    {title:"Profile",fragment:'profile'},
-    {title:"All Classes",fragment:'classList'},
-    {title:"Chat",fragment:'chat'}
+export class SideBarComponent implements OnInit {
+  public user!: Student | Teacher
+  Links = [
+    { title: "Home", fragment: 'home' },
+    { title: "Profile", fragment: 'profile' },
+    { title: "All Classes", fragment: 'classList' },
+    { title: "Chat", fragment: 'chat' }
   ]
   constructor(
-    public router:RouterLink,
-    public auth:AuthService,
-    public userService:UserService,
-    public router2:Router
-    ) {
-      this.auth.loggedUser().subscribe(
-        x=>{
-        if(x.authority==="STUDENT")
-          this.user=new Student(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Student).memberOf)
-        else(this.user=new Teacher(x.id,x.username,x.firstName,x.lastName,x.authority,(x as Teacher).hasCreated))
-        }
-      )
-      console.log(this.user)
-     }
+    public router: RouterLink,
+    public auth: AuthService,
+    public userService: UserService,
+    public router2: Router
+  ) {
+    this.auth.loggedUser().subscribe(
+      x => {
+        if (x.authority === "STUDENT")
+          this.user = new Student(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Student).memberOf)
+        else (this.user = new Teacher(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Teacher).hasCreated))
+      }
+    )
+    console.log(this.user)
+  }
 
   ngOnInit(): void {
 
   }
-  logout(){
+  logout() {
     this.router2.navigate([{
-      outlets:{
-        primary:['login'],
-        content:null
+      outlets: {
+        primary: ['login'],
+        content: null
       }
     }])
   }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LOGGED_USER, TOKEN } from 'src/app/Model/Constants/Constants';
+import { User } from 'src/app/Model/User';
 import { UserRegistrationRequest } from 'src/app/Model/UserRegistrationRequest';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { LocalstorageService } from 'src/app/Service/LocalStorageService/localstorage.service';
+import { UserRefresherService } from 'src/app/Service/UserRefresherService/user-refresher.service';
 import { UserService } from 'src/app/Service/UserService/user.service';
 
 @Component({
@@ -20,7 +22,8 @@ export class RegistrationPageComponent implements OnInit {
     public auth: AuthService,
     public local: LocalstorageService,
     public router: Router,
-    public userService: UserService
+    public userService: UserService,
+    public userRefresh: UserRefresherService
   ) {
 
   }
@@ -43,17 +46,17 @@ export class RegistrationPageComponent implements OnInit {
         complete: () => {
           this.userService.getMe().subscribe(
             {
-              next: (y) => {
-                this.local.setObject(LOGGED_USER, y)
-              }, error: () => { },
-              complete: () => {
+              next: x => {
+                this.local.setObject(LOGGED_USER, x as User)
+              }, complete: () => {
+                this.userRefresh.startObservingMe()
                 this.router.navigate([
                   {
                     outlets: {
                       primary: ['sidebar'],
                       content: ['home'],
-                    },
-                  },
+                    }
+                  }
                 ]);
               }
             })

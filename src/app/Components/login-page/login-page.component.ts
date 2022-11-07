@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs';
 import { LOGGED_USER, TOKEN } from 'src/app/Model/Constants/Constants';
 import { Student, Teacher, User } from 'src/app/Model/User';
 import { UserLogInRequest } from 'src/app/Model/UserLoginRequest';
 import { AuthService } from 'src/app/Service/AuthService/auth.service';
 import { LocalstorageService } from 'src/app/Service/LocalStorageService/localstorage.service';
+import { UserRefresherService } from 'src/app/Service/UserRefresherService/user-refresher.service';
 import { UserService } from 'src/app/Service/UserService/user.service';
 
 @Component({
@@ -21,6 +24,7 @@ export class LoginPageComponent implements OnInit {
     public local: LocalstorageService,
     public router: Router,
     public userService: UserService,
+    public userRefresh: UserRefresherService,
     public activatedRoute: ActivatedRoute
   ) { }
 
@@ -38,22 +42,22 @@ export class LoginPageComponent implements OnInit {
         alert('Bad Credentials')
 
       }, complete: () => {
-        this.userService.getMe().subscribe({
-          next: (y) => {
-            this.local.setObject(LOGGED_USER, y as User);
-          },
-          error: () => { },
-          complete: () => {
-            this.router.navigate([
-              {
-                outlets: {
-                  primary: ['sidebar'],
-                  content: ['home'],
+        this.userService.getMe().subscribe(
+          {
+            next: x => {
+              this.local.setObject(LOGGED_USER, x as User)
+            }, complete: () => {
+              this.userRefresh.startObservingMe()
+              this.router.navigate([
+                {
+                  outlets: {
+                    primary: ['sidebar'],
+                    content: ['home'],
+                  }
                 }
-              }
-            ]);
-          }
-        });
+              ]);
+            }
+          })
 
       }
     }
