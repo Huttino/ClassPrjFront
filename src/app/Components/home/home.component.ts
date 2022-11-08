@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterLink } from '@angular/router';
-import { Observable, take } from 'rxjs';
+import { delay, Observable, take } from 'rxjs';
 import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { NewClassRoomRequest } from 'src/app/Model/NewClassRoomRequest';
@@ -33,7 +33,7 @@ export class HomeComponent {
     public scopeSrv: ScopeService,
     public router: Router
   ) {
-    this.auth.loggedUser().pipe(take(1)).subscribe(
+    this.auth.loggedUser().subscribe(
       x => {
         if (x.authority === "STUDENT") {
           this.user = new Student(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Student).memberOf)
@@ -45,7 +45,7 @@ export class HomeComponent {
           this.teacher = true
         }
       }
-    )
+    ).unsubscribe()
     this.scopes$ = this.scopeSrv.getAllScopes()
   }
 
@@ -61,7 +61,7 @@ export class HomeComponent {
   }
 
   createClass() {
-    this.classSrv.CreateClass(this.newClassRoomRequest).pipe(take(1)).subscribe({
+    this.classSrv.CreateClass(this.newClassRoomRequest).subscribe({
       next: (x) => {
         this.auth.addClass(x)
         this.router.navigate([{

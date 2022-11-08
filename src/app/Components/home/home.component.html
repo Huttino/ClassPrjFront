@@ -4,7 +4,6 @@
     <label>Your Classes</label>
     <div class="wrapper">
       <ul>
-
         <li *ngFor="let class  of myClasses">
           <a class="card" (click)="classNavigate(class.id)">
             <div class="CardText">
@@ -16,7 +15,6 @@
         </li>
       </ul>
     </div>
-
     <h5>Create New Class <button class="confirm" (click)="this.createClass()">+</button></h5>
     <input type="text" id="NewClassName" [(ngModel)]="this.newClassRoomRequest.className">
     <br>
@@ -30,6 +28,7 @@
       <textarea [(ngModel)]="this.newClassRoomRequest.description"></textarea>
     </div>
   </div>
+
   <div *ngIf="!teacher">
     <label>Your Classes</label>
     <div class="wrapper">
