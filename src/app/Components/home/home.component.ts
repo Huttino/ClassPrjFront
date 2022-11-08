@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterLink } from '@angular/router';
+import { Observable, take } from 'rxjs';
 import { ClassInStudent } from 'src/app/Model/ClassInStudent';
 import { ClassRoom } from 'src/app/Model/ClassRoom';
 import { NewClassRoomRequest } from 'src/app/Model/NewClassRoomRequest';
@@ -16,12 +17,12 @@ import { UserService } from 'src/app/Service/UserService/user.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
   public myClasses: ClassRoom[] = []
   public myClassesStudent: ClassInStudent[] = []
   public user!: Student | Teacher
-  public scopes: Scope[] = []
+  public scopes$: Observable<Scope[]> | undefined
   public newClassRoomRequest: NewClassRoomRequest = new NewClassRoomRequest()
   public teacher = false
   public recommendedClasses = []
@@ -32,46 +33,20 @@ export class HomeComponent implements OnInit {
     public scopeSrv: ScopeService,
     public router: Router
   ) {
-
-  }
-
-  ngOnInit(): void {
-    this.auth.loggedUser().subscribe(
+    this.auth.loggedUser().pipe(take(1)).subscribe(
       x => {
-        if (x.authority === "STUDENT")
+        if (x.authority === "STUDENT") {
           this.user = new Student(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Student).memberOf)
+          this.myClassesStudent = (this.user as Student).memberOf
+        }
         else {
           this.user = new Teacher(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Teacher).hasCreated)
+          this.myClasses = (this.user as Teacher).hasCreated
           this.teacher = true
         }
       }
     )
-    if (this.user instanceof Teacher && this.user.hasCreated) {
-      this.classSrv.GetMyClasses(this.user.id).subscribe({
-        next: (x) => {
-          console.log(x)
-          this.myClasses = x.sort((a, b) => {
-            if (a.className.toLowerCase() > b.className.toLowerCase())
-              return 1
-            else if (a.className.toLowerCase() < b.className.toLowerCase())
-              return -1
-            else return 0
-          })
-
-        }, error: () => {
-          alert("error Loading your Classes")
-        }
-      })
-    }
-    else {
-      this.myClassesStudent = (this.user as Student).memberOf
-    }
-    this.scopeSrv.getAllScopes().subscribe(
-      x => {
-        console.log(x)
-        this.scopes = x
-      }
-    )
+    this.scopes$ = this.scopeSrv.getAllScopes()
   }
 
   select(event: MouseEvent, scopeId: number) {
@@ -86,7 +61,7 @@ export class HomeComponent implements OnInit {
   }
 
   createClass() {
-    this.classSrv.CreateClass(this.newClassRoomRequest).subscribe({
+    this.classSrv.CreateClass(this.newClassRoomRequest).pipe(take(1)).subscribe({
       next: (x) => {
         this.auth.addClass(x)
         this.router.navigate([{
@@ -97,9 +72,6 @@ export class HomeComponent implements OnInit {
       },
       error: () => {
         alert("error in creating class")
-      },
-      complete: () => {
-
       }
     })
 

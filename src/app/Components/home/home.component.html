@@ -4,7 +4,8 @@
     <label>Your Classes</label>
     <div class="wrapper">
       <ul>
-        <li *ngFor="let class of myClasses async">
+
+        <li *ngFor="let class  of myClasses">
           <a class="card" (click)="classNavigate(class.id)">
             <div class="CardText">
               <h6>{{class.className}}</h6>
@@ -21,7 +22,7 @@
     <br>
     <div class=tags>
       <h6>Tags</h6>
-      <button class="selection" (click)="select($event,scope.id)" *ngFor="let scope of scopes async">
+      <button class="selection" (click)="select($event,scope.id)" *ngFor="let scope of scopes$ | async">
         {{scope.title}}
       </button>
       <br>

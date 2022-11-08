@@ -1,33 +1,32 @@
 <div class="content">
   <div class="searchBar">
     <h3>Search your class room</h3>
-    <i class="fa-solid fa-magnifying-glass"></i> <input type="text" id="search" [(ngModel)]="this.search"
-      (input)="changeFilter()">
+    <i class="fa-solid fa-magnifying-glass"></i> <input type="text" id="search" [(ngModel)]="this.search">
   </div>
   <h6>Search By tag</h6>
-  <button class="selection" (click)="select($event,scope.id)" *ngFor="let scope of scopes async">
+  <button class="selection" (click)="select($event,scope.id)" *ngFor="let scope of scopes$ | async">
     {{scope.title}}
   </button>
   <div class="classes">
     <ul>
-
-      <li *ngFor="let class of filteredClasses">
-        <a class="card" (click)="navigate(class.id)">
-          <div class="cardText">
-            <h5 id="className">{{class.className}}</h5>
-            <p>By: {{class.creator}}</p>
-            <p>
-              {{class.numberOfMembers}} members
-            </p>
-            <p>{{class.numberOfDocuments}} documents</p>
-            <p>{{class.numberOfLessons}} lessons</p>
-            <p *ngIf="class.graded">RESULTS ARE OUT!</p>
-            <p *ngIf="!class.graded">Not Graded yet</p>
-          </div>
-          <i id="classIcon" class="fa-solid fa-arrow-right-to-bracket"></i>
-        </a>
-      </li>
-
+      <div *ngFor="let class of allClassRoom$ | async ">
+        <li *ngIf="classShowFilter(class.scopesId,class.className)">
+          <a class="card" (click)="navigate(class.id)">
+            <div class="cardText">
+              <h5 id="className">{{class.className}}</h5>
+              <p>By: {{class.creator}}</p>
+              <p>
+                {{class.numberOfMembers}} members
+              </p>
+              <p>{{class.numberOfDocuments}} documents</p>
+              <p>{{class.numberOfLessons}} lessons</p>
+              <p *ngIf="class.graded">RESULTS ARE OUT!</p>
+              <p *ngIf="!class.graded">Not Graded yet</p>
+            </div>
+            <i id="classIcon" class="fa-solid fa-arrow-right-to-bracket"></i>
+          </a>
+        </li>
+      </div>
     </ul>
   </div>
 </div>

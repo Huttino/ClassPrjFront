@@ -34,7 +34,7 @@ export class LoginPageComponent implements OnInit {
 
   login() {
     let request = new UserLogInRequest(this.username, this.password);
-    this.auth.login(request).subscribe({
+    this.auth.login(request).pipe(take(1)).subscribe({
       next: (x) => {
         this.local.set(TOKEN, x.accessToken)
       },
