@@ -97,7 +97,7 @@ export class ClassDetailsComponent implements OnInit {
                 this.user = new Student(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Student).memberOf)
               else (this.user = new Teacher(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Teacher).hasCreated))
             }
-          )
+          ).unsubscribe()
 
           if (this.user instanceof Student) {
             if (this.user.memberOf.find((x) => x.id == this.classid) != null)
@@ -152,14 +152,14 @@ export class ClassDetailsComponent implements OnInit {
       )
     ) {
       let done = false;
-      this.ClassSrv.DeleteClass(this.classid).subscribe(
-        () => {
+      this.ClassSrv.DeleteClass(this.classid).subscribe({
+        next: () => {
           done = true;
         },
-        (e) => {
+        error: (e) => {
           alert("couldn't close the classroom");
         },
-        () => {
+        complete: () => {
           if (done) {
             if (this.creator && this.user instanceof Teacher)
               this.user.hasCreated?.splice(
@@ -179,6 +179,7 @@ export class ClassDetailsComponent implements OnInit {
             ]);
           }
         }
+      }
       );
     }
   }

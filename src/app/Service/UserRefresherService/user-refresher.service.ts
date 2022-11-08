@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { repeat, Subscription, takeUntil, takeWhile } from 'rxjs';
+import { repeat, Subscription } from 'rxjs';
 import { LOGGED_USER, TOKEN } from 'src/app/Model/Constants/Constants';
 import { User } from 'src/app/Model/User';
 import { UserRepository } from 'src/app/Repository/UserRepository';
-import { AuthService } from '../AuthService/auth.service';
 import { LocalstorageService } from '../LocalStorageService/localstorage.service';
 
 @Injectable({
@@ -30,6 +29,7 @@ export class UserRefresherService {
           {
             outlets: {
               primary: ['login'],
+              content: []
             }
           }
         ]);

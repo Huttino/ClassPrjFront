@@ -30,8 +30,7 @@ export class SideBarComponent implements OnInit {
           this.user = new Student(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Student).memberOf)
         else (this.user = new Teacher(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Teacher).hasCreated))
       }
-    )
-    console.log(this.user)
+    ).unsubscribe()
   }
 
   ngOnInit(): void {

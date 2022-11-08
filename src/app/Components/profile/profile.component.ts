@@ -40,21 +40,19 @@ export class ProfileComponent implements OnInit {
     public userService: UserService,
     public router: Router
   ) {
-
-  }
-
-  ngOnInit(): void {
     this.auth.loggedUser().subscribe(
       x => {
         if (x.authority === "STUDENT")
           this.user = new Student(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Student).memberOf)
         else (this.user = new Teacher(x.id, x.username, x.firstName, x.lastName, x.authority, (x as Teacher).hasCreated))
       }
-    )
-    console.log(this.user)
+    ).unsubscribe()
     if (this.user instanceof Teacher) {
       this.teacher = true
     }
+
+  }
+  ngOnInit(): void {
     this.choice = Math.floor(Math.random() * 8)
     let image: any = document.getElementById("image")
     image.src = this.images[this.choice]
@@ -65,9 +63,11 @@ export class ProfileComponent implements OnInit {
     this.newLastName = this.user.lastName
     this.modalService.open(content, { centered: true })
   }
+
   OpenUpdatePassword(passwordUpdate: any) {
     this.modalService.open(passwordUpdate, { centered: true })
   }
+
   updateUser() {
     this.userService.updateMe(new UserUpdateRequest(this.newUsername, this.newFirstName, this.newLastName)).subscribe({
       next: () => {
@@ -83,6 +83,7 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
+
   updatePassword() {
     if (this.newPassword !== this.confirmNewPassword) {
       alert("new password don't match")

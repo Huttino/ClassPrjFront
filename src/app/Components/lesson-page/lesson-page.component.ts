@@ -11,23 +11,16 @@ import { saveAs } from 'file-saver';
   templateUrl: './lesson-page.component.html',
   styleUrls: ['./lesson-page.component.css']
 })
-export class LessonPageComponent implements OnInit,OnDestroy {
-  selectedLesson!:VideoLesson
-  apiLoaded=false
+export class LessonPageComponent implements OnDestroy {
+  selectedLesson!: VideoLesson
+  apiLoaded = false
 
   constructor(
-    public authService:AuthService,
-    public local:LocalstorageService,
-    public documentSrv:DocumentService
+    public authService: AuthService,
+    public local: LocalstorageService,
+    public documentSrv: DocumentService
   ) {
-   }
-  ngOnDestroy(): void {
-    this.local.remove("currentLesson")
-  }
-
-  ngOnInit(): void {
-    this.selectedLesson=this.local.getObject("currentLesson") as VideoLesson;
-    console.log(this.selectedLesson)
+    this.selectedLesson = this.local.getObject("currentLesson") as VideoLesson;
     if (!this.apiLoaded) {
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
@@ -35,7 +28,11 @@ export class LessonPageComponent implements OnInit,OnDestroy {
       this.apiLoaded = true;
     }
   }
-  download(id:number,fileName:string){
+  ngOnDestroy(): void {
+    this.local.remove("currentLesson")
+  }
+
+  download(id: number, fileName: string) {
     this.documentSrv.downloadDocument(id).subscribe((blob) => {
       saveAs(blob, fileName);
     });

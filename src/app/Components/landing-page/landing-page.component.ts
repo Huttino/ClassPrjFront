@@ -8,8 +8,9 @@ import { PublicRepository } from 'src/app/Repository/PublicRepository';
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.css']
 })
-export class LandingPageComponent implements OnInit, AfterViewChecked {
+export class LandingPageComponent implements AfterViewChecked {
   public classesToShow: PublicClassRoom[] = []
+
   public observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -19,10 +20,18 @@ export class LandingPageComponent implements OnInit, AfterViewChecked {
       }
     });
   })
+
   constructor(
     public router: Router,
     public publicRepo: PublicRepository
-  ) { }
+  ) {
+    this.publicRepo.getPopularClasses().subscribe(
+
+      x => {
+        this.classesToShow = x
+      }
+    )
+  }
 
 
   ngAfterViewChecked(): void {
@@ -32,14 +41,6 @@ export class LandingPageComponent implements OnInit, AfterViewChecked {
     })
   }
 
-  ngOnInit(): void {
-    this.publicRepo.getPopularClasses().subscribe(
-
-      x => {
-        this.classesToShow = x
-      }
-    )
-  }
 
 
   navigateTo(path: string) {
